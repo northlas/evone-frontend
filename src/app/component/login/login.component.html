@@ -1,0 +1,15 @@
+<div class="w-25">
+    <form class="d-flex flex-column" (submit)="onLogin()">
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput name="username" [(ngModel)]="username">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput name="password" type="password" [(ngModel)]="password">
+        </mat-form-field>
+        <button type="submit" mat-flat-button color="primary" [disabled]="username == undefined || password == undefined">
+            Login
+        </button>
+    </form>
+</div>
