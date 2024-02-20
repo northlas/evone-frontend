@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './component/login/login.component';
-import { DashboardComponent } from './component/dashboard/dashboard.component';
-import { authenticationGuard } from './guard/authentication.guard';
-import { authorizationGuard } from './guard/authorization.guard';
+import { VendorDashboardComponent } from './component/vendor/vendor-dashboard/vendor-dashboard.component';
+import { NavigationComponent } from './component/navigation/navigation.component';
+import { VendorDashboardCategoryComponent } from './component/vendor/vendor-dashboard-category/vendor-dashboard-category.component';
+import { VendorDetailComponent } from './component/vendor/vendor-detail/vendor-detail.component';
+import { VendorServiceComponent } from './component/vendor/vendor-service/vendor-service.component';
 
 const routes: Routes = [
-  {path: 'login', component:LoginComponent, title: 'Login'},
-  {path: '', title:'Evone', canActivate: [authenticationGuard],  canActivateChild: [authorizationGuard], children: [
-    {path: 'dashboard', component: DashboardComponent, title: 'Dashboard', data: {'path': '/dashboard'}}
+  {path: '', title: 'Evone', component: NavigationComponent, children: [
+    {path: 'vendor', title: 'Vendor', component: VendorDashboardComponent, children: [
+      {path: 'category/:category', component: VendorDashboardCategoryComponent},
+      {path: 'profile/:vendorName', component: VendorDetailComponent},
+      {path: 'service/:serviceName', component: VendorServiceComponent}
+    ]}
   ]}
 ];
-11
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

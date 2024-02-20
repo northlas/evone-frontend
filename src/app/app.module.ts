@@ -4,12 +4,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
-import { LoginComponent } from './component/login/login.component';
-import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from '@angular/material/button';
-import { HttpClientModule } from '@angular/common/http';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { VendorDashboardComponent } from './component/vendor/vendor-dashboard/vendor-dashboard.component';
+import { NavigationComponent } from './component/navigation/navigation.component';
+import { VendorDashboardCategoryComponent } from './component/vendor/vendor-dashboard-category/vendor-dashboard-category.component';
+import { VendorDetailComponent } from './component/vendor/vendor-detail/vendor-detail.component';
+import { VendorServiceComponent } from './component/vendor/vendor-service/vendor-service.component';
+import { LoginDialogComponent } from './component/dialog/login-dialog/login-dialog.component';
 
 const notifierCustomOptions: NotifierOptions = {
   position: {
@@ -53,7 +59,7 @@ const notifierCustomOptions: NotifierOptions = {
 };
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -62,7 +68,9 @@ const notifierCustomOptions: NotifierOptions = {
     FormsModule,
     HttpClientModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent],

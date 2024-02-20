@@ -6,11 +6,11 @@ import { BaseResponse } from 'src/app/model/base-response';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-login-dialog',
+  templateUrl: './login-dialog.component.html',
+  styleUrls: ['./login-dialog.component.css']
 })
-export class LoginComponent {
+export class LoginDialogComponent {
   public username?: string;
   public password?: string;
 
