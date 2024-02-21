@@ -16,6 +16,7 @@ import { VendorDashboardCategoryComponent } from './component/vendor/vendor-dash
 import { VendorDetailComponent } from './component/vendor/vendor-detail/vendor-detail.component';
 import { VendorServiceComponent } from './component/vendor/vendor-service/vendor-service.component';
 import { LoginDialogComponent } from './component/dialog/login-dialog/login-dialog.component';
+import { VendorDashboardMainComponent } from './vendor-dashboard-main/vendor-dashboard-main.component';
 
 const notifierCustomOptions: NotifierOptions = {
   position: {
@@ -59,7 +60,7 @@ const notifierCustomOptions: NotifierOptions = {
 };
 
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginDialogComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginDialogComponent, VendorDashboardMainComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
