@@ -1,1 +1,22 @@
-<p>vendor-dashboard-category works!</p>
+<div class="p-5">
+    <mat-grid-list cols="4" rowHeight="3:4">
+        <ng-container *ngFor="let vendor of vendors">
+            <mat-grid-tile>
+                <mat-card style="width: 250px;">
+                    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                    <mat-card-content>
+                        <div class="d-flex flex-column">
+                            <span>{{vendor.name}}</span>
+                            <span>Jakarta Barat, DKI Jakarta</span>
+                            <span>4,7/5 (23 review)</span>
+                            <span>Rp{{vendor.minPrice}}</span>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-flat-button color="primary">Lihat produk</button>
+                    </mat-card-actions>
+                </mat-card>
+            </mat-grid-tile>
+        </ng-container>
+    </mat-grid-list>
+</div>

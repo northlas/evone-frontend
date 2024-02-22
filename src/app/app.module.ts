@@ -10,13 +10,15 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { VendorDashboardComponent } from './component/vendor/vendor-dashboard/vendor-dashboard.component';
 import { NavigationComponent } from './component/navigation/navigation.component';
 import { VendorDashboardCategoryComponent } from './component/vendor/vendor-dashboard-category/vendor-dashboard-category.component';
 import { VendorDetailComponent } from './component/vendor/vendor-detail/vendor-detail.component';
 import { VendorServiceComponent } from './component/vendor/vendor-service/vendor-service.component';
 import { LoginDialogComponent } from './component/dialog/login-dialog/login-dialog.component';
-import { VendorDashboardMainComponent } from './vendor-dashboard-main/vendor-dashboard-main.component';
+import { VendorDashboardMainComponent } from './component/vendor/vendor-dashboard-main/vendor-dashboard-main.component';
 
 const notifierCustomOptions: NotifierOptions = {
   position: {
@@ -71,7 +73,9 @@ const notifierCustomOptions: NotifierOptions = {
     MatInputModule,
     MatButtonModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent],
