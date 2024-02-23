@@ -6,16 +6,18 @@ import { VendorDashboardCategoryComponent } from './component/vendor/vendor-dash
 import { VendorDetailComponent } from './component/vendor/vendor-detail/vendor-detail.component';
 import { VendorServiceComponent } from './component/vendor/vendor-service/vendor-service.component';
 import { VendorDashboardMainComponent } from './component/vendor/vendor-dashboard-main/vendor-dashboard-main.component';
+import { categoryMenuGuard } from './guard/category-menu.guard';
 
 const routes: Routes = [
+  {path: '', redirectTo: 'vendor', pathMatch: 'full'},
   {path: '', title: 'Evone', component: NavigationComponent, children: [
     {path: 'vendor', title: 'Vendor', component: VendorDashboardComponent, children: [
       {path: '', component: VendorDashboardMainComponent},
-      {path: 'category/:category', component: VendorDashboardCategoryComponent},
+      {path: 'category/:category', component: VendorDashboardCategoryComponent, canActivate: [categoryMenuGuard]},
       {path: 'profile/:vendorName', component: VendorDetailComponent},
       {path: 'service/:serviceName', component: VendorServiceComponent}
     ]}
-  ]}
+  ]},
 ];
 
 @NgModule({

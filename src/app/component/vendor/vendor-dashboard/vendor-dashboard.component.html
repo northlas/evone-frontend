@@ -1,10 +1,24 @@
-<nav class="d-flex ps-4 align-items-center pt-3 pb-1" style="background-color: white;">
+<nav class="d-flex align-items-center ps-4 pt-3 pb-1" style="background-color: white;">
     <ng-container *ngFor="let category of categories">
         <div class="me-3">
             <button mat-flat-button>
-                <a [routerLink]="'/vendor/category/' + slugify(category.name)" [state]="[{'categoryId': category.id}]">{{category.name}}</a>
+                <a [routerLink]="'/vendor/category/' + slugify(category.name)">{{category.name}}</a>
             </button>
         </div>
     </ng-container>
 </nav>
+<div class="d-flex justify-content-center my-4">
+    <div class="d-flex w-75 align-items-center p-3 rounded-4" style="background-color: white;">
+        <form class="flex-grow-1 me-3" (submit)="search(input.value)">
+            <mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-100">
+                <input #input matInput class="rounded-4" placeholder="Cari vendor">
+                <button type="button" #button matPrefix mat-icon-button disabled> 
+                    <mat-icon fontIcon="search"></mat-icon>
+                </button>
+            </mat-form-field>
+        </form>
+        <button mat-stroked-button matBadge="&#8203;" matBadgeColor="accent" class="me-3 text-primary">Filter</button>
+        <button mat-stroked-button matBadge="&#8203;" matBadgeColor="accent" class="text-primary">Urutkan</button>
+    </div>
+</div>
 <router-outlet></router-outlet>

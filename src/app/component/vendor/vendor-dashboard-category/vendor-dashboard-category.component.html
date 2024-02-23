@@ -1,22 +1,17 @@
-<div class="p-5">
-    <mat-grid-list cols="4" rowHeight="3:4">
-        <ng-container *ngFor="let vendor of vendors">
-            <mat-grid-tile>
-                <mat-card style="width: 250px;">
-                    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                    <mat-card-content>
-                        <div class="d-flex flex-column">
-                            <span>{{vendor.name}}</span>
-                            <span>Jakarta Barat, DKI Jakarta</span>
-                            <span>4,7/5 (23 review)</span>
-                            <span>Rp{{vendor.minPrice}}</span>
-                        </div>
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <button mat-flat-button color="primary">Lihat produk</button>
-                    </mat-card-actions>
-                </mat-card>
-            </mat-grid-tile>
-        </ng-container>
+<div class="rounded-top-5" style="background-color: white;">
+    <mat-grid-list cols="4" rowHeight="350px">
+        <mat-grid-tile *ngFor="let vendor of vendors">
+            <mat-card class="" style="width: 250px;">
+                <img class="border-bottom border-top" mat-card-image src="https://ajaib.co.id/wp-content/uploads/2019/12/Logo-BCA.jpg" alt="Photo of a Shiba Inu">
+                <mat-card-content class="mt-2">
+                    <div class="d-flex flex-column text-break">
+                        <span class="fw-medium text-break">{{vendor.name}}</span>
+                        <span class="text-secondary" style="font-size: 0.8rem;">{{vendor.city.name + ', ' + vendor.city.province.name}}</span>
+                        <span style="font-size: 0.8rem;">4,7/5 (23 review)</span>
+                        <span class="mt-2 fw-medium" style="color: #ec770c;">Rp{{vendor.minPrice.toLocaleString('id-ID')}}</span>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
     </mat-grid-list>
 </div>

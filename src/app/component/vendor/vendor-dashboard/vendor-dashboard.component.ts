@@ -18,19 +18,21 @@ export class VendorDashboardComponent implements OnInit{
   }
 
   private getCategories() {
-    this.categoryService.getAllCategory().subscribe({
-      next: (response: Category[]) => {
-        this.categories = response;
-      }
-    })
+    const categories = this.categoryService.categories.value;
+    if(categories.length == 0) {
+      this.categoryService.getAllCategory(true).subscribe({
+        next: (response: Category[]) => {
+          this.categories = response;
+        }
+      })
+    }
+    else {
+      this.categories = categories;
+    }
   }
 
-  public onClickCategory(categoryId: number) {
-    console.log(categoryId);
-  }
-
-  public onCategoryLoaded(component: any) {
-    console.log(component);
+  public search(param: string) {
+    console.log(param);
   }
 
   public slugify(str: string) {
