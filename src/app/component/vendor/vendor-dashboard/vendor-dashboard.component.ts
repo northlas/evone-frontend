@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/model/category';
 import { CategoryService } from 'src/app/service/category.service';
 import { VendorDashboardCategoryComponent } from '../vendor-dashboard-category/vendor-dashboard-category.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CategorySearchParam } from 'src/app/model/category-search-param';
 
 @Component({
   selector: 'app-vendor-dashboard',
@@ -10,8 +12,9 @@ import { VendorDashboardCategoryComponent } from '../vendor-dashboard-category/v
 })
 export class VendorDashboardComponent implements OnInit{
   public categories: Category[] = [];
+  private searchParam = {} as CategorySearchParam;
 
-  constructor(private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getCategories();
@@ -31,16 +34,17 @@ export class VendorDashboardComponent implements OnInit{
     }
   }
 
-  public search(param: string) {
-    console.log(param);
+  public filterCategory(slugName: string) {
+    this.searchParam.category = slugName;
+    this.navigate();
   }
 
-  public slugify(str: string) {
-    str = str.replace(/^\s+|\s+$/g, ''); // trim leading/trailing white space
-    str = str.toLowerCase(); // convert string to lowercase
-    str = str.replace(/[^a-z0-9 -]/g, '') // remove any non-alphanumeric characters
-             .replace(/\s+/g, '-') // replace spaces with hyphens
-             .replace(/-+/g, '-'); // remove consecutive hyphens
-    return str;
+  public search(param: string) {
+    this.searchParam.name = param;
+    this.navigate();
+  }
+
+  private navigate() {
+    this.router.navigate(['./search'], {queryParams: this.searchParam, relativeTo: this.route})
   }
 }

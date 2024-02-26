@@ -13,6 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { VendorDashboardComponent } from './component/vendor/vendor-dashboard/vendor-dashboard.component';
 import { NavigationComponent } from './component/navigation/navigation.component';
 import { VendorDashboardCategoryComponent } from './component/vendor/vendor-dashboard-category/vendor-dashboard-category.component';
@@ -77,7 +79,9 @@ const notifierCustomOptions: NotifierOptions = {
     MatIconModule,
     MatCardModule,
     MatGridListModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatProgressSpinnerModule,
+    InfiniteScrollModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

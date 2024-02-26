@@ -1,4 +1,5 @@
 import { City } from "./city";
+import { Province } from "./province";
 import { User } from "./user";
 
 export interface Vendor extends User{
@@ -6,5 +7,6 @@ export interface Vendor extends User{
     phone: string, 
     description: string,
     minPrice: number,
-    city: City
+    city: City,
+    province: Province
 }

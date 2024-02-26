@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: '', title: 'Evone', component: NavigationComponent, children: [
     {path: 'vendor', title: 'Vendor', component: VendorDashboardComponent, children: [
       {path: '', component: VendorDashboardMainComponent},
-      {path: 'category/:category', component: VendorDashboardCategoryComponent, canActivate: [categoryMenuGuard]},
+      {path: 'search', component: VendorDashboardCategoryComponent},
       {path: 'profile/:vendorName', component: VendorDetailComponent},
       {path: 'service/:serviceName', component: VendorServiceComponent}
     ]}
