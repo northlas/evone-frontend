@@ -1,7 +1,7 @@
-<div class="rounded-top-5" style="background-color: white;">
+<div class="rounded-top-5 p-4" style="background-color: white;">
     <mat-grid-list cols="4" rowHeight="350px" infinite-scroll (scrolled)="getVendors(false)" [infiniteScrollThrottle]="1000" [infiniteScrollDistance]="1">
         <mat-grid-tile *ngFor="let vendor of vendors">
-            <mat-card class="" style="width: 250px;">
+            <mat-card class="" style="width: 275px;">
                 <img class="border-bottom border-top" mat-card-image src="https://ajaib.co.id/wp-content/uploads/2019/12/Logo-BCA.jpg" alt="Photo of a Shiba Inu">
                 <mat-card-content class="mt-2">
                     <div class="d-flex flex-column text-break">
@@ -14,7 +14,7 @@
             </mat-card>
         </mat-grid-tile>
     </mat-grid-list>
-    <div class="d-flex justify-content-center pb-3 w-100" *ngIf="showLoading">
-        <mat-spinner></mat-spinner>
+    <div class="d-flex justify-content-center py-3 w-100" *ngIf="showLoading">
+        <mat-spinner [diameter]="80" color="accent"></mat-spinner>
     </div>
 </div>

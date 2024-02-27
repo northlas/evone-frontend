@@ -1,4 +1,4 @@
-<div class="sticky-top">
+<div class="sticky">
     <nav class="d-flex align-items-center ps-4 pt-3 pb-1" style="background-color: white;">
         <ng-container *ngFor="let category of categories">
             <div class="me-3">
@@ -18,8 +18,8 @@
                     </button>
                 </mat-form-field>
             </form>
-            <button mat-stroked-button matBadge="&#8203;" matBadgeColor="accent" class="me-3 text-primary">Filter</button>
-            <button mat-stroked-button matBadge="&#8203;" matBadgeColor="accent" class="text-primary">Urutkan</button>
+            <button mat-stroked-button (click)="openFilter()" matBadgeColor="accent" class="me-3 text-primary">Filter</button>
+            <button mat-stroked-button  matBadgeColor="accent" class="text-primary">Urutkan</button>
         </div>
     </div>
 </div>

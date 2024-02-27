@@ -3,9 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from "ng2-currency-mask";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -14,6 +16,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { VendorDashboardComponent } from './component/vendor/vendor-dashboard/vendor-dashboard.component';
 import { NavigationComponent } from './component/navigation/navigation.component';
@@ -22,6 +26,8 @@ import { VendorDetailComponent } from './component/vendor/vendor-detail/vendor-d
 import { VendorServiceComponent } from './component/vendor/vendor-service/vendor-service.component';
 import { LoginDialogComponent } from './component/dialog/login-dialog/login-dialog.component';
 import { VendorDashboardMainComponent } from './component/vendor/vendor-dashboard-main/vendor-dashboard-main.component';
+import { SortComponent } from './component/dialog/sort/sort.component';
+import { FilterComponent } from './component/dialog/filter/filter.component';
 
 const notifierCustomOptions: NotifierOptions = {
   position: {
@@ -64,15 +70,27 @@ const notifierCustomOptions: NotifierOptions = {
   },
 };
 
+const currencyMaskConfig: CurrencyMaskConfig = {
+  align: 'center',
+  allowNegative: false,
+  decimal: ',',
+  precision: 0,
+  prefix: 'Rp',
+  suffix: '',
+  thousands: '.'
+}
+
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginDialogComponent, VendorDashboardMainComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginDialogComponent, VendorDashboardMainComponent, SortComponent, FilterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NotifierModule.withConfig(notifierCustomOptions),
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
+    NotifierModule.withConfig(notifierCustomOptions),
+    CurrencyMaskModule,
     MatInputModule,
     MatButtonModule,
     MatToolbarModule,
@@ -81,9 +99,11 @@ const notifierCustomOptions: NotifierOptions = {
     MatGridListModule,
     MatBadgeModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
+    MatSelectModule,
     InfiniteScrollModule,
   ],
-  providers: [],
+  providers: [{provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
