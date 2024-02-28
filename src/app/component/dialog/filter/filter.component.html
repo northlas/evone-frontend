@@ -4,20 +4,20 @@
         <div class="d-flex flex-column flex-grow-1 me-3">
             <span class="ms-3">Jenis Acara</span>
             <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                <mat-select placeholder="Semua jenis acara">
-                    <mat-option value="pernikahan">Pernikahan</mat-option>
-                    <mat-option>Pernikahan</mat-option>
-                    <mat-option>Pernikahan</mat-option>
+                <mat-select placeholder="Semua jenis acara" [formControl]="occasionForm" multiple>
+                    <mat-option *ngFor="let occasion of occasions" [value]="occasion.name">
+                        {{occasion.name}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="d-flex flex-column flex-grow-1 ms-3">
             <span class="ms-3">Lokasi</span>
             <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                <mat-select placeholder="Semua lokasi">
-                    <mat-option>DKI Jakarta</mat-option>
-                    <mat-option>DKI Jakarta</mat-option>
-                    <mat-option>DKI Jakarta</mat-option>
+                <mat-select placeholder="Semua lokasi" [formControl]="provinceForm">
+                    <mat-option *ngFor="let province of provinces" [value]="province.name">
+                        {{province.name}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -26,10 +26,10 @@
         <span class="ms-3">Rentang Harga</span>
         <div class="d-flex">
             <mat-form-field appearance="outline" subscriptSizing="dynamic" class="min-price flex-grow-1 me-3">
-                <input matInput currencyMask [formControl]="minPriceForm" (blur)="checkMinPrice()" (ngModelChange)="doFilterMinPrice()">
+                <input matInput currencyMask [formControl]="minPriceForm" (blur)="checkMinPrice()">
             </mat-form-field>
             <mat-form-field appearance="outline" subscriptSizing="dynamic" class="max-price flex-grow-1 ms-3">
-                <input matInput currencyMask [formControl]="maxPriceForm" (blur)="checkMaxPrice()" (ngModelChange)="doFilterMaxPrice()">
+                <input matInput currencyMask [formControl]="maxPriceForm" (blur)="checkMaxPrice()">
             </mat-form-field>
         </div>
     </div>

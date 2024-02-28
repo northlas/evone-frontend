@@ -18,7 +18,7 @@
                     </button>
                 </mat-form-field>
             </form>
-            <button mat-stroked-button (click)="openFilter()" matBadgeColor="accent" class="me-3 text-primary">Filter</button>
+            <button mat-stroked-button [matBadge]="filterCount" [matBadgeHidden]="filterCount == 0" (click)="openFilter()" matBadgeColor="accent" class="me-3 text-primary">Filter</button>
             <button mat-stroked-button  matBadgeColor="accent" class="text-primary">Urutkan</button>
         </div>
     </div>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, Scroll } from '@angular/router';
 import { BasePageResponse } from 'src/app/model/base-page-response';
-import { CategorySearchParam } from 'src/app/model/category-search-param';
+import { VendorServiceOfferParam } from 'src/app/model/vendor-service-offer-param';
 import { Vendor } from 'src/app/model/vendor';
 import { VendorService } from 'src/app/service/vendor.service';
 
@@ -11,16 +11,16 @@ import { VendorService } from 'src/app/service/vendor.service';
   styleUrls: ['./vendor-dashboard-category.component.css']
 })
 export class VendorDashboardCategoryComponent{
-  public showLoading!: boolean;
+  public showLoading = true;
   public vendors: Vendor[] = []
   private page!: number;
   private totalItems!: number;
-  private searchParam: CategorySearchParam = {} as CategorySearchParam;
+  private searchParam: VendorServiceOfferParam = {} as VendorServiceOfferParam;
 
   constructor(private vendorService: VendorService, private router: Router, route: ActivatedRoute) {
     this.router.events.forEach((event) => {
       if(event instanceof Scroll) {
-        const queryParams = route.snapshot.queryParams as CategorySearchParam;
+        const queryParams = route.snapshot.queryParams as VendorServiceOfferParam;
         const isChangeParam = JSON.stringify(this.searchParam) !== JSON.stringify(queryParams);
         if(isChangeParam) {
           this.searchParam = queryParams;
