@@ -57,7 +57,7 @@ export class AuthenticationService {
     return authorities.includes(value);
   }
 
-  public getLoggedInUserName() {
+  public getUserName() {
     return this.jwtHelper.decodeToken(this.token!).name;
   }
 }

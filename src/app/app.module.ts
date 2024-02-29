@@ -18,14 +18,15 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { VendorDashboardComponent } from './component/vendor/vendor-dashboard/vendor-dashboard.component';
 import { NavigationComponent } from './component/navigation/navigation.component';
 import { VendorDashboardCategoryComponent } from './component/vendor/vendor-dashboard-category/vendor-dashboard-category.component';
 import { VendorDetailComponent } from './component/vendor/vendor-detail/vendor-detail.component';
 import { VendorServiceComponent } from './component/vendor/vendor-service/vendor-service.component';
-import { LoginDialogComponent } from './component/dialog/login-dialog/login-dialog.component';
 import { VendorDashboardMainComponent } from './component/vendor/vendor-dashboard-main/vendor-dashboard-main.component';
+import { LoginComponent } from './component/dialog/login/login.component';
 import { SortComponent } from './component/dialog/sort/sort.component';
 import { FilterComponent } from './component/dialog/filter/filter.component';
 
@@ -81,7 +82,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
 }
 
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginDialogComponent, VendorDashboardMainComponent, SortComponent, FilterComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, SortComponent, FilterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -101,6 +102,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
     MatProgressSpinnerModule,
     MatDialogModule,
     MatSelectModule,
+    MatRadioModule,
     InfiniteScrollModule,
   ],
   providers: [{provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig}],

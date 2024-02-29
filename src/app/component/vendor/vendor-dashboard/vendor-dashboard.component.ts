@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VendorServiceOfferParam } from 'src/app/model/vendor-service-offer-param';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FilterComponent } from '../../dialog/filter/filter.component';
+import { SortComponent } from '../../dialog/sort/sort.component';
 
 @Component({
   selector: 'app-vendor-dashboard',
@@ -17,18 +18,13 @@ export class VendorDashboardComponent implements OnInit{
   private searchParam = {} as VendorServiceOfferParam;
   public categories: Category[] = [];
   public filterCount = 0;
+  public isSorting = false;
 
   constructor(private categoryService: CategoryService, private router: Router, private route: ActivatedRoute, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     Object.assign(this.searchParam, this.route.snapshot.queryParams);
-
-    let count = 0;
-    if(this.searchParam.occasions) count++; 
-    if(this.searchParam.location) count++; 
-    if(this.searchParam.minPrice || this.searchParam.maxPrice) count++; 
-    this.filterCount = count;
-
+    this.countFilter();
     this.getCategories();
   }
 
@@ -44,6 +40,22 @@ export class VendorDashboardComponent implements OnInit{
     else {
       this.categories = categories;
     }
+  }
+
+  private countFilter() {
+    let count = 0;
+    if(this.searchParam.occasions) count++; 
+    if(this.searchParam.location) count++; 
+    if(this.searchParam.minPrice || this.searchParam.maxPrice) count++; 
+    this.filterCount = count;
+  }
+
+  private countSort() {
+    this.isSorting = this.searchParam.sort != undefined;
+  }
+
+  private navigate() {
+    this.router.navigate(['./search'], {queryParams: this.searchParam, relativeTo: this.route})
   }
 
   public filterCategory(slugName: string) {
@@ -66,23 +78,33 @@ export class VendorDashboardComponent implements OnInit{
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '600px';
     dialogConfig.data = this.searchParam;
+    dialogConfig.autoFocus = false;
     const dialogRef = this.dialog.open(FilterComponent, dialogConfig);
     dialogRef.afterClosed().subscribe({
       next: (param: VendorServiceOfferParam) => {
-        this.searchParam = param;
-
-        let count = 0;
-        if(this.searchParam.occasions) count++; 
-        if(this.searchParam.location) count++; 
-        if(this.searchParam.minPrice || this.searchParam.maxPrice) count++; 
-        this.filterCount = count;
-
-        this.navigate();
+        if(param) {
+          this.searchParam = param;
+          this.countFilter();
+          this.navigate();
+        }
       }
     })
   }
 
-  private navigate() {
-    this.router.navigate(['./search'], {queryParams: this.searchParam, relativeTo: this.route})
+  public openSort() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '500px';
+    dialogConfig.data = this.searchParam;
+    dialogConfig.autoFocus = false;
+    const dialogRef = this.dialog.open(SortComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe({
+      next: (param: VendorServiceOfferParam) => {
+        if(param) {
+          this.searchParam = param;
+          this.countSort();
+          this.navigate();
+        }
+      }
+    })
   }
 }

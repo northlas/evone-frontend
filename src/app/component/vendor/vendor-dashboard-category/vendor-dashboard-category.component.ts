@@ -10,8 +10,8 @@ import { VendorService } from 'src/app/service/vendor.service';
   templateUrl: './vendor-dashboard-category.component.html',
   styleUrls: ['./vendor-dashboard-category.component.css']
 })
-export class VendorDashboardCategoryComponent{
-  public showLoading = true;
+export class VendorDashboardCategoryComponent {
+  public isLoading = true;
   public vendors: Vendor[] = []
   private page!: number;
   private totalItems!: number;
@@ -19,14 +19,15 @@ export class VendorDashboardCategoryComponent{
 
   constructor(private vendorService: VendorService, private router: Router, route: ActivatedRoute) {
     this.router.events.forEach((event) => {
-      if(event instanceof Scroll) {
+      if (event instanceof Scroll) {
         const queryParams = route.snapshot.queryParams as VendorServiceOfferParam;
         const isChangeParam = JSON.stringify(this.searchParam) !== JSON.stringify(queryParams);
-        if(isChangeParam) {
+        if (isChangeParam) {
+          this.vendors = [];
           this.searchParam = queryParams;
           this.page = 0;
           this.totalItems = -1;
-          this.showLoading = true;
+          this.isLoading = true;
           this.getVendors(true);
         }
       }
@@ -34,21 +35,30 @@ export class VendorDashboardCategoryComponent{
   }
 
   public getVendors(isChangeParam: boolean) {
-    if(this.vendors.length != this.totalItems) {
+    if (this.vendors.length != this.totalItems) {
+      this.isLoading = true;
       this.page++;
-      this.vendorService.getAllVendor(this.searchParam, this.page).subscribe({
-        next: (response: BasePageResponse) => {
-          if (isChangeParam) this.vendors = response.items;
-          else this.vendors.push(...response.items);
+      setTimeout(() => {
+        this.vendorService.getAllVendor(this.searchParam, this.page).subscribe({
+          next: (response: BasePageResponse) => {
+            this.isLoading = false;
 
-          if(response.totalItems >= 0) {
-            this.totalItems = response.totalItems
-            if(this.vendors.length == this.totalItems) {
-              this.showLoading = false;
+            if (isChangeParam) this.vendors = response.items;
+            else this.vendors.push(...response.items);
+
+            if (response.totalItems >= 0) {
+              this.totalItems = response.totalItems
+              if (this.vendors.length != response.totalItems) {
+                this.isLoading = true;
+              }
             }
           }
-        }
-      })
+        })
+      }, 1000);
     }
+  }
+
+  public formatPrice(value: number) {
+    return 'Rp' + value.toLocaleString('id-ID');
   }
 }

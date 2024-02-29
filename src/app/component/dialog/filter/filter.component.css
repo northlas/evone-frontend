@@ -1,5 +1,5 @@
 :host ::ng-deep .mdc-text-field--outlined {
-    --mdc-outlined-text-field-container-shape: 15px;
+    /* --mdc-outlined-text-field-container-shape: 5px; */
 }
 
 :host ::ng-deep .min-price .mat-mdc-text-field-wrapper::after{

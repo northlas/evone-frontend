@@ -1,4 +1,10 @@
-<div class="w-25">
+<mat-dialog-actions class="d-flex justify-content-between align-items-start">
+    <h1 mat-dialog-title class="fs-4 pt-3 pb-1 ps-3">Masuk</h1>
+    <button matDialogClose mat-icon-button>
+      <mat-icon fontIcon="close"></mat-icon>
+    </button>
+</mat-dialog-actions>
+<mat-dialog-content>
     <form class="d-flex flex-column" (submit)="onLogin()">
         <mat-form-field>
             <mat-label>Email</mat-label>
@@ -12,4 +18,4 @@
             Login
         </button>
     </form>
-</div>
+</mat-dialog-content>

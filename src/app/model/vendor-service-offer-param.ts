@@ -5,5 +5,6 @@ export interface VendorServiceOfferParam {
     occasions: string[],
     location: string,
     minPrice: number,
-    maxPrice: number
+    maxPrice: number,
+    sort: string
 }

@@ -1,24 +1,32 @@
 <header>
     <mat-toolbar class="d-flex justify-content-between px-5">
         <div>
-            <a class="fs-3">EVONE</a>
+            <a class="fs-3" routerLink="/">EVONE</a>
         </div>
         <div class="d-flex align-items-center">
-            <span class="d-flex pe-3">
-                <span class="me-3">Vendor</span>
-                <span>Freelance</span>
-            </span>
-            <span class="px-3 border-start border-end border-2 border-dark">
+            <div class="d-flex pe-3">
+                <a class="me-3" routerLink="/vendor">Vendor</a>
+                <a>Freelance</a>
+            </div>
+            <div *ngIf="isLoggedIn" class="px-3 border-start border-end border-2 border-dark">
                 <button mat-icon-button>
-                    <mat-icon fontIcon="favorite"></mat-icon>  
+                    <mat-icon fontIcon="favorite"></mat-icon>
                 </button>
                 <button mat-icon-button>
                     <mat-icon fontIcon="forum"></mat-icon>
                 </button>
-            </span>
-            <span class="ps-3">
-                Halo, <span>nama</span>
-            </span>
+            </div>
+            <div class="ps-3" [ngClass]="isLoggedIn ? '' : 'border-start border-2 border-dark'">
+                <ng-container [ngSwitch]="isLoggedIn">
+                    <div *ngSwitchCase="false">
+                        <button mat-stroked-button (click)="openLogin()" color="primary" class="me-3">Masuk</button>
+                        <button mat-flat-button color="primary">Daftar</button>
+                    </div>
+                    <div *ngSwitchDefault>
+                        Halo, <span>{{userName}}</span>
+                    </div>
+                </ng-container>
+            </div>
         </div>
     </mat-toolbar>
 </header>
