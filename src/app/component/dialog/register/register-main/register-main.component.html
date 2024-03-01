@@ -1,0 +1,33 @@
+<mat-dialog-actions class="d-flex flex-column align-items-start">
+    <div class="d-flex justify-content-between w-100">
+        <button (click)="changeState('main')" mat-icon-button [style.visibility]="state === 'main' ? 'hidden' : ''">
+            <mat-icon fontIcon="arrow_back"></mat-icon>
+          </button>
+        <button mat-dialog-close mat-icon-button>
+          <mat-icon fontIcon="close"></mat-icon>
+        </button>
+    </div>
+    <h3 class="color-primary fw-medium ps-4">Daftar</h3>
+</mat-dialog-actions>
+<mat-dialog-content [ngSwitch]="state" class="d-flex flex-column align-items-center color-secondary pt-0">
+    <ng-container *ngSwitchCase="'main'">
+        <div class="mb-2">
+            Daftar sebagai
+        </div>
+        <div class="mb-3 w-75">
+            <button mat-flat-button (click)="changeState('user')" color="accent" class="w-100 fs-5" style="height: 50px;">User</button>
+        </div>
+        <div class="mb-3 w-75">
+            <button mat-stroked-button (click)="changeState('vendor')" color="accent" class="w-100 fs-5" style="height: 50px;">Vendor</button>
+        </div>
+        <div>
+            Sudah punya akun? <span [mat-dialog-close]="false" class="text-decoration-underline fw-medium color-primary">Masuk</span>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'user'">
+        <app-register-user style="width: 500px;"></app-register-user>
+    </ng-container>
+    <ng-container *ngSwitchCase="'vendor'">
+        <app-register-vendor></app-register-vendor>
+    </ng-container>
+</mat-dialog-content>

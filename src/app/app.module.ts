@@ -19,6 +19,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatStepperModule } from '@angular/material/stepper';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { VendorDashboardComponent } from './component/vendor/vendor-dashboard/vendor-dashboard.component';
 import { NavigationComponent } from './component/navigation/navigation.component';
@@ -29,6 +31,11 @@ import { VendorDashboardMainComponent } from './component/vendor/vendor-dashboar
 import { LoginComponent } from './component/dialog/login/login.component';
 import { SortComponent } from './component/dialog/sort/sort.component';
 import { FilterComponent } from './component/dialog/filter/filter.component';
+import { AuthenticationService } from './service/authentication.service';
+import { NotificationService } from './service/notification.service';
+import { RegisterMainComponent } from './component/dialog/register/register-main/register-main.component';
+import { RegisterUserComponent } from './component/dialog/register/register-user/register-user.component';
+import { RegisterVendorComponent } from './component/dialog/register/register-vendor/register-vendor.component';
 
 const notifierCustomOptions: NotifierOptions = {
   position: {
@@ -82,7 +89,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
 }
 
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, SortComponent, FilterComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, SortComponent, FilterComponent, RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -103,9 +110,11 @@ const currencyMaskConfig: CurrencyMaskConfig = {
     MatDialogModule,
     MatSelectModule,
     MatRadioModule,
+    MatMenuModule,
+    MatStepperModule,
     InfiniteScrollModule,
   ],
-  providers: [{provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig}],
+  providers: [AuthenticationService, NotificationService, {provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

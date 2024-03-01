@@ -1,7 +1,7 @@
 <header>
     <mat-toolbar class="d-flex justify-content-between px-5">
         <div>
-            <a class="fs-3" routerLink="/">EVONE</a>
+            <a class="fs-3 color-primary" routerLink="/">EVONE</a>
         </div>
         <div class="d-flex align-items-center">
             <div class="d-flex pe-3">
@@ -19,11 +19,14 @@
             <div class="ps-3" [ngClass]="isLoggedIn ? '' : 'border-start border-2 border-dark'">
                 <ng-container [ngSwitch]="isLoggedIn">
                     <div *ngSwitchCase="false">
-                        <button mat-stroked-button (click)="openLogin()" color="primary" class="me-3">Masuk</button>
-                        <button mat-flat-button color="primary">Daftar</button>
+                        <button mat-stroked-button (click)="openLogin()" color="primary" class="me-3 border-inherit">Masuk</button>
+                        <button mat-flat-button (click)="openRegister()" color="primary">Daftar</button>
                     </div>
                     <div *ngSwitchDefault>
-                        Halo, <span>{{userName}}</span>
+                        <button mat-button [matMenuTriggerFor]="menu">Halo, {{userName}}</button>
+                        <mat-menu #menu="matMenu" xPosition="before">
+                            <button mat-menu-item (click)="onLogout()">Logout</button>
+                        </mat-menu>
                     </div>
                 </ng-container>
             </div>
