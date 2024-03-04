@@ -1,7 +1,7 @@
 :host ::ng-deep .mat-mdc-outlined-button {
-    border-color: inherit;
+    border-color: inherit !important;
 }
 
 :host ::ng-deep .mat-mdc-unelevated-button {
-    color: white;
+    color: white !important;
 }

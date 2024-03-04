@@ -1,30 +1,42 @@
 <mat-stepper>
-    <mat-step label="Registrasi user">
-        <form class="pt-2 d-flex flex-column">
-            <mat-form-field appearance="outline">
+    <mat-step [stepControl]="userFormGroup" label="Registrasi user">
+        <form [formGroup]="userFormGroup" class="pt-2 mb-3 d-flex flex-column" (submit)="onRegister()">
+            <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Nama Lengkap</mat-label>
-                <input matInput>
+                <input matInput required formControlName="name">
+                <mat-error *ngIf="userFormGroup.controls.name.hasError('required')">Nama harus diisi</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Email</mat-label>
-                <input matInput>
+                <input matInput required formControlName="email">
+                <mat-error *ngIf="userFormGroup.controls.email.hasError('required')">Email harus diisi</mat-error>
+                <mat-error *ngIf="userFormGroup.controls.email.hasError('email')">Format email tidak valid</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Kata Sandi</mat-label>
-                <input matInput>
+                <input matInput required formControlName="password" minlength="8">
+                <mat-error *ngIf="userFormGroup.controls.password.hasError('required')">Kata sandi harus diisi</mat-error>
+                <mat-error *ngIf="userFormGroup.controls.password.hasError('minlength')">Kata sandi minimal 8 karakter</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Konfirmasi Kata Sandi</mat-label>
-                <input matInput>
+                <input uid matInput required formControlName="confirmPassword">
+                <mat-error *ngIf="userFormGroup.controls.confirmPassword.hasError('required')">Konfirmasi kata sandi harus diisi</mat-error>
+                <mat-error *ngIf="userFormGroup.controls.confirmPassword.hasError('confirmValidator')">Konfirmasi kata sandi tidak cocok</mat-error>
             </mat-form-field>
+            <button mat-flat-button color="primary" [disabled]="!userFormGroup.valid">Daftar</button>
         </form>
+        <button mat-stroked-button matStepperNext color="primary" [disabled]="!userFormGroup.valid" class="d-flex flex-row-reverse w-100">
+            <span class="me-2">Jadi freelancer</span>
+            <mat-icon fontIcon="arrow_forward"></mat-icon>
+        </button>
     </mat-step>
     <mat-step label="Registrasi freelancer" optional>
         <form class="pt-2 d-flex flex-column">
-            <mat-form-field appearance="outline">
-                <mat-label>Nama Lengkap</mat-label>
-                <input matInput>
-            </mat-form-field>
+            <mat-radio-group>
+                <mat-radio-button value="1">Laki-laki</mat-radio-button>
+                <mat-radio-button value="2">Perempuan</mat-radio-button>
+            </mat-radio-group>
             <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
                 <input matInput>
