@@ -25,21 +25,16 @@ export class VendorDashboardComponent implements OnInit{
   ngOnInit(): void {
     Object.assign(this.searchParam, this.route.snapshot.queryParams);
     this.countFilter();
+    this.countSort();
     this.getCategories();
   }
 
   private getCategories() {
-    const categories = this.categoryService.categories.value;
-    if(categories.length == 0) {
-      this.categoryService.getAllCategory(true).subscribe({
-        next: (response: Category[]) => {
-          this.categories = response;
-        }
-      })
-    }
-    else {
-      this.categories = categories;
-    }
+    this.categoryService.getAllCategory(true).subscribe({
+      next: (response: Category[]) => {
+        this.categories = response;
+      }
+    })
   }
 
   private countFilter() {
@@ -62,6 +57,7 @@ export class VendorDashboardComponent implements OnInit{
     this.searchParam = {'category' : slugName} as VendorServiceOfferParam;
     this.searchField.nativeElement.value = '';
     this.filterCount = 0;
+    this.isSorting = false;
     this.navigate();
   }
 

@@ -1,1 +1,34 @@
-<p>vendor-dashboard-main works!</p>
+<div class="flex-grow-1 d-flex flex-column rounded-top-5 p-4" style="background-color: white;">
+    <div>
+        <div *ngFor="let categoryVendor of categoryVendors | keyvalue : disableSort">
+            <p-carousel [value]="categoryVendor.value" *ngIf="categoryVendor.value.length > 0" [numVisible]="4" [numScroll]="4">
+                <ng-template pTemplate="header">
+                    <div style="padding-left: 36px;">
+                        {{categoryVendor.key}}
+                    </div>
+                </ng-template>
+                <ng-template let-vendor pTemplate="item">
+                    <mat-card style="width: 275px;">
+                        <img class="border-bottom border-top" mat-card-image
+                            src="https://ajaib.co.id/wp-content/uploads/2019/12/Logo-BCA.jpg" alt="Photo of a Shiba Inu">
+                        <mat-card-content class="mt-2">
+                            <div class="d-flex flex-column text-break">
+                                <span class="fw-medium text-break">{{vendor.name}}</span>
+                                <span class="text-secondary" style="font-size: 0.8rem;">{{vendor.city.name + ', ' +
+                                    vendor.province.name}}</span>
+                                <span style="font-size: 0.8rem;">4,7/5 (23 review)</span>
+                                <span class="mt-2 fw-medium" style="color: #ec770c;">
+                                    {{vendor.minPrice === vendor.maxPrice ? formatPrice(vendor.minPrice) :
+                                    formatPrice(vendor.minPrice) + ' - ' + formatPrice(vendor.maxPrice)}}
+                                </span>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </ng-template>
+            </p-carousel>
+        </div>
+    </div>
+    <div class="flex-grow-1 d-flex justify-content-center align-items-center py-3 w-100" *ngIf="isLoading">
+		<mat-spinner [diameter]="80" color="accent"></mat-spinner>
+	</div>
+</div>

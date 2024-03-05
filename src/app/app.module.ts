@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from "ng2-currency-mask";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from '@angular/material/button';
@@ -21,7 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { CarouselModule } from "primeng/carousel";
 import { VendorDashboardComponent } from './component/vendor/vendor-dashboard/vendor-dashboard.component';
 import { NavigationComponent } from './component/navigation/navigation.component';
 import { VendorDashboardCategoryComponent } from './component/vendor/vendor-dashboard-category/vendor-dashboard-category.component';
@@ -98,6 +99,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
     ReactiveFormsModule,
     HttpClientModule,
     NotifierModule.withConfig(notifierCustomOptions),
+    InfiniteScrollModule,
     CurrencyMaskModule,
     MatInputModule,
     MatButtonModule,
@@ -112,7 +114,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
     MatRadioModule,
     MatMenuModule,
     MatStepperModule,
-    InfiniteScrollModule,
+    CarouselModule,
   ],
   providers: [AuthenticationService, NotificationService, {provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig}],
   bootstrap: [AppComponent],

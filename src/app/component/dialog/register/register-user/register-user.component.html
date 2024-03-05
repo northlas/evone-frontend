@@ -1,4 +1,27 @@
 <mat-stepper>
+    <mat-step label="Registrasi freelancer" optional>
+        <form class="pt-2 d-flex flex-column">
+            <mat-form-field appearance="outline">
+                <mat-label>Jenis Kelamin</mat-label>
+                <mat-select>
+                    <mat-option value="1">Laki-laki</mat-option>
+                    <mat-option value="2">Perempuan</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Kata Sandi</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Konfirmasi Kata Sandi</mat-label>
+                <input matInput>
+            </mat-form-field>
+        </form>
+    </mat-step>
     <mat-step [stepControl]="userFormGroup" label="Registrasi user">
         <form [formGroup]="userFormGroup" class="pt-2 mb-3 d-flex flex-column" (submit)="onRegister()">
             <mat-form-field appearance="outline" class="mb-3">
@@ -30,25 +53,5 @@
             <span class="me-2">Jadi freelancer</span>
             <mat-icon fontIcon="arrow_forward"></mat-icon>
         </button>
-    </mat-step>
-    <mat-step label="Registrasi freelancer" optional>
-        <form class="pt-2 d-flex flex-column">
-            <mat-radio-group>
-                <mat-radio-button value="1">Laki-laki</mat-radio-button>
-                <mat-radio-button value="2">Perempuan</mat-radio-button>
-            </mat-radio-group>
-            <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input matInput>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Kata Sandi</mat-label>
-                <input matInput>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Konfirmasi Kata Sandi</mat-label>
-                <input matInput>
-            </mat-form-field>
-        </form>
     </mat-step>
 </mat-stepper>

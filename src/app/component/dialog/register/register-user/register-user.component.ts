@@ -4,6 +4,7 @@ import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/
 import { HeaderType } from 'src/app/enum/header-type.enum';
 import { BaseResponse } from 'src/app/model/base-response';
 import { Customer } from 'src/app/model/customer';
+import { Talent } from 'src/app/model/talent';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { CustomerService } from 'src/app/service/customer.service';
 
@@ -13,6 +14,7 @@ import { CustomerService } from 'src/app/service/customer.service';
   styleUrls: ['./register-user.component.css']
 })
 export class RegisterUserComponent {
+  public talents: Talent[] = [];
   public userFormGroup = this.formBuilder.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -49,6 +51,10 @@ export class RegisterUserComponent {
         return null;
       }
     }
+  }
+
+  public getTalents() {
+    
   }
 
   public onRegister() {
