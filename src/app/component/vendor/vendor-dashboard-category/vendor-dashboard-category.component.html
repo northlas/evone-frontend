@@ -4,16 +4,17 @@
 		<mat-grid-tile *ngFor="let vendor of vendors">
 			<mat-card style="width: 275px;">
 				<img class="border-bottom border-top" mat-card-image
-					src="https://ajaib.co.id/wp-content/uploads/2019/12/Logo-BCA.jpg" alt="Photo of a Shiba Inu">
+					[src]="vendor.profile | image" alt="Photo of a Shiba Inu">
 				<mat-card-content class="mt-2">
 					<div class="d-flex flex-column text-break">
 						<span class="fw-medium text-break">{{vendor.name}}</span>
-						<span class="text-secondary" style="font-size: 0.8rem;">{{vendor.city.name + ', ' +
-							vendor.province.name}}</span>
-						<span style="font-size: 0.8rem;">4,7/5 (23 review)</span>
+						<span class="text-secondary" style="font-size: 0.7rem;">
+							{{vendor.city.name}}
+						</span>
+						<span style="font-size: 0.7rem;">4,7/5 (23 review)</span>
 						<span class="mt-2 fw-medium" style="color: #ec770c;">
-							{{vendor.minPrice === vendor.maxPrice ? formatPrice(vendor.minPrice) :
-							formatPrice(vendor.minPrice) + ' - ' + formatPrice(vendor.maxPrice)}}
+							{{vendor.minPrice === vendor.maxPrice ? (vendor.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') :
+							(vendor.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') + ' - ' + (vendor.maxPrice | currency: 'Rp' : 'symbol' : '1.0-0')}}
 						</span>
 					</div>
 				</mat-card-content>

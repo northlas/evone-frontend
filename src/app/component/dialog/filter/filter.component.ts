@@ -96,7 +96,6 @@ export class FilterComponent implements OnInit{
   private minPriceListener() {
     this.minPriceForm.valueChanges.subscribe({
       next: (value: number | null) => {
-        console.log(value)
         if(value == null) {
           this.minPriceForm.setValue(this.min);
           this.isFilterMinPrice = false;

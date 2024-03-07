@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { registerLocaleData } from "@angular/common";
+import localeId from "@angular/common/locales/id";
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from "ng2-currency-mask";
+import { ImagePipe } from './pipe/image.pipe';
+import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -37,6 +41,7 @@ import { NotificationService } from './service/notification.service';
 import { RegisterMainComponent } from './component/dialog/register/register-main/register-main.component';
 import { RegisterUserComponent } from './component/dialog/register/register-user/register-user.component';
 import { RegisterVendorComponent } from './component/dialog/register/register-vendor/register-vendor.component';
+
 
 const notifierCustomOptions: NotifierOptions = {
   position: {
@@ -89,8 +94,9 @@ const currencyMaskConfig: CurrencyMaskConfig = {
   thousands: '.'
 }
 
+registerLocaleData(localeId)
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, SortComponent, FilterComponent, RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, SortComponent, FilterComponent, RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -101,6 +107,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
     NotifierModule.withConfig(notifierCustomOptions),
     InfiniteScrollModule,
     CurrencyMaskModule,
+    TextFieldModule,
     MatInputModule,
     MatButtonModule,
     MatToolbarModule,
@@ -116,7 +123,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
     MatStepperModule,
     CarouselModule,
   ],
-  providers: [AuthenticationService, NotificationService, {provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig}],
+  providers: [AuthenticationService, NotificationService, {provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig}, {provide: LOCALE_ID, useValue: 'id-ID'}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

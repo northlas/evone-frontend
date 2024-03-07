@@ -8,6 +8,7 @@ export interface Vendor extends User{
     address: string, 
     phone: string, 
     description: string,
+    profile: string,
     minPrice: number,
     maxPrice: number
 }

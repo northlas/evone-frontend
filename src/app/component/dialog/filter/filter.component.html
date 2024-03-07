@@ -20,6 +20,7 @@
             <span>Lokasi</span>
             <mat-form-field appearance="outline" subscriptSizing="dynamic">
                 <mat-select placeholder="Semua lokasi" [formControl]="provinceForm">
+                    <mat-option class="text-secondary">Semua lokasi</mat-option>
                     <mat-option *ngFor="let province of provinces" [value]="province.name">
                         {{province.name}}
                     </mat-option>

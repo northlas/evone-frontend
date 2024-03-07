@@ -1,5 +1,6 @@
 import { KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { concatMap, from } from 'rxjs';
 import { Category } from 'src/app/model/category';
 import { Vendor } from 'src/app/model/vendor';
@@ -17,7 +18,7 @@ export class VendorDashboardMainComponent implements OnInit{
   public categoryVendors = new Map<string, Vendor[]>();
   public isLoading = true;
   
-  constructor(private categoryService: CategoryService, private vendorService: VendorService) {}
+  constructor(private categoryService: CategoryService, private vendorService: VendorService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.getCategories();
