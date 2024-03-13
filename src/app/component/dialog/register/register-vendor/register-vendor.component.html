@@ -37,35 +37,45 @@
                 <mat-select formControlName="province">
                     <mat-option *ngFor="let province of provinces" [value]="province.id">{{province.name}}</mat-option>
                 </mat-select>
-                <mat-error *ngIf="companyFormGroup.controls.province.hasError('required')">Provinsi harus dipilih</mat-error>
+                <mat-error>Provinsi harus dipilih</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Kabupaten / Kota</mat-label>
                 <mat-select formControlName="city">
                     <mat-option *ngFor="let city of filteredCities" [value]="city.id">{{city.name}}</mat-option>
                 </mat-select>
-                <mat-error *ngIf="companyFormGroup.controls.city.hasError('required')">Kabupaten / kota harus dipilih</mat-error>
+                <mat-error>Kabupaten / kota harus dipilih</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Kategori</mat-label>
                 <mat-select formControlName="category" multiple>
                     <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
                 </mat-select>
-                <mat-error *ngIf="companyFormGroup.controls.category.hasError('required')">Kategori harus dipilih</mat-error>
+                <mat-error>Kategori harus dipilih</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="outline" class="mb-3">
+            <mat-form-field appearance="outline" class="mb-3" #input>
                 <mat-label>Sosial Media</mat-label>
-                <mat-select formControlName="platform" multiple>
+                <mat-select formControlName="platform" multiple (blur)="checkPlatformUsername()">
                     <div *ngFor="let platform of platforms" class="d-flex my-2">
                         <mat-option [value]="platform.id" class="w-50">
                             {{platform.name}}
                         </mat-option>
                         <mat-form-field appearance="outline" class="me-2" subscriptSizing="dynamic">
-                            <mat-label>Kontak</mat-label>
-                            <input matInput>
+                            <mat-label>Username</mat-label>
+                            <input
+                                #usernameInput
+                                matInput
+                                [ngModel]="usernames.get(platform.id)" 
+                                (ngModelChange)="usernames.set(platform.id, $event)" 
+                                [ngModelOptions]="{standalone: true}" 
+                                (blur)="checkPlatformUsername()"
+                                [disabled]="!companyFormGroup.controls.platform.value!.includes(platform.id)"
+                                [required]="companyFormGroup.controls.platform.value!.includes(platform.id)">
                         </mat-form-field>
                     </div>
                 </mat-select>
+                <mat-error *ngIf="companyFormGroup.controls.platform.hasError('required')">Pilih minimal satu sosial media</mat-error>
+                <mat-error *ngIf="companyFormGroup.controls.platform.hasError('username')">Username harus diisi</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Deskripsi</mat-label>
@@ -73,28 +83,14 @@
                 <mat-error *ngIf="companyFormGroup.controls.description.hasError('required')">Deskripsi harus diisi</mat-error>
             </mat-form-field>
         </form>
+        <button mat-stroked-button matStepperNext [disabled]="!companyFormGroup.valid" color="primary" class="d-flex flex-row-reverse w-100">
+            <span class="me-2">Selanjutnya</span>
+            <mat-icon fontIcon="arrow_forward"></mat-icon>
+        </button>
     </mat-step>
     <mat-step label="Galeri">
         <form class="pt-2 d-flex flex-column">
-            <mat-form-field appearance="outline">
-                <mat-label>Jenis Kelamin</mat-label>
-                <mat-select>
-                    <mat-option value="1">Laki-laki</mat-option>
-                    <mat-option value="2">Perempuan</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input matInput>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Kata Sandi</mat-label>
-                <input matInput>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Konfirmasi Kata Sandi</mat-label>
-                <input matInput>
-            </mat-form-field>
+            
         </form>
     </mat-step>
 </mat-stepper>

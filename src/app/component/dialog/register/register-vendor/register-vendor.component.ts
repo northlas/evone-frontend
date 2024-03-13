@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ContentChildren, ElementRef, OnInit, QueryList, ViewChildren, forwardRef } from '@angular/core';
 import { Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
+import { MatOptionSelectionChange } from '@angular/material/core';
 import { Category } from 'src/app/model/category';
 import { City } from 'src/app/model/city';
 import { Platform } from 'src/app/model/platform';
@@ -17,11 +18,14 @@ import { VendorService } from 'src/app/service/vendor.service';
   styleUrls: ['./register-vendor.component.css']
 })
 export class RegisterVendorComponent implements OnInit{
+  @ViewChildren('usernameInput') usernameInput!: QueryList<ElementRef>;
+
   public provinces: Province[] = [];
   public cities: City[] = [];
   public filteredCities: City[] = [];
   public categories: Category[] = [];
   public platforms: Platform[] = [];
+  public usernames = new Map<number, string>();
 
   public vendorFormGroup = this.formBuilder.group({
     name: ['', Validators.required],
@@ -37,7 +41,7 @@ export class RegisterVendorComponent implements OnInit{
     city: [{value: undefined, disabled: true}, Validators.required],
     category: [undefined, Validators.required],
     description: ['', Validators.required],
-    platform: [undefined]
+    platform: [[] as number[], Validators.required]
   })
 
   constructor(
@@ -85,6 +89,27 @@ export class RegisterVendorComponent implements OnInit{
     }
   }
 
+  public checkPlatformUsername() {
+    const required = this.usernameInput.toArray().find((input) => {
+      const element = input.nativeElement as HTMLInputElement;
+      return element.required;
+    })
+
+    if(required == undefined) return;
+
+    const blank = this.usernameInput.toArray().find((input) => {
+      const element = input.nativeElement as HTMLInputElement;
+      return element.required && element.value.length == 0
+    })
+    
+    if(blank != undefined) {
+      this.companyFormGroup.controls.platform.setErrors({username: 'Username harus diisi'});
+    }
+    else {
+      this.companyFormGroup.controls.platform.setErrors(null);
+    }
+  }
+
   private getProvinces() {
     this.provinceService.getAllProvince().subscribe({
       next: response => {
@@ -123,12 +148,14 @@ export class RegisterVendorComponent implements OnInit{
   private platformListener() {
     this.companyFormGroup.controls.platform.valueChanges.subscribe({
       next: value => {
-        console.log(value);
+        
       }
     })
   }
 
   public onRegister() {
-
+    for (let key of this.usernames.keys()) {
+      console.log(key)
+    }
   }
 }
