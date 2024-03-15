@@ -18,7 +18,6 @@ export class NavigationComponent implements OnInit{
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isUserLoggedIn();
     if (this.isLoggedIn) this.userName = this.authService.getUserName();
-    this.openRegister();
   }
 
   public openLogin() {

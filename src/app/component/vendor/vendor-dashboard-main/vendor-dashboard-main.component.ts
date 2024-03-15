@@ -17,6 +17,23 @@ export class VendorDashboardMainComponent implements OnInit{
   public categories: Category[] = [];
   public categoryVendors = new Map<string, Vendor[]>();
   public isLoading = true;
+  public responsiveOptions = [
+    {
+      breakpoint: '1860px',
+      numVisible: 5,
+      numScroll:5
+    },
+    {
+      breakpoint: '1560px',
+      numVisible: 4,
+      numScroll:4
+    },
+    {
+      breakpoint: '1260px',
+      numVisible: 3,
+      numScroll:3
+    }
+  ]
   
   constructor(private categoryService: CategoryService, private vendorService: VendorService, private sanitizer: DomSanitizer) {}
 

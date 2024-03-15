@@ -27,6 +27,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
 import { CarouselModule } from "primeng/carousel";
+import { FileUploadModule } from 'primeng/fileupload';
 import { VendorDashboardComponent } from './component/vendor/vendor-dashboard/vendor-dashboard.component';
 import { NavigationComponent } from './component/navigation/navigation.component';
 import { VendorDashboardCategoryComponent } from './component/vendor/vendor-dashboard-category/vendor-dashboard-category.component';
@@ -84,16 +85,6 @@ const notifierCustomOptions: NotifierOptions = {
   },
 };
 
-const currencyMaskConfig: CurrencyMaskConfig = {
-  align: 'center',
-  allowNegative: false,
-  decimal: ',',
-  precision: 0,
-  prefix: 'Rp',
-  suffix: '',
-  thousands: '.'
-}
-
 registerLocaleData(localeId)
 @NgModule({
   declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, SortComponent, FilterComponent, RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe],
@@ -122,8 +113,9 @@ registerLocaleData(localeId)
     MatMenuModule,
     MatStepperModule,
     CarouselModule,
+    FileUploadModule,
   ],
-  providers: [AuthenticationService, NotificationService, {provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig}, {provide: LOCALE_ID, useValue: 'id-ID'}],
+  providers: [AuthenticationService, NotificationService, {provide: LOCALE_ID, useValue: 'id-ID'}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

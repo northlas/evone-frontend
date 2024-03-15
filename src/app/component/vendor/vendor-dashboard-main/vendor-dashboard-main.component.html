@@ -1,15 +1,13 @@
 <div class="flex-grow-1 d-flex flex-column rounded-top-5 p-4" style="background-color: white;">
     <div>
         <div *ngFor="let categoryVendor of categoryVendors | keyvalue : disableSort">
-            <p-carousel [value]="categoryVendor.value" *ngIf="categoryVendor.value.length > 0" [numVisible]="4" [numScroll]="4">
+            <p-carousel [value]="categoryVendor.value" *ngIf="categoryVendor.value.length > 0" [numVisible]="6" [numScroll]="6" [responsiveOptions]="responsiveOptions">
                 <ng-template pTemplate="header">
-                    <div style="padding-left: 36px;">
-                        {{categoryVendor.key}}
-                    </div>
+                    <h5 class="mb-2">{{categoryVendor.key}}</h5>
                 </ng-template>
                 <ng-template let-vendor pTemplate="item">
-                    <mat-card style="width: 275px;">
-                        <img class="border-bottom border-top" mat-card-image
+                    <mat-card style="width: 90%;">
+                        <img class="border-bottom border-top w-100" mat-card-image
                             [src]="vendor.profile | image" alt="Photo of a Shiba Inu">
                         <mat-card-content class="mt-2 h-100">
                             <div class="d-flex flex-column text-break h-100">

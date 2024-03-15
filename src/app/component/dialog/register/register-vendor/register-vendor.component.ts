@@ -1,6 +1,5 @@
-import { AfterViewChecked, AfterViewInit, Component, ContentChildren, ElementRef, OnInit, QueryList, ViewChildren, forwardRef } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
-import { MatOptionSelectionChange } from '@angular/material/core';
 import { Category } from 'src/app/model/category';
 import { City } from 'src/app/model/city';
 import { Platform } from 'src/app/model/platform';
@@ -40,8 +39,11 @@ export class RegisterVendorComponent implements OnInit{
     province: [undefined, Validators.required],
     city: [{value: undefined, disabled: true}, Validators.required],
     category: [undefined, Validators.required],
-    description: ['', Validators.required],
     platform: [[] as number[], Validators.required]
+  })
+
+  public profileFormGroup = this.formBuilder.group({
+    description: ['', Validators.required],
   })
 
   constructor(
@@ -89,27 +91,6 @@ export class RegisterVendorComponent implements OnInit{
     }
   }
 
-  public checkPlatformUsername() {
-    const required = this.usernameInput.toArray().find((input) => {
-      const element = input.nativeElement as HTMLInputElement;
-      return element.required;
-    })
-
-    if(required == undefined) return;
-
-    const blank = this.usernameInput.toArray().find((input) => {
-      const element = input.nativeElement as HTMLInputElement;
-      return element.required && element.value.length == 0
-    })
-    
-    if(blank != undefined) {
-      this.companyFormGroup.controls.platform.setErrors({username: 'Username harus diisi'});
-    }
-    else {
-      this.companyFormGroup.controls.platform.setErrors(null);
-    }
-  }
-
   private getProvinces() {
     this.provinceService.getAllProvince().subscribe({
       next: response => {
@@ -140,6 +121,7 @@ export class RegisterVendorComponent implements OnInit{
         if (value !== null) {
           this.filteredCities = this.cities.filter(({provinceId}) => provinceId === value)
           this.companyFormGroup.controls.city.enable();
+          this.companyFormGroup.controls.city.setValue(undefined);
         }
       }
     })
@@ -151,6 +133,27 @@ export class RegisterVendorComponent implements OnInit{
         
       }
     })
+  }
+
+  public checkPlatformUsername() {
+    const required = this.usernameInput.toArray().find((input) => {
+      const element = input.nativeElement as HTMLInputElement;
+      return element.required;
+    })
+
+    if(required == undefined) return;
+
+    const blank = this.usernameInput.toArray().find((input) => {
+      const element = input.nativeElement as HTMLInputElement;
+      return element.required && element.value.length == 0
+    })
+    
+    if(blank != undefined) {
+      this.companyFormGroup.controls.platform.setErrors({username: 'Username harus diisi'});
+    }
+    else {
+      this.companyFormGroup.controls.platform.setErrors(null);
+    }
   }
 
   public onRegister() {
