@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FileSelectEvent, UploadEvent } from 'primeng/fileupload';
 import { Category } from 'src/app/model/category';
 import { City } from 'src/app/model/city';
 import { Platform } from 'src/app/model/platform';
@@ -25,6 +26,9 @@ export class RegisterVendorComponent implements OnInit{
   public categories: Category[] = [];
   public platforms: Platform[] = [];
   public usernames = new Map<number, string>();
+  public isProfileHovered = false;
+  public borderColor = '#9e9e9e'
+  public isProfileError = false;
 
   public vendorFormGroup = this.formBuilder.group({
     name: ['', Validators.required],
@@ -43,6 +47,7 @@ export class RegisterVendorComponent implements OnInit{
   })
 
   public profileFormGroup = this.formBuilder.group({
+    profile: ['', Validators.required],
     description: ['', Validators.required],
   })
 
@@ -53,7 +58,7 @@ export class RegisterVendorComponent implements OnInit{
     private provinceService: ProvinceService,
     private cityService: CityService,
     private categoryService: CategoryService,
-    private platformService: PlatformService) {} 
+    private platformService: PlatformService) {}
 
   ngOnInit(): void {
     this.getProvinces();
@@ -130,29 +135,67 @@ export class RegisterVendorComponent implements OnInit{
   private platformListener() {
     this.companyFormGroup.controls.platform.valueChanges.subscribe({
       next: value => {
-        
+
       }
     })
   }
 
+  public profileStepListener() {
+    if (this.profileFormGroup.controls.profile.invalid) {
+      this.isProfileError = true;
+      this.borderColor = '#f44336';
+    }
+  }
+
   public checkPlatformUsername() {
-    const required = this.usernameInput.toArray().find((input) => {
+    const usernameArray = this.usernameInput.toArray();
+
+    const required = usernameArray.find((input) => {
       const element = input.nativeElement as HTMLInputElement;
       return element.required;
     })
 
     if(required == undefined) return;
 
-    const blank = this.usernameInput.toArray().find((input) => {
+    const blank = usernameArray.find((input) => {
       const element = input.nativeElement as HTMLInputElement;
       return element.required && element.value.length == 0
     })
-    
+
     if(blank != undefined) {
       this.companyFormGroup.controls.platform.setErrors({username: 'Username harus diisi'});
     }
     else {
       this.companyFormGroup.controls.platform.setErrors(null);
+    }
+  }
+
+  public isProfileSelected() {
+    return this.profileFormGroup.controls.profile.value!.length > 0;
+  }
+
+  public onHover() {
+    if (!this.isProfileError) {
+      this.isProfileHovered = true;
+      this.borderColor = '#212121'
+    }
+  }
+
+
+  public onBlur() {
+    if (!this.isProfileError) {
+      this.isProfileHovered = false;
+      this.borderColor = '#9e9e9e'
+    }
+  }
+
+  public onSelect(event: FileSelectEvent) {
+    const file = event.currentFiles.pop()!;
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.isProfileError = false;
+      this.profileFormGroup.controls.profile.setValue(reader.result!.toString());
     }
   }
 

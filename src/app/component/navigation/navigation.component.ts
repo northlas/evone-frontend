@@ -14,10 +14,11 @@ export class NavigationComponent implements OnInit{
   public userName?: string;
 
   constructor(private authService: AuthenticationService, private dialog: MatDialog) {}
-  
+
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isUserLoggedIn();
     if (this.isLoggedIn) this.userName = this.authService.getUserName();
+    this.openRegister()
   }
 
   public openLogin() {
@@ -28,7 +29,7 @@ export class NavigationComponent implements OnInit{
     dialogRef.afterClosed().subscribe({
       next: () => {
         if(this.authService.isUserLoggedIn()) {
-          window.location.reload(); 
+          window.location.reload();
         }
       }
     })
@@ -38,6 +39,7 @@ export class NavigationComponent implements OnInit{
     const dialogConfig = new MatDialogConfig();
     dialogConfig.minWidth = '400px';
     dialogConfig.autoFocus = false;
+    dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(RegisterMainComponent, dialogConfig);
     dialogRef.afterClosed().subscribe({
       next: (isRegistered: boolean) => {

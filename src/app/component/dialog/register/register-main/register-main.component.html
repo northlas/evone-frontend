@@ -3,7 +3,7 @@
         <button (click)="changeState('main')" mat-icon-button [style.visibility]="state === 'main' ? 'hidden' : ''">
             <mat-icon fontIcon="arrow_back"></mat-icon>
           </button>
-        <button mat-dialog-close mat-icon-button>
+        <button mat-dialog-close mat-icon-button [style.visibility]="state === 'main' ? '' : 'hidden'">
           <mat-icon fontIcon="close"></mat-icon>
         </button>
     </div>

@@ -8,24 +8,24 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Email</mat-label>
-                <input matInput required formControlName="email">
+                <input type="email" autocomplete="email" matInput required formControlName="email">
                 <mat-error *ngIf="vendorFormGroup.controls.email.hasError('required')">Email harus diisi</mat-error>
                 <mat-error *ngIf="vendorFormGroup.controls.email.hasError('email')">Format email tidak valid</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Kata Sandi</mat-label>
-                <input type="password" matInput required formControlName="password" minlength="8">
+                <input type="password" autocomplete="new-password" matInput required formControlName="password" minlength="8">
                 <mat-error *ngIf="vendorFormGroup.controls.password.hasError('required')">Kata sandi harus diisi</mat-error>
                 <mat-error *ngIf="vendorFormGroup.controls.password.hasError('minlength')">Kata sandi minimal 8 karakter</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Konfirmasi Kata Sandi</mat-label>
-                <input type="password" matInput required formControlName="confirmPassword">
+                <input type="password" autocomplete="new-password" matInput required formControlName="confirmPassword">
                 <mat-error *ngIf="vendorFormGroup.controls.confirmPassword.hasError('required')">Konfirmasi kata sandi harus diisi</mat-error>
                 <mat-error *ngIf="vendorFormGroup.controls.confirmPassword.hasError('confirmValidator')">Konfirmasi kata sandi tidak cocok</mat-error>
             </mat-form-field>
         </form>
-        <button mat-stroked-button matStepperNext color="primary" [disabled]="!vendorFormGroup.valid" class="d-flex flex-row-reverse w-100">
+        <button mat-flat-button matStepperNext color="primary" [disabled]="!vendorFormGroup.valid" class="d-flex flex-row-reverse w-100">
             <span class="me-2">Selanjutnya</span>
             <mat-icon fontIcon="arrow_forward"></mat-icon>
         </button>
@@ -65,9 +65,9 @@
                             <input
                                 #usernameInput
                                 matInput
-                                [ngModel]="usernames.get(platform.id)" 
-                                (ngModelChange)="usernames.set(platform.id, $event)" 
-                                [ngModelOptions]="{standalone: true}" 
+                                [ngModel]="usernames.get(platform.id)"
+                                (ngModelChange)="usernames.set(platform.id, $event)"
+                                [ngModelOptions]="{standalone: true}"
                                 (blur)="checkPlatformUsername()"
                                 [disabled]="!companyFormGroup.controls.platform.value!.includes(platform.id)"
                                 [required]="companyFormGroup.controls.platform.value!.includes(platform.id)">
@@ -78,23 +78,39 @@
                 <mat-error *ngIf="companyFormGroup.controls.platform.hasError('username')">Username harus diisi</mat-error>
             </mat-form-field>
         </form>
-        <button mat-stroked-button matStepperNext [disabled]="!companyFormGroup.valid" color="primary" class="d-flex flex-row-reverse w-100">
+        <button mat-flat-button matStepperNext [disabled]="!companyFormGroup.valid" color="primary" class="d-flex flex-row-reverse w-100">
             <span class="me-2">Selanjutnya</span>
             <mat-icon fontIcon="arrow_forward"></mat-icon>
         </button>
     </mat-step>
-    <mat-step label="Profil" [stepControl]="profileFormGroup">
-        <form class="pt-2 d-flex flex-column" [formGroup]="profileFormGroup">
-            <p-fileUpload chooseLabel="Pilih" accept="image/*">
-                <ng-template pTemplate="content">
-                    
-                </ng-template>
-            </p-fileUpload>
-            <mat-form-field appearance="outline" class="mb-3">
+    <mat-step label="Profil" [stepControl]="profileFormGroup" (interacted)="profileStepListener()">
+        <form class="pt-2" [formGroup]="profileFormGroup">
+          <div class="border pb-4 rounded d-grid" [style.border-color]="borderColor + ' !important'" (mouseenter)="onHover()" (mouseleave)="onBlur()">
+                <input formControlName="profile" hidden>
+                <div class="px-1 floating-label" [style.opacity]="isProfileSelected() ? '1' :'0'">Foto profil*</div>
+                <p-fileUpload
+                    mode="basic"
+                    chooseLabel="Pilih foto profil"
+                    accept="image/*"
+                    class=" z-1 file-upload"
+                    (onSelect)="onSelect($event)"
+                    [ngClass]="isProfileSelected() ? 'position-absolute pt-4' : ''"
+                    [style.opacity]="(isProfileSelected() && !isProfileHovered) ? '0' :'1'"></p-fileUpload>
+                <img
+                    *ngIf="profileFormGroup.controls.profile.value?.length != 0"
+                    class="px-1 profile-image"
+                    [src]="profileFormGroup.controls.profile.value"
+                    [style.filter]="isProfileHovered ? 'brightness(0.5)' : ''">
+          </div>
+          <div [style.visibility]="isProfileError ? 'visible' : 'hidden'" class="mb-3 px-3" style="color: #f44336;">Foto profil harus dipilih</div>
+          <mat-form-field appearance="outline" class="mb-3 w-100">
                 <mat-label>Deskripsi</mat-label>
                 <textarea formControlName="description" matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" required></textarea>
                 <mat-error *ngIf="profileFormGroup.controls.description.hasError('required')">Deskripsi harus diisi</mat-error>
-            </mat-form-field>
+          </mat-form-field>
         </form>
+        <button mat-flat-button matStepperNext color="primary" [disabled]="profileFormGroup.invalid" class="d-flex flex-row-reverse w-100">
+            <span class="me-2">Daftar</span>
+        </button>
     </mat-step>
 </mat-stepper>

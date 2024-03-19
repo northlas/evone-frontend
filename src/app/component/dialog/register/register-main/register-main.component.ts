@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./register-main.component.css']
 })
 export class RegisterMainComponent {
-  public state = 'vendor'
+  public state = 'main'
 
   constructor() {}
 
