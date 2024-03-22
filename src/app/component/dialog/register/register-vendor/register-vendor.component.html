@@ -13,6 +13,12 @@
                 <mat-error *ngIf="vendorFormGroup.controls.email.hasError('email')">Format email tidak valid</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="mb-3">
+                <mat-label>Nomor Telepon</mat-label>
+                <input matInput required formControlName="phone">
+                <mat-error *ngIf="vendorFormGroup.controls.phone.hasError('required')">Nomor telepon harus diisi</mat-error>
+                <mat-error *ngIf="vendorFormGroup.controls.phone.hasError('pattern')">Nomor telepon hanya boleh diisi dengan angka</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Kata Sandi</mat-label>
                 <input type="password" autocomplete="new-password" matInput required formControlName="password" minlength="8">
                 <mat-error *ngIf="vendorFormGroup.controls.password.hasError('required')">Kata sandi harus diisi</mat-error>
@@ -45,6 +51,11 @@
                     <mat-option *ngFor="let city of filteredCities" [value]="city.id">{{city.name}}</mat-option>
                 </mat-select>
                 <mat-error>Kabupaten / kota harus dipilih</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="mb-3">
+                <mat-label>Alamat</mat-label>
+                <input matInput required formControlName="address">
+                <mat-error *ngIf="companyFormGroup.controls.address.hasError('required')">Alamat harus diisi</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Kategori</mat-label>
@@ -109,7 +120,7 @@
                 <mat-error *ngIf="profileFormGroup.controls.description.hasError('required')">Deskripsi harus diisi</mat-error>
           </mat-form-field>
         </form>
-        <button mat-flat-button matStepperNext color="primary" [disabled]="profileFormGroup.invalid" class="d-flex flex-row-reverse w-100">
+        <button mat-flat-button matStepperNext (click)="onRegister()" color="primary" class="d-flex flex-row-reverse w-100">
             <span class="me-2">Daftar</span>
         </button>
     </mat-step>

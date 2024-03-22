@@ -24,7 +24,7 @@ export class LoginComponent {
       next:(response: HttpResponse<BaseResponse>) => {
         const token = response.headers.get(HeaderType.JWT_TOKEN)!;
         this.authService.saveToken(token);
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       },
       error: (error: HttpErrorResponse) => {
         this.password = undefined;

@@ -1,16 +1,21 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
-import { FileSelectEvent, UploadEvent } from 'primeng/fileupload';
+import { MatDialogRef } from '@angular/material/dialog';
+import { FileSelectEvent } from 'primeng/fileupload';
+import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Category } from 'src/app/model/category';
 import { City } from 'src/app/model/city';
 import { Platform } from 'src/app/model/platform';
 import { Province } from 'src/app/model/province';
-import { AuthenticationService } from 'src/app/service/authentication.service';
+import { Vendor } from 'src/app/model/vendor';
+import { VendorSocialMedia } from 'src/app/model/vendor-social-media';
 import { CategoryService } from 'src/app/service/category.service';
 import { CityService } from 'src/app/service/city.service';
+import { NotificationService } from 'src/app/service/notification.service';
 import { PlatformService } from 'src/app/service/platform.service';
 import { ProvinceService } from 'src/app/service/province.service';
 import { VendorService } from 'src/app/service/vendor.service';
+import { RegisterMainComponent } from '../register-main/register-main.component';
 
 @Component({
   selector: 'app-register-vendor',
@@ -26,6 +31,7 @@ export class RegisterVendorComponent implements OnInit{
   public categories: Category[] = [];
   public platforms: Platform[] = [];
   public usernames = new Map<number, string>();
+  public profileImage?: File;
   public isProfileHovered = false;
   public borderColor = '#9e9e9e'
   public isProfileError = false;
@@ -33,6 +39,7 @@ export class RegisterVendorComponent implements OnInit{
   public vendorFormGroup = this.formBuilder.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required, Validators.pattern('[0-9]+')]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmPassword: ['', Validators.required]
   }, {
@@ -42,19 +49,22 @@ export class RegisterVendorComponent implements OnInit{
   public companyFormGroup = this.formBuilder.group({
     province: [undefined, Validators.required],
     city: [{value: undefined, disabled: true}, Validators.required],
-    category: [undefined, Validators.required],
+    address: ['', Validators.required],
+    category: [[] as number[], Validators.required],
     platform: [[] as number[], Validators.required]
   })
 
   public profileFormGroup = this.formBuilder.group({
+    image: [{} as File],
     profile: ['', Validators.required],
     description: ['', Validators.required],
   })
 
   constructor(
+    private dialogRef: MatDialogRef<RegisterMainComponent>,
     private formBuilder: FormBuilder,
     private vendorService: VendorService,
-    private authService: AuthenticationService,
+    private notificationService: NotificationService,
     private provinceService: ProvinceService,
     private cityService: CityService,
     private categoryService: CategoryService,
@@ -65,7 +75,6 @@ export class RegisterVendorComponent implements OnInit{
     this.getCities();
     this.getPlatforms();
     this.provinceListener();
-    this.platformListener();
     this.categories = this.categoryService.categories.value;
   }
 
@@ -132,14 +141,6 @@ export class RegisterVendorComponent implements OnInit{
     })
   }
 
-  private platformListener() {
-    this.companyFormGroup.controls.platform.valueChanges.subscribe({
-      next: value => {
-
-      }
-    })
-  }
-
   public profileStepListener() {
     if (this.profileFormGroup.controls.profile.invalid) {
       this.isProfileError = true;
@@ -181,7 +182,6 @@ export class RegisterVendorComponent implements OnInit{
     }
   }
 
-
   public onBlur() {
     if (!this.isProfileError) {
       this.isProfileHovered = false;
@@ -195,13 +195,51 @@ export class RegisterVendorComponent implements OnInit{
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.isProfileError = false;
+      this.profileFormGroup.controls.image.setValue(file);
       this.profileFormGroup.controls.profile.setValue(reader.result!.toString());
     }
   }
 
   public onRegister() {
-    for (let key of this.usernames.keys()) {
-      console.log(key)
-    }
+    const accountForm = this.vendorFormGroup.controls;
+    const companyForm = this.companyFormGroup.controls;
+    const profileForm = this.profileFormGroup.controls;
+
+    const city = {} as City;
+    city.id = companyForm.city.value!;
+
+    const categories: Category[] = [];
+    companyForm.category.value?.forEach(value => {
+      const category = {} as Category;
+      category.id = value;
+      categories.push(category)
+    })
+
+    const socialMedia: VendorSocialMedia[] = [];
+    companyForm.platform.value?.forEach(value => {
+      socialMedia.push({
+        platformId: value,
+        username: this.usernames.get(value)!
+      })
+    })
+    
+    const vendor = {} as Vendor;
+    vendor.email = accountForm.email.value!;
+    vendor.name = accountForm.name.value!;
+    vendor.password = accountForm.confirmPassword.value!;
+    vendor.address = companyForm.address.value!;
+    vendor.phone = accountForm.phone.value!;
+    vendor.description = profileForm.description.value!;
+    vendor.accountNo = '123456789';
+    vendor.city = city;
+    vendor.categories = categories;
+    vendor.socialMedia = socialMedia;
+
+    this.vendorService.addVendor(vendor, profileForm.image.value!).subscribe({
+      next: response => {
+        this.notificationService.notify(NotificationType.SUCCESS, response.message);
+        this.dialogRef.close(true);
+      }
+    })
   }
 }

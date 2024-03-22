@@ -43,7 +43,6 @@ import { RegisterMainComponent } from './component/dialog/register/register-main
 import { RegisterUserComponent } from './component/dialog/register/register-user/register-user.component';
 import { RegisterVendorComponent } from './component/dialog/register/register-vendor/register-vendor.component';
 
-
 const notifierCustomOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -85,6 +84,16 @@ const notifierCustomOptions: NotifierOptions = {
   },
 };
 
+const currencyMaskConfig: CurrencyMaskConfig = {
+  align: 'center',
+  allowNegative: false,
+  decimal: ',',
+  precision: 0,
+  prefix: 'Rp',
+  suffix: '',
+  thousands: '.'
+}
+
 registerLocaleData(localeId)
 @NgModule({
   declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, SortComponent, FilterComponent, RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe],
@@ -115,7 +124,7 @@ registerLocaleData(localeId)
     CarouselModule,
     FileUploadModule,
   ],
-  providers: [AuthenticationService, NotificationService, {provide: LOCALE_ID, useValue: 'id-ID'}],
+  providers: [AuthenticationService, NotificationService, {provide: LOCALE_ID, useValue: 'id-ID'}, {provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

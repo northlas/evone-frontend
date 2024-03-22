@@ -18,7 +18,6 @@ export class NavigationComponent implements OnInit{
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isUserLoggedIn();
     if (this.isLoggedIn) this.userName = this.authService.getUserName();
-    this.openRegister()
   }
 
   public openLogin() {
@@ -27,8 +26,8 @@ export class NavigationComponent implements OnInit{
     dialogConfig.autoFocus = false;
     const dialogRef = this.dialog.open(LoginComponent, dialogConfig);
     dialogRef.afterClosed().subscribe({
-      next: () => {
-        if(this.authService.isUserLoggedIn()) {
+      next: (isLoggedIn: boolean) => {
+        if(isLoggedIn) {
           window.location.reload();
         }
       }
@@ -42,11 +41,9 @@ export class NavigationComponent implements OnInit{
     dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(RegisterMainComponent, dialogConfig);
     dialogRef.afterClosed().subscribe({
-      next: (isRegistered: boolean) => {
-        if(isRegistered === false) {
+      next: (openLogin: boolean) => {
+        if(openLogin === true) {
           this.openLogin();
-        }
-        else {
         }
       }
     })
