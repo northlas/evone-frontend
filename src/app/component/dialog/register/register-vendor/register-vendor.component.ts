@@ -222,7 +222,7 @@ export class RegisterVendorComponent implements OnInit{
         username: this.usernames.get(value)!
       })
     })
-    
+
     const vendor = {} as Vendor;
     vendor.email = accountForm.email.value!;
     vendor.name = accountForm.name.value!;

@@ -13,8 +13,8 @@ const routes: Routes = [
     {path: 'vendor', title: 'Vendor', component: VendorDashboardComponent, children: [
       {path: '', component: VendorDashboardMainComponent},
       {path: 'search', component: VendorDashboardCategoryComponent},
-      {path: 'profile/:vendorName', component: VendorDetailComponent},
-      {path: 'service/:serviceName', component: VendorServiceComponent}
+      {path: ':vendorName', component: VendorDetailComponent},
+      {path: ':vendorName/service/:serviceName', component: VendorServiceComponent}
     ]}
   ]},
 ];

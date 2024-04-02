@@ -34,7 +34,7 @@ export class VendorDashboardMainComponent implements OnInit{
       numScroll:3
     }
   ]
-  
+
   constructor(private categoryService: CategoryService, private vendorService: VendorService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
@@ -42,15 +42,13 @@ export class VendorDashboardMainComponent implements OnInit{
   }
 
   private getCategories() {
-    setTimeout(() => {
-      this.categoryService.categories$.subscribe({
-        next: (categories: Category[]) => {
-          if (categories.length > 0) {
-            this.getVendors(structuredClone(categories));
-          }
+    this.categoryService.categories$.subscribe({
+      next: (categories: Category[]) => {
+        if (categories.length > 0) {
+          this.getVendors(structuredClone(categories));
         }
-      })
-    }, 1000);
+      }
+    })
   }
 
   private getVendors(categories: Category[]) {
