@@ -8,7 +8,7 @@
                 <ng-template let-vendor pTemplate="item">
                   <mat-card style="width: 90%;">
                     <a [routerLink]="vendor.slugName">
-                      <img class="border-bottom border-top w-100" mat-card-image [src]="vendor.profile | image">
+                      <img class="border-bottom border-top w-100" mat-card-image [src]="vendor.profile | image | async">
                       <mat-card-content class="mt-2">
                           <div class="d-flex flex-column text-break">
                               <span class="fw-medium text-break">{{vendor.name}}</span>

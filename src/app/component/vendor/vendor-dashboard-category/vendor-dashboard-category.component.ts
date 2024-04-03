@@ -36,25 +36,24 @@ export class VendorDashboardCategoryComponent {
 
   public getVendors(isChangeParam: boolean) {
     if (this.vendors.length != this.totalItems) {
+      console.log('test')
       this.isLoading = true;
       this.page++;
-      setTimeout(() => {
-        this.vendorService.getAllVendor(this.searchParam, this.page).subscribe({
-          next: (response: BasePageResponse) => {
-            this.isLoading = false;
+      this.vendorService.getAllVendor(this.searchParam, this.page).subscribe({
+        next: (response: BasePageResponse) => {
+          this.isLoading = false;
 
-            if (isChangeParam) this.vendors = response.items;
-            else this.vendors.push(...response.items);
+          if (isChangeParam) this.vendors = response.items;
+          else this.vendors.push(...response.items);
 
-            if (response.totalItems >= 0) {
-              this.totalItems = response.totalItems
-              if (this.vendors.length != response.totalItems) {
-                this.isLoading = true;
-              }
+          if (response.totalItems >= 0 && this.totalItems < 0) {
+            this.totalItems = response.totalItems
+            if (this.vendors.length != response.totalItems) {
+              this.isLoading = true;
             }
           }
-        })
-      }, 1000);
+        }
+      })
     }
   }
 
