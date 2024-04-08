@@ -1,0 +1,16 @@
+::ng-deep app-job-dashboard-main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+:host ::ng-deep .p-carousel-item {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+:host ::ng-deep .mat-mdc-card {
+    --mdc-elevated-card-container-elevation: 0px 5px 3px 1px rgba(0, 0, 0, 0.2),
+      0px 3px 2px 0px rgba(0, 0, 0, 0.15), 0px 1px 1px 0px rgba(0, 0, 0, 0.1);
+}
