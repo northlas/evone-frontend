@@ -29,14 +29,19 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { CarouselModule } from "primeng/carousel";
 import { FileUploadModule } from 'primeng/fileupload';
 import { VendorDashboardComponent } from './component/vendor/vendor-dashboard/vendor-dashboard.component';
+import { JobDashboardComponent } from './component/job/job-dashboard/job-dashboard.component';
 import { NavigationComponent } from './component/navigation/navigation.component';
 import { VendorDashboardCategoryComponent } from './component/vendor/vendor-dashboard-category/vendor-dashboard-category.component';
+import { JobDashboardCategoryComponent } from './component/job/job-dashboard-category/job-dashboard-category.component';
 import { VendorDetailComponent } from './component/vendor/vendor-detail/vendor-detail.component';
 import { VendorServiceComponent } from './component/vendor/vendor-service/vendor-service.component';
 import { VendorDashboardMainComponent } from './component/vendor/vendor-dashboard-main/vendor-dashboard-main.component';
+import { JobDashboardMainComponent } from './component/job/job-dashboard-main/job-dashboard-main.component';
 import { LoginComponent } from './component/dialog/login/login.component';
 import { SortComponent } from './component/dialog/sort/sort.component';
+import { JobSortComponent } from './component/dialog/jobSort/jobSort.component';
 import { FilterComponent } from './component/dialog/filter/filter.component';
+import { JobFilterComponent } from './component/dialog/jobFilter/jobFilter.component';
 import { AuthenticationService } from './service/authentication.service';
 import { NotificationService } from './service/notification.service';
 import { RegisterMainComponent } from './component/dialog/register/register-main/register-main.component';
@@ -96,7 +101,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
 
 registerLocaleData(localeId)
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, SortComponent, FilterComponent, RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent,JobDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent,JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,0 +1,32 @@
+<div class="flex-grow-1 d-flex flex-column rounded-top-5 p-4" style="background-color: white;">
+    <div *ngIf="!isLoading">
+        <div *ngFor="let talentJob of talentJobs | keyvalue : disableSort">
+            <p-carousel [value]="talentJob.value" *ngIf="talentJob.value.length > 0" [numVisible]="6" [numScroll]="6" [responsiveOptions]="responsiveOptions">
+                <ng-template pTemplate="header">
+                    <h5 class="mb-2">{{talentJob.key}}</h5>
+                </ng-template>
+                <ng-template let-job pTemplate="item">
+                  <mat-card style="width: 90%;">
+                    <a [routerLink]="job.slugName">
+                      <img class="border-bottom border-top w-100" mat-card-image [src]="job.profile | image | async">
+                      <mat-card-content class="mt-2">
+                          <div class="d-flex flex-column text-break">
+                              <span class="fw-medium text-break">{{job.title}}</span>
+                              <span class="text-secondary " style="font-size: 0.8rem;">{{job.province.name}}</span>
+                              <span class="flex-grow-1" style="font-size: 0.7rem;">{{job.occasion.name}}</span>
+                              <span class="mt-2 fw-medium" style="color: #ec770c;">
+                                  {{job.minPrice === job.maxPrice ? (job.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') :
+                                  (job.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') + ' - ' + (job.maxPrice | currency: 'Rp' : 'symbol' : '1.0-0')}}
+                              </span>
+                          </div>
+                      </mat-card-content>
+                    </a>
+                  </mat-card>
+                </ng-template>
+            </p-carousel>
+        </div>
+    </div>
+    <div class="flex-grow-1 d-flex justify-content-center align-items-center py-3 w-100" *ngIf="isLoading">
+		  <mat-spinner [diameter]="80" color="accent"></mat-spinner>
+	  </div>
+</div>
