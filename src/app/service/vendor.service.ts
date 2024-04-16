@@ -19,7 +19,11 @@ export class VendorService {
     const params = new HttpParams({fromObject: param}).append('page', page);
     return this.http.get<BasePageResponse>(`${this.host}/api/vendors`, {params: params})
   }
-  
+
+  public getVendorDetail(slugName: string): Observable<Vendor> {
+    return this.http.get<Vendor>(`${this.host}/api/vendors/${slugName}`)
+  }
+
   public addVendor(model: Vendor, profile: File): Observable<BaseResponse> {
     const formData = new FormData();
     formData.set('model', new Blob([JSON.stringify(model)], {type: 'application/json'}))

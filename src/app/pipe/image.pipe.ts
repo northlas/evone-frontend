@@ -16,17 +16,21 @@ export class ImagePipe implements PipeTransform {
     }
   })
 
-  async transform(base64: string): Promise<SafeResourceUrl> {
+  async transform(slugName: string): Promise<SafeResourceUrl> {
     const getObjectRequest = new GetObjectCommand({
       Bucket: 'https://b9d00b840e6390b267db3210d764922d.r2.cloudflarestorage.com/evone',
-      Key: 'vendor/jeon-jk-1.jpg',
+      Key: `${slugName}.jpg`,
       ResponseContentType: 'image/jpeg',
     })
 
     return new Promise(async resolve => {
       this.s3Client.send(getObjectRequest).then(response => {
         response.Body?.transformToByteArray().then(body => {
-          resolve(this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + btoa(String.fromCharCode(...body))))
+          let binary = '';
+          for (let i = 0; i < body.length; i++) {
+            binary += String.fromCharCode(body[i]);
+          }
+          resolve(this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + btoa(binary)))
         })
       })
     })

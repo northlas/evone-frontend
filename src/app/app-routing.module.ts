@@ -20,11 +20,11 @@ const routes: Routes = [
       {path: ':vendorName/service/:serviceName', component: VendorServiceComponent}
     ]},
     {path: 'freelance', title: 'Freelance', component: JobDashboardComponent, children: [
-          {path: '', component: JobDashboardMainComponent},
-          {path: 'search', component: JobDashboardCategoryComponent},
-          {path: ':vendorName', component: VendorDetailComponent},
-          {path: ':vendorName/service/:serviceName', component: VendorServiceComponent}
-        ]}
+      {path: '', component: JobDashboardMainComponent},
+      {path: 'search', component: JobDashboardCategoryComponent},
+      {path: ':vendorName', component: VendorDetailComponent},
+      {path: ':vendorName/service/:serviceName', component: VendorServiceComponent}
+    ]}
   ]},
 ];
 

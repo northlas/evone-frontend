@@ -9,18 +9,20 @@
 		[infiniteScrollDistance]="1">
 		<mat-grid-tile *ngFor="let vendor of vendors">
 			<mat-card style="width: 90%;">
-				<img class="border-bottom border-top w-100" mat-card-image [src]="vendor.profile | image |async">
-				<mat-card-content class="mt-2">
-					<div class="d-flex flex-column text-break">
-						<span class="fw-medium text-break">{{vendor.name}}</span>
-						<span class="text-secondary" style="font-size: 0.8rem;">{{vendor.city.name}}</span>
-						<span style="font-size: 0.7rem;">4,7/5 (23 review)</span>
-						<span class="mt-2 fw-medium" style="color: #ec770c;">
-							{{vendor.minPrice === vendor.maxPrice ? (vendor.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') :
-							(vendor.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') + ' - ' + (vendor.maxPrice | currency: 'Rp' : 'symbol' : '1.0-0')}}
-						</span>
-					</div>
-				</mat-card-content>
+        <a [href]="'vendor/' + vendor.slugName">
+          <img class="border-bottom border-top w-100" mat-card-image [src]="vendor.slugName | image |async">
+          <mat-card-content class="mt-2">
+            <div class="d-flex flex-column text-break">
+              <span class="fw-medium text-break">{{vendor.name}}</span>
+              <span class="text-secondary" style="font-size: 0.8rem;">{{vendor.city.name}}</span>
+              <span style="font-size: 0.7rem;">4,7/5 (23 review)</span>
+              <span class="mt-2 fw-medium" style="color: #ec770c;">
+                {{vendor.minPrice === vendor.maxPrice ? (vendor.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') :
+                (vendor.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') + ' - ' + (vendor.maxPrice | currency: 'Rp' : 'symbol' : '1.0-0')}}
+              </span>
+            </div>
+          </mat-card-content>
+        </a>
 			</mat-card>
 		</mat-grid-tile>
 	</mat-grid-list>
