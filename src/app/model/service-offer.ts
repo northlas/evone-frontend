@@ -1,6 +1,7 @@
 import { Category } from "./category";
 import { Occasion } from "./occasion";
 import { ServiceOfferPicture } from "./service-offer-picture";
+import { Vendor } from "./vendor";
 
 export interface ServiceOffer {
   title: string,
@@ -10,6 +11,7 @@ export interface ServiceOffer {
   isActive: boolean,
   createdDt: Date,
   updatedDt: Date,
+  vendor: Vendor,
   category: Category,
   occasions: Occasion[],
   pictures: ServiceOfferPicture[],

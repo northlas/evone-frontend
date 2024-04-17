@@ -1,1 +1,15 @@
-<p>vendor-service works!</p>
+<div *ngIf="serviceOffer" class="flex-grow-1 d-flex flex-column rounded-top-5 p-4" style="background-color: white;">
+    <div class="border rounded" style="height: 300px;">
+      <img [src]="('service offer/' + serviceOffer.pictures[0].id) | image | async" class="w-100 rounded h-100" style="object-fit: contain; background-color: gray">
+    </div>
+    <div class="d-flex flex-column my-3">
+      <h3 class="color-primary">{{serviceOffer.title}}</h3>
+      <span>4,7/5 (23 review)</span>
+      <span class="my-2" style="color: #7A6969;">FOCUS PRODUCTIONS PT Sinar Prima Indah As Our Registered Company Is A Dynamic Professional And Creative Event Production Company With Offices In Both Jakarta And Bali Established In 1999 FOCUS PRODUCTIONS Can Provide An International Standard Of Audio Visual Equipments To Make Any Event A Memorable Success Our Main Expertise Are In The Industry Of M I C E Weddings Concerts National TV Broadcast And Other International Events We Have Over A Decade Of Diverse Experiences In Supportin</span>
+      <h4 class="color-orange">{{serviceOffer.price | currency: 'Rp' : 'symbol' : '1.0-0'}}</h4>
+      <div class="align-self-end" style="width: 150px;">
+        <button mat-flat-button color="primary" class="w-100">Pesan</button>
+      </div>
+    </div>
+  </div>
+  

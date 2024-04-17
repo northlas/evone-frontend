@@ -12,7 +12,11 @@ export class ServiceOfferService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllServiceOfferByVendorSlugName(vendorSlugName: string): Observable<any> {
+  public getAllServiceOfferByVendor(vendorSlugName: string): Observable<any> {
     return this.http.get<any>(`${this.host}/api/vendors/${vendorSlugName}/service-offers`)
+  }
+
+  public getServiceOfferDetail(serviceSlugTitle: string): Observable<any> {
+    return this.http.get<any>(`${this.host}/api/service-offers/${serviceSlugTitle}`);
   }
 }

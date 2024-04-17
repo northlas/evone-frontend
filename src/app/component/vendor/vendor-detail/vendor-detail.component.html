@@ -4,19 +4,19 @@
   </div>
   <div class="d-flex flex-column my-3">
     <h3 class="color-primary">{{vendor.name}}</h3>
-    <span style="font-size: 0.7rem;">{{vendor.city.name + ', ' + vendor.province.name}}</span>
-    <span style="font-size: 0.7rem;">4,7/5 (23 review)</span>
-    <span class="my-2 w-50">FOCUS PRODUCTIONS PT Sinar Prima Indah As Our Registered Company Is A Dynamic Professional And Creative Event Production Company With Offices In Both Jakarta And Bali Established In 1999 FOCUS PRODUCTIONS Can Provide An International Standard Of Audio Visual Equipments To Make Any Event A Memorable Success Our Main Expertise Are In The Industry Of M I C E Weddings Concerts National TV Broadcast And Other International Events We Have Over A Decade Of Diverse Experiences In Supportin</span>
+    <span style="font-size: 0.8rem;">{{vendor.city.name + ', ' + vendor.province.name}}</span>
+    <span style="font-size: 0.8rem;">4,7/5 (23 review)</span>
+    <span class="my-2" style="color: #7A6969;">FOCUS PRODUCTIONS PT Sinar Prima Indah As Our Registered Company Is A Dynamic Professional And Creative Event Production Company With Offices In Both Jakarta And Bali Established In 1999 FOCUS PRODUCTIONS Can Provide An International Standard Of Audio Visual Equipments To Make Any Event A Memorable Success Our Main Expertise Are In The Industry Of M I C E Weddings Concerts National TV Broadcast And Other International Events We Have Over A Decade Of Diverse Experiences In Supportin</span>
   </div>
   <div>
     <h4>Etalase</h4>
     <mat-grid-list
-		*ngIf="serviceOffers.length > 0"
-		cols="4"
-		rowHeight="350px"
-		style="width: 1200px;"
-		infinite-scroll
-		[infiniteScrollDistance]="1">
+      *ngIf="serviceOffers.length > 0"
+      cols="4"
+      rowHeight="350px"
+      style="width: 1200px;"
+      infinite-scroll
+      [infiniteScrollDistance]="1">
 		<mat-grid-tile *ngFor="let serviceOffer of serviceOffers">
 			<mat-card style="width: 90%;">
         <a [href]="'vendor/' + vendor.slugName + '/service/' + serviceOffer.slugTitle">

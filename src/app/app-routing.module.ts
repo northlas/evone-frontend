@@ -17,7 +17,7 @@ const routes: Routes = [
       {path: '', component: VendorDashboardMainComponent},
       {path: 'search', component: VendorDashboardCategoryComponent},
       {path: ':vendorName', component: VendorDetailComponent},
-      {path: ':vendorName/service/:serviceName', component: VendorServiceComponent}
+      {path: ':vendorName/service/:serviceTitle', component: VendorServiceComponent}
     ]},
     {path: 'freelance', title: 'Freelance', component: JobDashboardComponent, children: [
       {path: '', component: JobDashboardMainComponent},

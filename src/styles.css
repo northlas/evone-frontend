@@ -13,6 +13,10 @@ a {color: inherit; text-decoration: none;}
     color: #4c606a !important;
 }
 
+.color-orange {
+    color: #ec770c !important;
+}
+
 .background-color-secondary {
     background-color: #4c606a !important;
 }
