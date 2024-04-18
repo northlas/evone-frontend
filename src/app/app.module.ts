@@ -26,6 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatTabsModule } from '@angular/material/tabs';
 import { CarouselModule } from "primeng/carousel";
 import { FileUploadModule } from 'primeng/fileupload';
 import { VendorDashboardComponent } from './component/vendor/vendor-dashboard/vendor-dashboard.component';
@@ -47,6 +48,10 @@ import { NotificationService } from './service/notification.service';
 import { RegisterMainComponent } from './component/dialog/register/register-main/register-main.component';
 import { RegisterUserComponent } from './component/dialog/register/register-user/register-user.component';
 import { RegisterVendorComponent } from './component/dialog/register/register-vendor/register-vendor.component';
+import { ChatComponent } from './component/toolbar/chat/chat.component';
+import { WishlistComponent } from './component/toolbar/wishlist/wishlist.component';
+import { VendorProductDashboardComponent } from './component/vendor/vendor-product-dashboard/vendor-product-dashboard.component';
+import { VendorProductServiceComponent } from './component/vendor/vendor-product-service/vendor-product-service.component';
 
 const notifierCustomOptions: NotifierOptions = {
   position: {
@@ -101,7 +106,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
 
 registerLocaleData(localeId)
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent,JobDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent,JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent,JobDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent,JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, ChatComponent, WishlistComponent, VendorProductDashboardComponent, VendorProductServiceComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -126,6 +131,7 @@ registerLocaleData(localeId)
     MatRadioModule,
     MatMenuModule,
     MatStepperModule,
+    MatTabsModule,
     CarouselModule,
     FileUploadModule,
   ],

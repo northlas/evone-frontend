@@ -1,0 +1,29 @@
+<div class="flex-grow-1 d-flex flex-column align-items-center rounded-top-5 p-4" style="background-color: white;">
+    <div class="container">
+        <span>Etalase</span>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3">
+            <div class="col" *ngFor="let serviceOffer of serviceOffers">
+                <mat-card>
+                    <a [href]="'product/' + serviceOffer.slugTitle">
+                    <img class="border-bottom border-top w-100" mat-card-image [src]="'service offer/' + serviceOffer.pictures[0].id| image |async">
+                    <mat-card-content class="mt-2">
+                        <div class="d-flex flex-column">
+                        <span class="fw-medium text-ellipsis">{{serviceOffer.title}}</span>
+                        <span style="font-size: 0.7rem;">4,7/5 (23 review)</span>
+                        <span class="mt-2 fw-medium" style="color: #ec770c;">
+                            {{serviceOffer.price | currency: 'Rp' : 'symbol' : '1.0-0'}}
+                        </span>
+                        </div>
+                    </mat-card-content>
+                    </a>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+	<div class="flex-grow-1 d-flex justify-content-center align-items-center py-3 w-100" *ngIf="isLoading">
+		<mat-spinner [diameter]="80" color="accent"></mat-spinner>
+	</div>
+	<div class="flex-grow-1 d-flex align-items-center" *ngIf="!isLoading && serviceOffers.length == 0">
+		<span>Produk tidak ditemukan</span>
+	</div>
+</div>

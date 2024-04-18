@@ -9,6 +9,7 @@ import { VendorDetailComponent } from './component/vendor/vendor-detail/vendor-d
 import { VendorServiceComponent } from './component/vendor/vendor-service/vendor-service.component';
 import { VendorDashboardMainComponent } from './component/vendor/vendor-dashboard-main/vendor-dashboard-main.component';
 import { JobDashboardMainComponent } from './component/job/job-dashboard-main/job-dashboard-main.component';
+import { VendorProductDashboardComponent } from './component/vendor/vendor-product-dashboard/vendor-product-dashboard.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'vendor', pathMatch: 'full'},
@@ -24,7 +25,8 @@ const routes: Routes = [
       {path: 'search', component: JobDashboardCategoryComponent},
       {path: ':vendorName', component: VendorDetailComponent},
       {path: ':vendorName/service/:serviceName', component: VendorServiceComponent}
-    ]}
+    ]},
+    {path: 'product', title: 'Product', component: VendorProductDashboardComponent}
   ]},
 ];
 

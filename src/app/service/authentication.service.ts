@@ -60,4 +60,8 @@ export class AuthenticationService {
   public getUserName() {
     return this.jwtHelper.decodeToken(this.token!).name;
   }
+
+  public getSlugName() {
+    return this.jwtHelper.decodeToken(this.token!).slugName;
+  }
 }
