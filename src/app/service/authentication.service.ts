@@ -18,7 +18,7 @@ export class AuthenticationService {
 
   public login(auth: string): Observable<HttpResponse<BaseResponse>> {
     const header = new HttpHeaders({Authorization: HeaderType.BASIC_AUTH + auth});
-    return this.http.post<BaseResponse>(`${this.host}/api/auth/authenticate`, null, {observe: 'response', headers: header})
+    return this.http.post<BaseResponse>(`${this.host}/api/auth/login`, null, {observe: 'response', headers: header})
   }
 
   public clearToken(): void {
@@ -47,7 +47,7 @@ export class AuthenticationService {
         return true;
       }
     }
-    
+
     this.clearToken();
     return false;
   }
@@ -59,5 +59,9 @@ export class AuthenticationService {
 
   public getUserName() {
     return this.jwtHelper.decodeToken(this.token!).name;
+  }
+
+  public getSlugName() {
+    return this.jwtHelper.decodeToken(this.token!).slugName;
   }
 }

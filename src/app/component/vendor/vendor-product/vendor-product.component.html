@@ -1,18 +1,17 @@
 <div class="sticky">
     <nav class="d-flex align-items-center ps-4 pt-3 pb-1" style="background-color: white;">
-        <ng-container *ngFor="let category of categories">
-            <div class="me-3">
-                <button mat-flat-button (click)="filterCategory(category.slugName)" [disabled]="searchParam.category == category.slugName">
-                    {{category.name}}
-                </button>
-            </div>
-        </ng-container>
+        <div class="me-3">
+            <button mat-flat-button (click)="filterProduct('service')">Jasa</button>
+        </div>
+        <div class="me-3">
+            <button mat-flat-button (click)="filterProduct('job')">Pekerjaan</button>
+        </div>
     </nav>
     <div class="d-flex justify-content-center py-3 background-color-secondary">
         <div class="d-flex w-75 align-items-center p-3 rounded-4" style="background-color: white;">
             <form class="flex-grow-1 me-3" (submit)="search(input.value)">
                 <mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-100">
-                    <input #input matInput placeholder="Cari vendor">
+                    <input #input matInput placeholder="Cari produk">
                     <button type="button" #button matPrefix mat-icon-button disabled>
                         <mat-icon fontIcon="search"></mat-icon>
                     </button>
@@ -25,4 +24,7 @@
         </div>
     </div>
 </div>
-<router-outlet></router-outlet>
+<ng-container [ngSwitch]="submenu">
+  <app-vendor-product-service *ngSwitchCase="'service'"></app-vendor-product-service>
+  <app-vendor-product-job *ngSwitch="'job'"></app-vendor-product-job>
+</ng-container>

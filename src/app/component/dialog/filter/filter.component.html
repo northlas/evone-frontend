@@ -10,7 +10,7 @@
             <span>Jenis Acara</span>
             <mat-form-field appearance="outline" subscriptSizing="dynamic">
                 <mat-select placeholder="Semua jenis acara" [formControl]="occasionForm" multiple>
-                    <mat-option *ngFor="let occasion of occasions" [value]="occasion.name">
+                    <mat-option *ngFor="let occasion of occasions" [value]="occasion.slugName">
                         {{occasion.name}}
                     </mat-option>
                 </mat-select>
@@ -21,7 +21,7 @@
             <mat-form-field appearance="outline" subscriptSizing="dynamic">
                 <mat-select placeholder="Semua lokasi" [formControl]="provinceForm">
                     <mat-option class="text-secondary">Semua lokasi</mat-option>
-                    <mat-option *ngFor="let province of provinces" [value]="province.name">
+                    <mat-option *ngFor="let province of provinces" [value]="province.slugName">
                         {{province.name}}
                     </mat-option>
                 </mat-select>

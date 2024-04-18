@@ -1,6 +1,7 @@
 import { KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { concatMap, from } from 'rxjs';
 import { Category } from 'src/app/model/category';
 import { Vendor } from 'src/app/model/vendor';
@@ -19,23 +20,23 @@ export class VendorDashboardMainComponent implements OnInit{
   public isLoading = true;
   public responsiveOptions = [
     {
-      breakpoint: '1860px',
-      numVisible: 5,
-      numScroll:5
-    },
-    {
-      breakpoint: '1560px',
-      numVisible: 4,
-      numScroll:4
-    },
-    {
-      breakpoint: '1260px',
+      breakpoint: '1280px',
       numVisible: 3,
-      numScroll:3
+      numScroll: 3
+    },
+    {
+      breakpoint: '720px',
+      numVisible: 2,
+      numScroll: 2
+    },
+    {
+      breakpoint: '480px',
+      numVisible: 1,
+      numScroll: 1
     }
   ]
 
-  constructor(private categoryService: CategoryService, private vendorService: VendorService, private sanitizer: DomSanitizer) {}
+  constructor(private categoryService: CategoryService, private vendorService: VendorService, private router: Router) {}
 
   ngOnInit(): void {
     this.getCategories();
@@ -43,9 +44,10 @@ export class VendorDashboardMainComponent implements OnInit{
 
   private getCategories() {
     this.categoryService.categories$.subscribe({
-      next: (categories: Category[]) => {
-        if (categories.length > 0) {
-          this.getVendors(structuredClone(categories));
+      next: (response: Category[]) => {
+        if (response.length > 0) {
+          this.categories = response;
+          this.getVendors(structuredClone(response));
         }
       }
     })
@@ -58,6 +60,10 @@ export class VendorDashboardMainComponent implements OnInit{
         this.categoryVendors.set(categories.shift()!.name, response.items);
         if(categories.length == 0) this.isLoading = false;
       });
+  }
+
+  public findCategorySlugName(category: string) {
+    return this.categories.find(({name}) => category)?.slugName;
   }
 
   public disableSort() {

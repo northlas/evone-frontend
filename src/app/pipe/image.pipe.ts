@@ -1,30 +1,18 @@
 import { Pipe, PipeTransform, inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { S3Service } from '../service/s3.service';
 
 @Pipe({
   name: 'image'
 })
 export class ImagePipe implements PipeTransform {
   private sanitizer = inject(DomSanitizer);
-  private s3Client = new S3Client({
-    region: 'apac',
-    bucketEndpoint: true,
-    credentials: {
-      accessKeyId: 'bcca4cf5523a07e5525bfb1c24d77559',
-      secretAccessKey: '054688e8923584e48ffd40d2ee615a026aa750d7dcd398c12fa5615ba67f3579'
-    }
-  })
+  private s3Service = inject(S3Service);
 
   async transform(slugName: string): Promise<SafeResourceUrl> {
-    const getObjectRequest = new GetObjectCommand({
-      Bucket: 'https://b9d00b840e6390b267db3210d764922d.r2.cloudflarestorage.com/evone',
-      Key: `${slugName}.jpg`,
-      ResponseContentType: 'image/jpeg',
-    })
-
     return new Promise(async resolve => {
-      this.s3Client.send(getObjectRequest).then(response => {
+      this.s3Service.getImage(slugName).then(response => {
         response.Body?.transformToByteArray().then(body => {
           let binary = '';
           for (let i = 0; i < body.length; i++) {

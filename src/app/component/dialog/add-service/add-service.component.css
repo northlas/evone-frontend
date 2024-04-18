@@ -1,0 +1,25 @@
+::ng-deep .p-fileupload-buttonbar {
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep .p-fileupload-row>div:first-child {
+  width: 75%;
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep .p-fileupload-row>div:not(:first-child):not(:last-child) {
+  display: none;
+}
+
+::ng-deep .p-fileupload-row>div:last-child {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep .p-fileupload-row>div>img {
+  height: 100%;
+}
+

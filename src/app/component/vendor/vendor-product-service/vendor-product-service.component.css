@@ -1,0 +1,13 @@
+::ng-deep app-vendor-product-service {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.status-button {
+  font-size: small;
+  color: white;
+  border-radius: 10px;
+  padding: 2px 20px;
+  height: fit-content;
+}

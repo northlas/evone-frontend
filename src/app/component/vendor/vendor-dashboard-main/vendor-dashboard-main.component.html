@@ -1,9 +1,12 @@
-<div class="flex-grow-1 d-flex flex-column rounded-top-5 p-4" style="background-color: white;">
-    <div *ngIf="!isLoading">
+<div class="flex-grow-1 d-flex flex-column align-items-center rounded-top-5 p-4" style="background-color: white;">
+    <div *ngIf="!isLoading" class="w-75">
         <div *ngFor="let categoryVendor of categoryVendors | keyvalue : disableSort">
-            <p-carousel [value]="categoryVendor.value" *ngIf="categoryVendor.value.length > 0" [numVisible]="6" [numScroll]="6" [responsiveOptions]="responsiveOptions">
+            <p-carousel [value]="categoryVendor.value" *ngIf="categoryVendor.value.length > 0" [numVisible]="4" [numScroll]="4" [responsiveOptions]="responsiveOptions">
                 <ng-template pTemplate="header">
+                  <div class="d-flex justify-content-between px-5">
                     <h5 class="mb-2">{{categoryVendor.key}}</h5>
+                    <a routerLink="/vendor/search" [queryParams]="{'category': findCategorySlugName(categoryVendor.key)}">Lihat semua</a>
+                  </div>
                 </ng-template>
                 <ng-template let-vendor pTemplate="item">
                   <mat-card style="width: 90%;">

@@ -26,7 +26,7 @@ export class FilterComponent implements OnInit{
   public minPriceForm = new FormControl();
   public maxPriceForm = new FormControl();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: VendorServiceOfferParam,private dialogRef: MatDialogRef<FilterComponent>, private occasionService: OccasionService, private provinceService: ProvinceService) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: VendorServiceOfferParam, private dialogRef: MatDialogRef<FilterComponent>, private occasionService: OccasionService, private provinceService: ProvinceService) {}
 
   ngOnInit(): void {
     this.getOccasions();
@@ -144,7 +144,7 @@ export class FilterComponent implements OnInit{
       this.minPriceForm.setValue(this.max)
     }
   }
-  
+
   public checkMaxPrice() {
     if(this.maxPriceForm.value! > this.max || this.maxPriceForm.value == null) {
       this.maxPriceForm.setValue(this.max);
