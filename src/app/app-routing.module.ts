@@ -6,6 +6,7 @@ import { NavigationComponent } from './component/navigation/navigation.component
 import { VendorDashboardCategoryComponent } from './component/vendor/vendor-dashboard-category/vendor-dashboard-category.component';
 import { JobDashboardCategoryComponent } from './component/job/job-dashboard-category/job-dashboard-category.component';
 import { VendorDetailComponent } from './component/vendor/vendor-detail/vendor-detail.component';
+import { JobDetailComponent } from './component/job/job-detail/job-detail.component';
 import { VendorServiceComponent } from './component/vendor/vendor-service/vendor-service.component';
 import { VendorDashboardMainComponent } from './component/vendor/vendor-dashboard-main/vendor-dashboard-main.component';
 import { JobDashboardMainComponent } from './component/job/job-dashboard-main/job-dashboard-main.component';
@@ -23,8 +24,7 @@ const routes: Routes = [
     {path: 'freelance', title: 'Freelance', component: JobDashboardComponent, children: [
       {path: '', component: JobDashboardMainComponent},
       {path: 'search', component: JobDashboardCategoryComponent},
-      {path: ':vendorName', component: VendorDetailComponent},
-      {path: ':vendorName/service/:serviceName', component: VendorServiceComponent}
+      {path: ':vendorName/job/:jobTitle', component: JobDetailComponent}
     ]},
     {path: 'product', title: 'Product', component: VendorProductDashboardComponent}
   ]},

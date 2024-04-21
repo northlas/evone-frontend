@@ -7,7 +7,7 @@
                 </ng-template>
                 <ng-template let-job pTemplate="item">
                   <mat-card style="width: 90%;">
-                    <a [routerLink]="job.slugName">
+                    <a [href]="'freelance/' +job.vendor.slugName + '/job/' +job.slugTitle">
                       <img class="border-bottom border-top w-100" mat-card-image [src]="job.profile | image | async">
                       <mat-card-content class="mt-2">
                           <div class="d-flex flex-column text-break">

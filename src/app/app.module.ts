@@ -35,6 +35,7 @@ import { NavigationComponent } from './component/navigation/navigation.component
 import { VendorDashboardCategoryComponent } from './component/vendor/vendor-dashboard-category/vendor-dashboard-category.component';
 import { JobDashboardCategoryComponent } from './component/job/job-dashboard-category/job-dashboard-category.component';
 import { VendorDetailComponent } from './component/vendor/vendor-detail/vendor-detail.component';
+import { JobDetailComponent } from './component/job/job-detail/job-detail.component';
 import { VendorServiceComponent } from './component/vendor/vendor-service/vendor-service.component';
 import { VendorDashboardMainComponent } from './component/vendor/vendor-dashboard-main/vendor-dashboard-main.component';
 import { JobDashboardMainComponent } from './component/job/job-dashboard-main/job-dashboard-main.component';
@@ -106,7 +107,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
 
 registerLocaleData(localeId)
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent,JobDashboardCategoryComponent, VendorDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent,JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, ChatComponent, WishlistComponent, VendorProductDashboardComponent, VendorProductServiceComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent,JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent,JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, ChatComponent, WishlistComponent, VendorProductDashboardComponent, VendorProductServiceComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
