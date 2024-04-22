@@ -41,7 +41,15 @@
         <mat-error>Deskripsi harus diisi</mat-error>
     </mat-form-field>
     <div class="border rounded">
-      <p-fileUpload class="file-upload" *ngIf="!existing || !isFetchingImage" [files]="pictures" (onSelect)="onAddPicture($event)" [multiple]="true" accept="image/*" [auto]="true" (onRemove)="onRemovePicture($event)" chooseLabel="Pilih gambar" [previewWidth]="200"></p-fileUpload>
+      <p-fileUpload class="file-upload" *ngIf="!existing || !isFetchingImage" [files]="pictures" (onSelect)="onAddPicture($event)" [multiple]="true" accept="image/*" [auto]="true" (onRemove)="onRemovePicture($event)" chooseLabel="Pilih gambar" [previewWidth]="300"></p-fileUpload>
+      <p-fileUpload class="file-upload" *ngIf="existing && isFetchingImage" [auto]="true" chooseLabel="Pilih gambar">
+        <ng-template pTemplate="content">
+          <div class="w-100 d-flex justify-content-center">
+            <mat-spinner></mat-spinner>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="file"></ng-template>
+      </p-fileUpload>
 </div>
   </form>
 </mat-dialog-content>

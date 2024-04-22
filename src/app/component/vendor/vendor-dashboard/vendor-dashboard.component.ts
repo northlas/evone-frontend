@@ -22,8 +22,12 @@ export class VendorDashboardComponent implements OnInit{
 
   constructor(private categoryService: CategoryService, private router: Router, private route: ActivatedRoute, private dialog: MatDialog) {
     this.router.events.forEach((event) => {
-      if (event instanceof Scroll && route.snapshot.queryParamMap.keys.length == 0) {
-        this.searchParam = {} as VendorServiceOfferParam;
+      if (event instanceof Scroll) {
+        if (route.snapshot.queryParamMap.keys.length == 0) {
+          this.searchParam = {} as VendorServiceOfferParam;
+        } else {
+          Object.assign(this.searchParam, this.route.snapshot.queryParams);
+        }
       }
     })
   }
@@ -79,7 +83,7 @@ export class VendorDashboardComponent implements OnInit{
   public openFilter() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '600px';
-    dialogConfig.data = this.searchParam;
+    dialogConfig.data = ({'type': 'dashboard', 'serviceParam': this.searchParam});
     dialogConfig.autoFocus = false;
     const dialogRef = this.dialog.open(FilterComponent, dialogConfig);
     dialogRef.afterClosed().subscribe({

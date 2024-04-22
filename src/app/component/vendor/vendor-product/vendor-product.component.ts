@@ -49,10 +49,14 @@ export class VendorProductComponent {
     
   }
 
+  private navigate() {
+    this.router.navigate(['.'], {queryParams: this.searchParam, relativeTo: this.route})
+  }
+
   public openFilter() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '600px';
-    dialogConfig.data = this.searchParam;
+    dialogConfig.data = ({'type': 'product', 'serviceParam': this.searchParam});
     dialogConfig.autoFocus = false;
     const dialogRef = this.dialog.open(FilterComponent, dialogConfig);
     dialogRef.afterClosed().subscribe({
@@ -60,6 +64,7 @@ export class VendorProductComponent {
         if(param) {
           this.searchParam = param;
           this.countFilter();
+          this.navigate();
         }
       }
     })

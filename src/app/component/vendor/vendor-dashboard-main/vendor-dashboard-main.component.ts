@@ -21,8 +21,8 @@ export class VendorDashboardMainComponent implements OnInit{
   public responsiveOptions = [
     {
       breakpoint: '1280px',
-      numVisible: 3,
-      numScroll: 3
+      numVisible: 4,
+      numScroll: 4
     },
     {
       breakpoint: '720px',
@@ -63,7 +63,7 @@ export class VendorDashboardMainComponent implements OnInit{
   }
 
   public findCategorySlugName(category: string) {
-    return this.categories.find(({name}) => category)?.slugName;
+    return this.categories.find(({name}) => category === name)?.slugName;
   }
 
   public disableSort() {

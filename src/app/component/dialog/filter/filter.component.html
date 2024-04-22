@@ -28,7 +28,7 @@
             </mat-form-field>
         </div>
     </div>
-    <div>
+    <div class="mb-4">
         <span>Rentang Harga</span>
         <div class="d-flex">
             <mat-form-field appearance="outline" subscriptSizing="dynamic" class="min-price flex-grow-1 me-3">
@@ -38,6 +38,13 @@
                 <input matInput currencyMask [formControl]="maxPriceForm" (blur)="checkMaxPrice()">
             </mat-form-field>
         </div>
+    </div>
+    <div>
+        <span>Status</span>
+        <mat-chip-listbox>
+            <mat-chip-option>Aktif</mat-chip-option>
+            <mat-chip-option>Nonaktif</mat-chip-option>
+        </mat-chip-listbox>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

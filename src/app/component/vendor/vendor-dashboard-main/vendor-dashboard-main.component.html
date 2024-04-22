@@ -1,35 +1,38 @@
-<div class="flex-grow-1 d-flex flex-column align-items-center rounded-top-5 p-4" style="background-color: white;">
-    <div *ngIf="!isLoading" class="w-75">
-        <div *ngFor="let categoryVendor of categoryVendors | keyvalue : disableSort">
-            <p-carousel [value]="categoryVendor.value" *ngIf="categoryVendor.value.length > 0" [numVisible]="4" [numScroll]="4" [responsiveOptions]="responsiveOptions">
-                <ng-template pTemplate="header">
-                  <div class="d-flex justify-content-between px-5">
-                    <h5 class="mb-2">{{categoryVendor.key}}</h5>
-                    <a routerLink="/vendor/search" [queryParams]="{'category': findCategorySlugName(categoryVendor.key)}">Lihat semua</a>
-                  </div>
-                </ng-template>
-                <ng-template let-vendor pTemplate="item">
-                  <mat-card style="width: 90%;">
-                    <a [href]="'vendor/' + vendor.slugName">
-                      <img class="border-bottom border-top w-100" mat-card-image [src]="'vendor/' + vendor.slugName | image | async">
-                      <mat-card-content class="mt-2">
-                          <div class="d-flex flex-column text-break">
-                              <span class="fw-medium text-break">{{vendor.name}}</span>
-                              <span class="text-secondary " style="font-size: 0.8rem;">{{vendor.province.name}}</span>
-                              <span class="flex-grow-1" style="font-size: 0.7rem;">4,7/5 (23 review)</span>
-                              <span class="mt-2 fw-medium" style="color: #ec770c;">
-                                  {{vendor.minPrice === vendor.maxPrice ? (vendor.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') :
-                                  (vendor.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') + ' - ' + (vendor.maxPrice | currency: 'Rp' : 'symbol' : '1.0-0')}}
-                              </span>
-                          </div>
-                      </mat-card-content>
-                    </a>
-                  </mat-card>
-                </ng-template>
-            </p-carousel>
-        </div>
+<div class="flex-grow-1 d-flex flex-column align-items-center rounded-top-5 py-4" style="background-color: white;">
+  <div *ngIf="!isLoading" style="width: 80%;">
+    <div *ngFor="let categoryVendor of categoryVendors | keyvalue : disableSort">
+      <p-carousel [value]="categoryVendor.value" *ngIf="categoryVendor.value.length > 0" [numVisible]="4" [numScroll]="4" [responsiveOptions]="responsiveOptions">
+        <ng-template pTemplate="header">
+          <div class="d-flex justify-content-between px-5">
+            <h5 class="mb-2">{{categoryVendor.key}}</h5>
+            <a routerLink="/vendor/search" [queryParams]="{'category': findCategorySlugName(categoryVendor.key)}">Lihat semua</a>
+          </div>
+        </ng-template>
+        <ng-template let-vendor pTemplate="item">
+          <mat-card style="width: 90%;">
+            <a [href]="'vendor/' + vendor.slugName">
+              <ng-container *ngIf="'vendor/' + vendor.slugName | image | async as picture">
+                <img *ngIf="picture.value" class="border-bottom border-top w-100 object-fit-cover" style="aspect-ratio: 1/1;" mat-card-image [src]="picture.value">
+                <div *ngIf="picture.loading" class="border-bottom border-top loading" style="aspect-ratio: 1/1;"></div>
+              </ng-container>
+              <mat-card-content class="mt-2">
+                <div class="d-flex flex-column text-break">
+                  <span class="fw-medium text-break">{{vendor.name}}</span>
+                  <span class="text-secondary " style="font-size: 0.8rem;">{{vendor.province.name}}</span>
+                  <span class="flex-grow-1" style="font-size: 0.7rem;">4,7/5 (23 review)</span>
+                  <span class="mt-2 fw-medium" style="color: #ec770c;">
+                      {{vendor.minPrice === vendor.maxPrice ? (vendor.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') :
+                      (vendor.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') + ' - ' + (vendor.maxPrice | currency: 'Rp' : 'symbol' : '1.0-0')}}
+                  </span>
+                </div>
+              </mat-card-content>
+            </a>
+          </mat-card>
+        </ng-template>
+      </p-carousel>
     </div>
-    <div class="flex-grow-1 d-flex justify-content-center align-items-center py-3 w-100" *ngIf="isLoading">
-		  <mat-spinner [diameter]="80" color="accent"></mat-spinner>
-	  </div>
+  </div>
+  <div class="flex-grow-1 d-flex justify-content-center align-items-center py-3 w-100" *ngIf="isLoading">
+    <mat-spinner [diameter]="80" color="accent"></mat-spinner>
+  </div>
 </div>

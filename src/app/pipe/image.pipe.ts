@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform, inject } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { DomSanitizer } from '@angular/platform-browser';
 import { S3Service } from '../service/s3.service';
+import { catchError, defer, map, Observable, of, startWith } from 'rxjs';
 
 @Pipe({
   name: 'image'
@@ -10,18 +10,20 @@ export class ImagePipe implements PipeTransform {
   private sanitizer = inject(DomSanitizer);
   private s3Service = inject(S3Service);
 
-  async transform(slugName: string): Promise<SafeResourceUrl> {
-    return new Promise(async resolve => {
-      this.s3Service.getImage(slugName).then(response => {
-        response.Body?.transformToByteArray().then(body => {
-          let binary = '';
-          for (let i = 0; i < body.length; i++) {
-            binary += String.fromCharCode(body[i]);
-          }
-          resolve(this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + btoa(binary)))
-        })
-      })
-    })
+  transform(slugName: string): Observable<any> {
+    return defer(async () => {
+      const response = await this.s3Service.getImage(slugName);
+      return response.Body?.transformToByteArray().then(body => {
+        let binary = '';
+        for (let i = 0; i < body.length; i++) {
+          binary += String.fromCharCode(body[i]);
+        }
+        return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + btoa(binary));
+      });
+    }).pipe(
+        map((value: any) => ({loading: false, value: value})),
+        startWith({loading: true}),
+        catchError(error => of({loading: false, error: error}))
+    )
   }
-
 }

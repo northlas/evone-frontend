@@ -11,3 +11,7 @@
   padding: 2px 20px;
   height: fit-content;
 }
+
+.pointer-event:hover {
+  cursor: pointer;
+}

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { BasePageResponse } from '../model/base-page-response';
 import { ServiceOffer } from '../model/service-offer';
+import { VendorServiceOfferParam } from '../model/vendor-service-offer-param';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class ServiceOfferService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllServiceOfferByVendor(vendorSlugName: string): Observable<any> {
-    return this.http.get<any>(`${this.host}/api/vendors/${vendorSlugName}/service-offers`)
+  public getAllServiceOfferByVendor(vendorSlugName: string, param: VendorServiceOfferParam | undefined): Observable<any> {
+    return this.http.get<any>(`${this.host}/api/vendors/${vendorSlugName}/service-offers`, {params: param})
   }
 
   public getServiceOfferDetail(serviceSlugTitle: string): Observable<any> {
@@ -37,9 +38,6 @@ export class ServiceOfferService {
     pictures.forEach((value) => {
       formData.append('pictures', value);
     })
-    console.log(pictures)
-    console.log(formData.get('model'))
-    console.log(formData.get('pictures'))
 
     return this.http.put<any>(`${this.host}/api/service-offers`, formData);
   }

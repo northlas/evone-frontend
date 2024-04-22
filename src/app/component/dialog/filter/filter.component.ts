@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Filter } from 'src/app/model/filter';
 import { Occasion } from 'src/app/model/occasion';
 import { Province } from 'src/app/model/province';
 import { VendorServiceOfferParam } from 'src/app/model/vendor-service-offer-param';
@@ -21,28 +22,35 @@ export class FilterComponent implements OnInit{
   private isFilterProvince = false;
   public occasions: Occasion[] = [];
   public provinces: Province[] = [];
-  public occasionForm = new FormControl();
-  public provinceForm = new FormControl();
-  public minPriceForm = new FormControl();
-  public maxPriceForm = new FormControl();
+  public occasionForm = new FormControl<string[] | null>(null);
+  public provinceForm = new FormControl<string | null>(null);
+  public minPriceForm = new FormControl<number | null>(null);
+  public maxPriceForm = new FormControl<number | null>(null);
+  public statusForm = new FormControl<boolean | null>(null);
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: VendorServiceOfferParam, private dialogRef: MatDialogRef<FilterComponent>, private occasionService: OccasionService, private provinceService: ProvinceService) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public filter: Filter, private dialogRef: MatDialogRef<FilterComponent>, private occasionService: OccasionService, private provinceService: ProvinceService) {}
 
   ngOnInit(): void {
+    if (this.filter.type === 'dashboard') {
+      this.getProvinces();
+      this.provinceListener();
+    }
     this.getOccasions();
-    this.getProvinces();
     this.occasionListener();
-    this.provinceListener();
     this.minPriceListener();
     this.maxPriceListener();
     this.assignFormValue();
   }
 
   private assignFormValue() {
-    this.occasionForm.setValue(this.data.occasions);
-    this.provinceForm.setValue(this.data.location);
-    this.minPriceForm.setValue(this.data.minPrice == undefined ? this.min : this.data.minPrice);
-    this.maxPriceForm.setValue(this.data.maxPrice == undefined ? this.max : this.data.maxPrice);
+    if (this.filter.type === 'dashboard') {
+      this.provinceForm.setValue(this.filter.serviceParam.location);
+    } else {
+      this.statusForm.setValue(this.filter.serviceParam.status);
+    }
+    this.occasionForm.setValue(this.filter.serviceParam.occasions);
+    this.minPriceForm.setValue(this.filter.serviceParam.minPrice == undefined ? this.min : this.filter.serviceParam.minPrice);
+    this.maxPriceForm.setValue(this.filter.serviceParam.maxPrice == undefined ? this.max : this.filter.serviceParam.maxPrice);
   }
 
   private getOccasions() {
@@ -66,11 +74,11 @@ export class FilterComponent implements OnInit{
       next: (value: string[] | null) => {
         if(value == null || value.length == 0) {
           this.isFilterOccasion = false;
-          const {occasions, ...param} = this.data;
-          this.data = param as VendorServiceOfferParam;
+          const {occasions, ...param} = this.filter.serviceParam;
+          this.filter.serviceParam = param as VendorServiceOfferParam;
         }
         else {
-          this.data.occasions = value;
+          this.filter.serviceParam.occasions = value;
           this.isFilterOccasion = true;
         }
       }
@@ -82,11 +90,11 @@ export class FilterComponent implements OnInit{
       next: (value: string | null) => {
         if(value == null || value.length == 0) {
           this.isFilterProvince = false;
-          const {location: province, ...param} = this.data;
-          this.data = param as VendorServiceOfferParam;
+          const {location: province, ...param} = this.filter.serviceParam;
+          this.filter.serviceParam = param as VendorServiceOfferParam;
         }
         else {
-          this.data.location = value;
+          this.filter.serviceParam.location = value;
           this.isFilterProvince = true;
         }
       }
@@ -99,16 +107,16 @@ export class FilterComponent implements OnInit{
         if(value == null) {
           this.minPriceForm.setValue(this.min);
           this.isFilterMinPrice = false;
-          const {minPrice, ...param} = this.data;
-          this.data = param as VendorServiceOfferParam;
+          const {minPrice, ...param} = this.filter.serviceParam;
+          this.filter.serviceParam = param as VendorServiceOfferParam;
         }
         else if(value == this.min) {
           this.isFilterMinPrice = false;
-          const {minPrice, ...param} = this.data;
-          this.data = param as VendorServiceOfferParam;
+          const {minPrice, ...param} = this.filter.serviceParam;
+          this.filter.serviceParam = param as VendorServiceOfferParam;
         }
         else {
-          this.data.minPrice = value;
+          this.filter.serviceParam.minPrice = value;
           this.isFilterMinPrice = true;
         }
       }
@@ -120,16 +128,16 @@ export class FilterComponent implements OnInit{
       next: (value: number | null) => {
         if(value == null) {
           this.maxPriceForm.setValue(this.min);
-          this.data.maxPrice = this.min;
+          this.filter.serviceParam.maxPrice = this.min;
           this.isFilterMaxPrice = true;
         }
         else if(value == this.max) {
           this.isFilterMaxPrice = false;
-          const {maxPrice, ...param} = this.data;
-          this.data = param as VendorServiceOfferParam;
+          const {maxPrice, ...param} = this.filter.serviceParam;
+          this.filter.serviceParam = param as VendorServiceOfferParam;
         }
         else {
-          this.data.maxPrice = value;
+          this.filter.serviceParam.maxPrice = value;
           this.isFilterMaxPrice = true;
         }
       }
@@ -156,6 +164,7 @@ export class FilterComponent implements OnInit{
     this.provinceForm.setValue(null);
     this.minPriceForm.setValue(this.min);
     this.maxPriceForm.setValue(this.max);
+    this.saveFilter();
   }
 
   public isFiltering() {
@@ -163,6 +172,6 @@ export class FilterComponent implements OnInit{
   }
 
   public saveFilter() {
-    this.dialogRef.close(this.data);
+    this.dialogRef.close(this.filter.serviceParam);
   }
 }

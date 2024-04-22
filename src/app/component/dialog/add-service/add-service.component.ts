@@ -142,8 +142,6 @@ export class AddServiceComponent implements OnInit {
       this.form.controls.occasions.value?.includes(id)
     );
 
-    console.log(model)
-
     if (this.existing) {
       model.slugTitle = this.existing.slugTitle;
       this.serviceOfferService.editServiceOffer(model, this.pictures).subscribe({
