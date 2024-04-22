@@ -36,7 +36,6 @@ export class VendorDashboardCategoryComponent {
 
   public getVendors(isChangeParam: boolean) {
     if (this.vendors.length != this.totalItems) {
-      console.log('test')
       this.isLoading = true;
       this.page++;
       this.vendorService.getAllVendor(this.searchParam, this.page).subscribe({

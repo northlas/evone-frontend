@@ -1,4 +1,5 @@
 export interface Occasion {
     id: number,
-    name: string
+    name: string,
+    slugName: string
 }

@@ -33,7 +33,7 @@ export class VendorDetailComponent implements OnInit{
   }
 
   private getServiceOffers() {
-    this.serviceOfferService.getAllServiceOfferByVendor(this.vendorSlugName).subscribe({
+    this.serviceOfferService.getAllServiceOfferByVendor(this.vendorSlugName, undefined).subscribe({
       next: response => {
         this.serviceOffers = response;
         this.isLoading = false;

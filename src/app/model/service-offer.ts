@@ -4,6 +4,7 @@ import { ServiceOfferPicture } from "./service-offer-picture";
 import { Vendor } from "./vendor";
 
 export interface ServiceOffer {
+  categoryId: number,
   title: string,
   slugTitle: string,
   description: string,

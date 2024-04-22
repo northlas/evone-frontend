@@ -10,7 +10,7 @@
             <span>Jenis Acara</span>
             <mat-form-field appearance="outline" subscriptSizing="dynamic">
                 <mat-select placeholder="Semua jenis acara" [formControl]="occasionForm" multiple>
-                    <mat-option *ngFor="let occasion of occasions" [value]="occasion.name">
+                    <mat-option *ngFor="let occasion of occasions" [value]="occasion.slugName">
                         {{occasion.name}}
                     </mat-option>
                 </mat-select>
@@ -21,14 +21,14 @@
             <mat-form-field appearance="outline" subscriptSizing="dynamic">
                 <mat-select placeholder="Semua lokasi" [formControl]="provinceForm">
                     <mat-option class="text-secondary">Semua lokasi</mat-option>
-                    <mat-option *ngFor="let province of provinces" [value]="province.name">
+                    <mat-option *ngFor="let province of provinces" [value]="province.slugName">
                         {{province.name}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
     </div>
-    <div>
+    <div class="mb-4">
         <span>Rentang Harga</span>
         <div class="d-flex">
             <mat-form-field appearance="outline" subscriptSizing="dynamic" class="min-price flex-grow-1 me-3">
@@ -38,6 +38,13 @@
                 <input matInput currencyMask [formControl]="maxPriceForm" (blur)="checkMaxPrice()">
             </mat-form-field>
         </div>
+    </div>
+    <div>
+        <span>Status</span>
+        <mat-chip-listbox>
+            <mat-chip-option>Aktif</mat-chip-option>
+            <mat-chip-option>Nonaktif</mat-chip-option>
+        </mat-chip-listbox>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

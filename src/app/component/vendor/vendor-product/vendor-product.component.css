@@ -1,4 +1,4 @@
-::ng-deep app-vendor-product-dashboard {
+::ng-deep app-vendor-product {
     flex-grow: 1;
     display: flex;
     flex-direction: column;

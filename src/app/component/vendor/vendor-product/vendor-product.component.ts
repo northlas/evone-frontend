@@ -8,14 +8,15 @@ import { FilterComponent } from '../../dialog/filter/filter.component';
 import { SortComponent } from '../../dialog/sort/sort.component';
 
 @Component({
-  selector: 'app-vendor-product-dashboard',
-  templateUrl: './vendor-product-dashboard.component.html',
-  styleUrls: ['./vendor-product-dashboard.component.css']
+  selector: 'app-vendor-product',
+  templateUrl: './vendor-product.component.html',
+  styleUrls: ['./vendor-product.component.css']
 })
-export class VendorProductDashboardComponent {
+export class VendorProductComponent {
   @ViewChild('input') searchField!: ElementRef;
 
   private searchParam = {} as VendorServiceOfferParam;
+  public submenu = 'service';
   public filterCount = 0;
   public isSorting = false;
 
@@ -29,9 +30,9 @@ export class VendorProductDashboardComponent {
 
   private countFilter() {
     let count = 0;
-    if(this.searchParam.occasions) count++; 
-    if(this.searchParam.location) count++; 
-    if(this.searchParam.minPrice || this.searchParam.maxPrice) count++; 
+    if(this.searchParam.occasions) count++;
+    if(this.searchParam.location) count++;
+    if(this.searchParam.minPrice || this.searchParam.maxPrice) count++;
     this.filterCount = count;
   }
 
@@ -39,31 +40,23 @@ export class VendorProductDashboardComponent {
     this.isSorting = this.searchParam.sort != undefined;
   }
 
-  private navigate() {
-    this.router.navigate(['./search'], {queryParams: this.searchParam, relativeTo: this.route})
-  }
 
-  public filterCategory(slugName: string) {
-    this.searchParam = {'category' : slugName} as VendorServiceOfferParam;
-    this.searchField.nativeElement.value = '';
-    this.filterCount = 0;
-    this.isSorting = false;
-    this.navigate();
+  public filterProduct(product: string) {
+    this.submenu = product;
   }
 
   public search(param: string) {
-    if(param.length == 0) {
-      const {name, ...param} = this.searchParam;
-      this.searchParam = param as VendorServiceOfferParam;
-    }
-    else this.searchParam.name = param;
-    this.navigate();
+    
+  }
+
+  private navigate() {
+    this.router.navigate(['.'], {queryParams: this.searchParam, relativeTo: this.route})
   }
 
   public openFilter() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '600px';
-    dialogConfig.data = this.searchParam;
+    dialogConfig.data = ({'type': 'product', 'serviceParam': this.searchParam});
     dialogConfig.autoFocus = false;
     const dialogRef = this.dialog.open(FilterComponent, dialogConfig);
     dialogRef.afterClosed().subscribe({
@@ -88,7 +81,6 @@ export class VendorProductDashboardComponent {
         if(param) {
           this.searchParam = param;
           this.countSort();
-          this.navigate();
         }
       }
     })

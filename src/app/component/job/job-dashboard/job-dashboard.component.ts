@@ -29,7 +29,6 @@ export class JobDashboardComponent implements OnInit{
     this.countFilter();
     this.countSort();
     this.getTalents();
-    console.log(this.talents);
   }
 
   private getTalents() {
