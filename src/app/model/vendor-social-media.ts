@@ -1,4 +1,7 @@
+import { Platform } from "./platform";
+
 export interface VendorSocialMedia {
     platformId: number,
-    username: string
+    username: string,
+    platform: Platform
 }

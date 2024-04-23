@@ -1,0 +1,69 @@
+<mat-dialog-actions class="d-flex justify-content-between align-items-start">
+  <h1 mat-dialog-title class="fs-4 pt-3 pb-1 ps-3">Pesanan</h1>
+  <button matDialogClose mat-icon-button>
+    <mat-icon fontIcon="close"></mat-icon>
+  </button>
+</mat-dialog-actions>
+<mat-dialog-content class="my-2 pt-0  text-dark">
+  <div>
+    <div class="d-flex mb-3">
+      <div class="border rounded-start w-25 d-flex align-items-center justify-content-center">
+        <h3 class="text-center m-0">{{serviceOffer.vendor.name}}</h3>
+      </div>
+      <div class="border rounded-end p-3 w-75">
+        <div class="d-flex flex-column">
+          <div class="d-flex">
+            <div class="me-3">
+              <h3 class="color-primary">{{serviceOffer.title}}</h3>
+              <span>{{serviceOffer.vendor.city.name + ', ' + serviceOffer.vendor.province.name}}</span>
+            </div>
+            <ul class="color-primary" style="text-wrap: nowrap;">
+              <li *ngFor="let occasion of serviceOffer.occasions">{{occasion.name}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <form [formGroup]="form" class="row row-cols-1 row-cols-xl-2" *ngIf="customer">
+      <div class="col row row-cols-1 me-2">
+        <h3 class="mb-3">Data Pemesan</h3>
+        <mat-form-field appearance="outline" class="col mb-3">
+          <mat-label>Nama Lengkap</mat-label>
+          <input matInput readonly [value]="customer.name"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col mb-3">
+          <mat-label>Nomor Telepon</mat-label>
+          <input matInput readonly [value]="customer.phone"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col mb-3">
+          <mat-label>Email</mat-label>
+          <input matInput readonly [value]="customer.email"/>
+        </mat-form-field>
+      </div>
+      <div class="col row row-cols-1">
+        <h3 class="mb-3">Detil Pesanan</h3>
+        <mat-form-field appearance="outline" class="col mb-3">
+          <mat-label>Jenis Acara</mat-label>
+          <mat-select >
+            <mat-option *ngFor="let occasion of serviceOffer.occasions" [value]="occasion.id">{{occasion.name}}</mat-option>
+          </mat-select>
+          <mat-error>Jenis acara harus dipilih</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col mb-3">
+          <mat-label>Jumlah</mat-label>
+          <input matInput/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col mb-3">
+          <mat-label>Tanggal</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate placeholder="Start date">
+            <input matEndDate placeholder="End date">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>

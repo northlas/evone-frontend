@@ -220,7 +220,7 @@ export class RegisterVendorComponent implements OnInit{
       socialMedia.push({
         platformId: value,
         username: this.usernames.get(value)!
-      })
+      } as VendorSocialMedia)
     })
 
     const vendor = {} as Vendor;

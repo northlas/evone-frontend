@@ -27,11 +27,7 @@ export class VendorProductServiceComponent implements OnInit{
         const queryParams = assignQueryParams(route.snapshot.queryParams);
         const isEmpty = (Object.keys(queryParams).length + Object.keys(this.searchParam).length) == 0;
         const isChangeParam = isEmpty || (JSON.stringify(this.searchParam) !== JSON.stringify(queryParams));
-        console.log(isEmpty)
-        console.log(isChangeParam)
-        console.log(this.isInitiated)
         if (isChangeParam && !this.isInitiated) {
-          console.log('test')
           this.serviceOffers = [];
           this.searchParam = queryParams;
           this.getServiceOffers();

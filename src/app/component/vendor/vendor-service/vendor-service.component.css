@@ -1,0 +1,11 @@
+::ng-deep app-vendor-service {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .loading {
+  background-color: #babbbc;
+  animation: hintloading 2s ease-in-out 0s infinite reverse;
+  -webkit-animation: hintloading 2s ease-in-out 0s infinite reverse;
+}

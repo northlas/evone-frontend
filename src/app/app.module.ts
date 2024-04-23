@@ -29,11 +29,13 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import  {MatRippleModule } from '@angular/material/core';
+import { MatNativeDateModule} from "@angular/material/core";
+import { MatRippleModule } from '@angular/material/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CarouselModule } from "primeng/carousel";
 import { FileUploadModule } from 'primeng/fileupload';
+import { GalleriaModule } from 'primeng/galleria';
 import { VendorDashboardComponent } from './component/vendor/vendor-dashboard/vendor-dashboard.component';
 import { JobDashboardComponent } from './component/job/job-dashboard/job-dashboard.component';
 import { NavigationComponent } from './component/navigation/navigation.component';
@@ -63,6 +65,7 @@ import { AddServiceComponent } from './component/dialog/add-service/add-service.
 import { AddJobComponent } from './component/dialog/add-job/add-job.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { LoadingComponent } from './component/dialog/loading/loading.component';
+import { OrderServiceComponent } from './component/dialog/order-service/order-service.component';
 
 const notifierCustomOptions: NotifierOptions = {
   position: {
@@ -117,7 +120,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
 
 registerLocaleData(localeId)
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, ChatComponent, WishlistComponent, VendorProductComponent, VendorProductServiceComponent, VendorProductJobComponent, AddServiceComponent, AddJobComponent, LoadingComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, ChatComponent, WishlistComponent, VendorProductComponent, VendorProductServiceComponent, VendorProductJobComponent, AddServiceComponent, AddJobComponent, LoadingComponent, OrderServiceComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -146,10 +149,12 @@ registerLocaleData(localeId)
     MatTabsModule,
     MatSlideToggleModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatRippleModule,
     MatChipsModule,
     CarouselModule,
     FileUploadModule,
+    GalleriaModule,
   ],
   providers: [AuthenticationService, NotificationService, {provide: LOCALE_ID, useValue: 'id-ID'}, {provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig}, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],
