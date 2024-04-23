@@ -1,9 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Category } from 'src/app/model/category';
-import { VendorServiceOfferParam } from 'src/app/model/vendor-service-offer-param';
-import { CategoryService } from 'src/app/service/category.service';
+import { assignQueryParams, VendorServiceOfferParam } from 'src/app/model/vendor-service-offer-param';
 import { FilterComponent } from '../../dialog/filter/filter.component';
 import { SortComponent } from '../../dialog/sort/sort.component';
 
@@ -23,13 +21,15 @@ export class VendorProductComponent {
   constructor(private router: Router, private route: ActivatedRoute, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    Object.assign(this.searchParam, this.route.snapshot.queryParams);
+    this.searchParam = assignQueryParams(this.route.snapshot.queryParams);
     this.countFilter();
     this.countSort();
   }
 
   private countFilter() {
     let count = 0;
+    if(this.searchParam.active) count++;
+    if(this.searchParam.category) count++;
     if(this.searchParam.occasions) count++;
     if(this.searchParam.location) count++;
     if(this.searchParam.minPrice || this.searchParam.maxPrice) count++;
@@ -40,13 +40,17 @@ export class VendorProductComponent {
     this.isSorting = this.searchParam.sort != undefined;
   }
 
-
   public filterProduct(product: string) {
     this.submenu = product;
   }
 
   public search(param: string) {
-    
+    if(param.length == 0) {
+      const {title: serviceName, ...param} = this.searchParam;
+      this.searchParam = param as VendorServiceOfferParam;
+    }
+    else this.searchParam.title = param;
+    this.navigate();
   }
 
   private navigate() {
@@ -81,6 +85,7 @@ export class VendorProductComponent {
         if(param) {
           this.searchParam = param;
           this.countSort();
+          this.navigate();
         }
       }
     })

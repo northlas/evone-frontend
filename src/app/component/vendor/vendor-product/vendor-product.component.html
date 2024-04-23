@@ -1,10 +1,10 @@
 <div class="sticky">
     <nav class="d-flex align-items-center ps-4 pt-3 pb-1" style="background-color: white;">
         <div class="me-3">
-            <button mat-flat-button (click)="filterProduct('service')">Jasa</button>
+            <button mat-flat-button (click)="filterProduct('service')" [disabled]="submenu === 'service'">Jasa</button>
         </div>
         <div class="me-3">
-            <button mat-flat-button (click)="filterProduct('job')">Pekerjaan</button>
+            <button mat-flat-button (click)="filterProduct('job')" [disabled]="submenu === 'job'">Pekerjaan</button>
         </div>
     </nav>
     <div class="d-flex justify-content-center py-3 background-color-secondary">
