@@ -103,7 +103,7 @@
                     mode="basic"
                     chooseLabel="Pilih foto profil"
                     accept="image/*"
-                    class=" z-1 file-upload"
+                    class="z-1 file-upload"
                     (onSelect)="onSelect($event)"
                     [ngClass]="isProfileSelected() ? 'position-absolute pt-4' : ''"
                     [style.opacity]="(isProfileSelected() && !isProfileHovered) ? '0' :'1'"></p-fileUpload>

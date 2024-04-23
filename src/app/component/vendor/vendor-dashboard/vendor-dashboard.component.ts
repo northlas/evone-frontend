@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Category } from 'src/app/model/category';
 import { CategoryService } from 'src/app/service/category.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Scroll } from '@angular/router';
 import { VendorServiceOfferParam } from 'src/app/model/vendor-service-offer-param';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FilterComponent } from '../../dialog/filter/filter.component';
@@ -15,12 +15,22 @@ import { SortComponent } from '../../dialog/sort/sort.component';
 export class VendorDashboardComponent implements OnInit{
   @ViewChild('input') searchField!: ElementRef;
 
-  private searchParam = {} as VendorServiceOfferParam;
+  public searchParam = {} as VendorServiceOfferParam;
   public categories: Category[] = [];
   public filterCount = 0;
   public isSorting = false;
 
-  constructor(private categoryService: CategoryService, private router: Router, private route: ActivatedRoute, private dialog: MatDialog) {}
+  constructor(private categoryService: CategoryService, private router: Router, private route: ActivatedRoute, private dialog: MatDialog) {
+    this.router.events.forEach((event) => {
+      if (event instanceof Scroll) {
+        if (route.snapshot.queryParamMap.keys.length == 0) {
+          this.searchParam = {} as VendorServiceOfferParam;
+        } else {
+          Object.assign(this.searchParam, this.route.snapshot.queryParams);
+        }
+      }
+    })
+  }
 
   ngOnInit(): void {
     Object.assign(this.searchParam, this.route.snapshot.queryParams);
@@ -39,9 +49,9 @@ export class VendorDashboardComponent implements OnInit{
 
   private countFilter() {
     let count = 0;
-    if(this.searchParam.occasions) count++; 
-    if(this.searchParam.location) count++; 
-    if(this.searchParam.minPrice || this.searchParam.maxPrice) count++; 
+    if(this.searchParam.occasions) count++;
+    if(this.searchParam.location) count++;
+    if(this.searchParam.minPrice || this.searchParam.maxPrice) count++;
     this.filterCount = count;
   }
 
@@ -54,7 +64,7 @@ export class VendorDashboardComponent implements OnInit{
   }
 
   public filterCategory(slugName: string) {
-    this.searchParam = {'category' : slugName} as VendorServiceOfferParam;
+    this.searchParam = {'category' : [slugName]} as VendorServiceOfferParam;
     this.searchField.nativeElement.value = '';
     this.filterCount = 0;
     this.isSorting = false;
@@ -63,17 +73,17 @@ export class VendorDashboardComponent implements OnInit{
 
   public search(param: string) {
     if(param.length == 0) {
-      const {name, ...param} = this.searchParam;
+      const {vendor: name, ...param} = this.searchParam;
       this.searchParam = param as VendorServiceOfferParam;
     }
-    else this.searchParam.name = param;
+    else this.searchParam.vendor = param;
     this.navigate();
   }
 
   public openFilter() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '600px';
-    dialogConfig.data = this.searchParam;
+    dialogConfig.data = ({'type': 'dashboard', 'serviceParam': this.searchParam});
     dialogConfig.autoFocus = false;
     const dialogRef = this.dialog.open(FilterComponent, dialogConfig);
     dialogRef.afterClosed().subscribe({

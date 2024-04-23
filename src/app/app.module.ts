@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from "ng2-currency-mask";
@@ -27,6 +27,11 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import  {MatRippleModule } from '@angular/material/core';
+import { MatChipsModule } from '@angular/material/chips';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { CarouselModule } from "primeng/carousel";
 import { FileUploadModule } from 'primeng/fileupload';
 import { VendorDashboardComponent } from './component/vendor/vendor-dashboard/vendor-dashboard.component';
@@ -51,8 +56,13 @@ import { RegisterUserComponent } from './component/dialog/register/register-user
 import { RegisterVendorComponent } from './component/dialog/register/register-vendor/register-vendor.component';
 import { ChatComponent } from './component/toolbar/chat/chat.component';
 import { WishlistComponent } from './component/toolbar/wishlist/wishlist.component';
-import { VendorProductDashboardComponent } from './component/vendor/vendor-product-dashboard/vendor-product-dashboard.component';
+import { VendorProductComponent } from './component/vendor/vendor-product/vendor-product.component';
 import { VendorProductServiceComponent } from './component/vendor/vendor-product-service/vendor-product-service.component';
+import { VendorProductJobComponent } from './component/vendor/vendor-product-job/vendor-product-job.component';
+import { AddServiceComponent } from './component/dialog/add-service/add-service.component';
+import { AddJobComponent } from './component/dialog/add-job/add-job.component';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { LoadingComponent } from './component/dialog/loading/loading.component';
 
 const notifierCustomOptions: NotifierOptions = {
   position: {
@@ -107,7 +117,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
 
 registerLocaleData(localeId)
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent,JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent,JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, ChatComponent, WishlistComponent, VendorProductDashboardComponent, VendorProductServiceComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, ChatComponent, WishlistComponent, VendorProductComponent, VendorProductServiceComponent, VendorProductJobComponent, AddServiceComponent, AddJobComponent, LoadingComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -119,6 +129,7 @@ registerLocaleData(localeId)
     InfiniteScrollModule,
     CurrencyMaskModule,
     TextFieldModule,
+    OverlayModule,
     MatInputModule,
     MatButtonModule,
     MatToolbarModule,
@@ -133,10 +144,14 @@ registerLocaleData(localeId)
     MatMenuModule,
     MatStepperModule,
     MatTabsModule,
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatRippleModule,
+    MatChipsModule,
     CarouselModule,
     FileUploadModule,
   ],
-  providers: [AuthenticationService, NotificationService, {provide: LOCALE_ID, useValue: 'id-ID'}, {provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig}],
+  providers: [AuthenticationService, NotificationService, {provide: LOCALE_ID, useValue: 'id-ID'}, {provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig}, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

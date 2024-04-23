@@ -5,40 +5,65 @@
     </button>
 </mat-dialog-actions>
 <mat-dialog-content class="my-2 pt-0 text-dark">
-    <div class="d-flex flex-row mb-4">
-        <div class="d-flex flex-column flex-grow-1 me-3">
-            <span>Jenis Acara</span>
-            <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                <mat-select placeholder="Semua jenis acara" [formControl]="occasionForm" multiple>
-                    <mat-option *ngFor="let occasion of occasions" [value]="occasion.name">
-                        {{occasion.name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+    <form [formGroup]="form">
+        <div class="d-flex align-items-center mb-3" *ngIf="filter.type === 'product'">
+            <span class="me-3">Status</span>
+            <mat-chip-listbox formControlName="active">
+                <mat-chip-option [value]="true">Aktif</mat-chip-option>
+                <mat-chip-option [value]="false">Nonaktif</mat-chip-option>
+            </mat-chip-listbox>
         </div>
-        <div class="d-flex flex-column flex-grow-1 ms-3">
-            <span>Lokasi</span>
-            <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                <mat-select placeholder="Semua lokasi" [formControl]="provinceForm">
-                    <mat-option class="text-secondary">Semua lokasi</mat-option>
-                    <mat-option *ngFor="let province of provinces" [value]="province.name">
-                        {{province.name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+        <div class="d-flex flex-row mb-4">
+            <div class="d-flex flex-column flex-grow-1 me-3">
+                <ng-container *ngIf="filter.type === 'dashboard';then occasion else category"></ng-container>
+            </div>
+            <div class="d-flex flex-column flex-grow-1 ms-3">
+                <ng-container *ngIf="filter.type === 'dashboard';then location else occasion"></ng-container>
+            </div>
+            <ng-template #category>
+                <span>Kategori</span>
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                    <mat-select placeholder="Semua jenis acara" formControlName="category" multiple>
+                        <mat-option *ngFor="let category of categories" [value]="category.slugName">
+                            {{category.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </ng-template>
+            <ng-template #occasion>
+                <span>Jenis Acara</span>
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                    <mat-select placeholder="Semua jenis acara" formControlName="occasion" multiple>
+                        <mat-option *ngFor="let occasion of occasions" [value]="occasion.slugName">
+                            {{occasion.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </ng-template>
+            <ng-template #location>
+                <span>Lokasi</span>
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                    <mat-select placeholder="Semua lokasi" formControlName="location">
+                        <mat-option class="text-secondary">Semua lokasi</mat-option>
+                        <mat-option *ngFor="let province of provinces" [value]="province.slugName">
+                            {{province.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </ng-template>
         </div>
-    </div>
-    <div>
-        <span>Rentang Harga</span>
-        <div class="d-flex">
-            <mat-form-field appearance="outline" subscriptSizing="dynamic" class="min-price flex-grow-1 me-3">
-                <input matInput currencyMask [formControl]="minPriceForm" (blur)="checkMinPrice()">
-            </mat-form-field>
-            <mat-form-field appearance="outline" subscriptSizing="dynamic" class="max-price flex-grow-1 ms-3">
-                <input matInput currencyMask [formControl]="maxPriceForm" (blur)="checkMaxPrice()">
-            </mat-form-field>
+        <div class="mb-4">
+            <span>Rentang Harga</span>
+            <div class="d-flex">
+                <mat-form-field appearance="outline" subscriptSizing="dynamic" class="min-price flex-grow-1 me-3">
+                    <input matInput currencyMask formControlName="minPrice" (blur)="checkMinPrice()">
+                </mat-form-field>
+                <mat-form-field appearance="outline" subscriptSizing="dynamic" class="max-price flex-grow-1 ms-3">
+                    <input matInput currencyMask formControlName="maxPrice" (blur)="checkMaxPrice()">
+                </mat-form-field>
+            </div>
         </div>
-    </div>
+    </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button (click)="resetFilter()" [hidden]="!isFiltering()">Reset</button>
