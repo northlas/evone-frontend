@@ -23,4 +23,14 @@ export class JobService {
     return this.http.get<BasePageResponse>(`${this.host}/api/job-offers`, {params: params})
   }
 
+
+  public getJobDetail(jobSlugTitle: string): Observable<any> {
+    return this.http.get<any>(`${this.host}/api/job-offers/${jobSlugTitle}`);
+  }
+
+  public getAllJobOfferByTalent(jobSlugTitle: string): Observable<any> {
+    return this.http.get<any>(`${this.host}/api/job-offers/byTalentId/${jobSlugTitle}`)
+  }
+
+
 }

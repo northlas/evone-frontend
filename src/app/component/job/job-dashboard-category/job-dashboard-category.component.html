@@ -9,6 +9,8 @@
 		[infiniteScrollDistance]="1">
 		<mat-grid-tile *ngFor="let job of jobs">
 			<mat-card style="width: 90%;">
+
+        <a [href]="'freelance/' +job.vendor.slugName + '/job/' +job.slugTitle">
 				<img class="border-bottom border-top w-100" mat-card-image [src]="job.vendor.profile | image |async">
 				<mat-card-content class="mt-2">
 					<div class="d-flex flex-column text-break">
@@ -21,6 +23,7 @@
 						</span>
 					</div>
 				</mat-card-content>
+        </a>
 			</mat-card>
 		</mat-grid-tile>
 	</mat-grid-list>
