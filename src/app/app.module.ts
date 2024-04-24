@@ -32,6 +32,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule} from "@angular/material/core";
 import { MatRippleModule } from '@angular/material/core';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CarouselModule } from "primeng/carousel";
 import { FileUploadModule } from 'primeng/fileupload';
@@ -149,6 +150,7 @@ registerLocaleData(localeId)
     MatTabsModule,
     MatSlideToggleModule,
     MatDatepickerModule,
+    MatExpansionModule, 
     MatNativeDateModule,
     MatRippleModule,
     MatChipsModule,

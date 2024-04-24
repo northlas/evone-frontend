@@ -32,7 +32,7 @@ export class VendorServiceComponent implements OnInit{
   public onOrder() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = this.serviceOffer;
-    dialogConfig.width = "50%";
+    dialogConfig.panelClass = 'container'
     this.dialog.open(OrderServiceComponent, dialogConfig);
   }
 }
