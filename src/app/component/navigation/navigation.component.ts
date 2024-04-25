@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { LoginComponent } from '../dialog/login/login.component';
 import { RegisterMainComponent } from '../dialog/register/register-main/register-main.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -13,7 +14,7 @@ export class NavigationComponent implements OnInit{
   public isLoggedIn!: boolean;
   public userName?: string;
 
-  constructor(private authService: AuthenticationService, private dialog: MatDialog) {}
+  constructor(private authService: AuthenticationService, private router: Router, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isUserLoggedIn();
@@ -47,6 +48,10 @@ export class NavigationComponent implements OnInit{
         }
       }
     })
+  }
+
+  public loadSetting(menu: string) {
+    this.router.navigateByUrl(menu);
   }
 
   public onLogout() {
