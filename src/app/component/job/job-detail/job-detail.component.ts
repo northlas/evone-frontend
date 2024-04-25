@@ -13,7 +13,6 @@ import { VendorService } from 'src/app/service/vendor.service';
 export class JobDetailComponent implements OnInit{
   private jobSlugTitle!: string;
   public job!: Job;
-  public jobOffers: Job[] = [];
   public isLoading = true;
 
   constructor(private route: ActivatedRoute, private vendorService: VendorService, private jobService: JobService) {}
@@ -21,7 +20,6 @@ export class JobDetailComponent implements OnInit{
   ngOnInit(): void {
     this.jobSlugTitle = this.route.snapshot.params['jobTitle'];
     this.getJob();
-    this.getJobOffers();
   }
 
   private getJob() {
@@ -32,12 +30,4 @@ export class JobDetailComponent implements OnInit{
       })
   }
 
-  private getJobOffers() {
-    this.jobService.getAllJobOfferByTalent(this.jobSlugTitle).subscribe({
-      next: response => {
-        this.jobOffers = response;
-        this.isLoading = false;
-      }
-    })
-  }
 }
