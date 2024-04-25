@@ -11,6 +11,10 @@ import { VendorServiceComponent } from './component/vendor/vendor-service/vendor
 import { VendorDashboardMainComponent } from './component/vendor/vendor-dashboard-main/vendor-dashboard-main.component';
 import { JobDashboardMainComponent } from './component/job/job-dashboard-main/job-dashboard-main.component';
 import { VendorProductComponent } from './component/vendor/vendor-product/vendor-product.component';
+import { SettingsComponent } from './component/personal/settings/settings.component';
+import { ProfileComponent } from './component/personal/profile/profile.component';
+import { ServiceOrderComponent } from './component/personal/service-order/service-order.component';
+import { JobOrderComponent } from './component/personal/job-order/job-order.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'vendor', pathMatch: 'full'},
@@ -26,7 +30,12 @@ const routes: Routes = [
       {path: 'search', component: JobDashboardCategoryComponent},
       {path: ':vendorName/job/:jobTitle', component: JobDetailComponent}
     ]},
-    {path: 'product', title: 'Product', component: VendorProductComponent}
+    {path: 'product', title: 'Product', component: VendorProductComponent},
+    {path: 'settings', component: SettingsComponent, children: [
+      {path: 'profile', component: ProfileComponent},
+      {path: 'service-order', component: ServiceOrderComponent},
+      {path: 'job-order', component: JobOrderComponent}
+    ]}
   ]},
 ];
 

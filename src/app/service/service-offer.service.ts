@@ -20,8 +20,8 @@ export class ServiceOfferService {
     return this.http.get<any>(`${this.host}/api/service-offers`, {params: params})
   }
 
-  public getServiceOfferDetail(serviceSlugTitle: string): Observable<any> {
-    return this.http.get<any>(`${this.host}/api/service-offers/${serviceSlugTitle}`);
+  public getServiceOfferDetail(vendorSlugName: string, serviceSlugTitle: string): Observable<any> {
+    return this.http.get<any>(`${this.host}/api/vendors/${vendorSlugName}/service-offers/${serviceSlugTitle}`);
   }
 
   public addServiceOffer(model: ServiceOffer, pictures: File[]): Observable<any> {

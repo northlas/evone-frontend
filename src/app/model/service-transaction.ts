@@ -7,6 +7,7 @@ export interface ServiceTransaction {
     status: number,
     qty: number
     paymentAmount: number,
+    snapToken: string,
     createdDt: Date,
     updatedDt: Date,
     startDt: Date,

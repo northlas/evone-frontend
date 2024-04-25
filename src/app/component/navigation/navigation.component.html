@@ -26,7 +26,10 @@
                     <div *ngSwitchDefault>
                         <button mat-button [matMenuTriggerFor]="menu">Halo, {{userName}}</button>
                         <mat-menu #menu="matMenu" xPosition="before">
-                            <button mat-menu-item (click)="onLogout()">Logout</button>
+                          <button mat-menu-item routerLink="/settings/profile">Profil</button>
+                          <button mat-menu-item routerLink="/settings/service-order">Pesanan</button>
+                          <button mat-menu-item routerLink="/settings/job-order">Pekerjaan</button>
+                          <button mat-menu-item (click)="onLogout()">Logout</button>
                         </mat-menu>
                     </div>
                 </ng-container>

@@ -12,7 +12,7 @@ export class ServiceTransactionService {
 
   constructor(private http: HttpClient) { }
 
-  public postTransaction(slugTitle: string, serviceTransaction: ServiceTransaction): Observable<HttpResponse<ServiceTransaction>> {
-    return this.http.post<HttpResponse<ServiceTransaction>>(`${this.host}/api/service-offers/${slugTitle}/transactions`, serviceTransaction);
-  } 
+  public postTransaction(slugTitle: string, serviceTransaction: ServiceTransaction): Observable<ServiceTransaction> {
+    return this.http.post<ServiceTransaction>(`${this.host}/api/vendors/service-offers/${slugTitle}/transactions`, serviceTransaction);
+  }
 }

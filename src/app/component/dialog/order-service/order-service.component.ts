@@ -1,12 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Customer } from 'src/app/model/customer';
 import { ServiceOffer } from 'src/app/model/service-offer';
 import { ServiceTransaction } from 'src/app/model/service-transaction';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { CustomerService } from 'src/app/service/customer.service';
 import { ServiceTransactionService } from 'src/app/service/service-transaction.service';
+
+declare let snap: any;
 
 @Component({
   selector: 'app-order-service',
@@ -25,7 +27,7 @@ export class OrderServiceComponent implements OnInit{
     endDate: new FormControl<Date | null>(null)
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) public serviceOffer: ServiceOffer, private customerService: CustomerService, private serviceTransactionService: ServiceTransactionService, private authService: AuthenticationService, private formBuilder: FormBuilder) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public serviceOffer: ServiceOffer, private customerService: CustomerService, private serviceTransactionService: ServiceTransactionService, private authService: AuthenticationService, private formBuilder: FormBuilder, private dialogRef: MatDialogRef<OrderServiceComponent>) {}
 
   ngOnInit(): void {
     this.getCustomer();
@@ -56,7 +58,7 @@ export class OrderServiceComponent implements OnInit{
       }
     })
   }
-  
+
   private getCustomer() {
     this.customerService.getCustomer(this.authService.getSubject()).subscribe({
       next: response => {
@@ -69,7 +71,7 @@ export class OrderServiceComponent implements OnInit{
     const _MS_PER_DAY = 1000 * 60 * 60 * 24;
     const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
     const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
-  
+
     return Math.floor((utc2 - utc1) / _MS_PER_DAY) + 1;
   }
 
@@ -89,7 +91,11 @@ export class OrderServiceComponent implements OnInit{
 
     this.serviceTransactionService.postTransaction(this.serviceOffer.slugTitle, serviceTransaction).subscribe({
       next: response => {
-        console.log(response);
+        // this.dialogRef.close();
+        window.open('https://simulator.sandbox.midtrans.com/bca/va/index', '_blank');
+        snap.embed(response.snapToken, {
+          embedId: 'snap-container'
+        })
       }
     })
   }

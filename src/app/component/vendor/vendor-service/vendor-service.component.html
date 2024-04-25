@@ -26,7 +26,7 @@
           <li *ngFor="let occasion of serviceOffer.occasions" class="col">{{occasion.name}}</li>
         </ul>
       </div>
-      <span class="mb-4" style="color: #7A6969;">FOCUS PRODUCTIONS PT Sinar Prima Indah As Our Registered Company Is A Dynamic Professional And Creative Event Production Company With Offices In Both Jakarta And Bali Established In 1999 FOCUS PRODUCTIONS Can Provide An International Standard Of Audio Visual Equipments To Make Any Event A Memorable Success Our Main Expertise Are In The Industry Of M I C E Weddings Concerts National TV Broadcast And Other International Events We Have Over A Decade Of Diverse Experiences In Supportin</span>
+      <span class="mb-4" style="color: #7A6969; white-space: pre-line;">{{serviceOffer.description}}</span>
       <h4 class="color-orange">{{serviceOffer.price | currency: 'Rp' : 'symbol' : '1.0-0'}}</h4>
       <div class="align-self-end" style="width: 150px;">
         <button mat-flat-button color="primary" class="w-100" (click)="onOrder()">Pesan</button>
