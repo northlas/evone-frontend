@@ -1,0 +1,103 @@
+<mat-dialog-actions class="d-flex justify-content-between align-items-start">
+  <h1 mat-dialog-title class="fs-4 pt-3 pb-1 ps-3">Pesanan</h1>
+  <button matDialogClose mat-icon-button>
+    <mat-icon fontIcon="close"></mat-icon>
+  </button>
+</mat-dialog-actions>
+<mat-dialog-content class="my-2 pt-0 text-dark">
+    <div class="d-flex mb-3">
+      <div class="border rounded-start w-25 d-flex align-items-center justify-content-center">
+        <h3 class="text-center m-0 color-orange">{{serviceOffer.vendor.name}}</h3>
+      </div>
+      <div class="border rounded-end p-3 w-75">
+        <div class="d-flex flex-column">
+          <div class="d-flex">
+            <div class="me-3">
+              <h5 class="color-primary">{{serviceOffer.title}}</h5>
+              <span>{{serviceOffer.vendor.city.name + ', ' + serviceOffer.vendor.province.name}}</span>
+            </div>
+            <ul class="color-primary" style="text-wrap: nowrap;">
+              <li *ngFor="let occasion of serviceOffer.occasions">{{occasion.name}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <form [formGroup]="form" class="row row-cols-1 row-cols-md-2" *ngIf="customer">
+      <div class="col d-flex flex-column">
+        <h3 class="mb-3">Data Pemesan</h3>
+        <mat-form-field appearance="outline" class="mb-3">
+          <mat-label>Nama Lengkap</mat-label>
+          <input matInput readonly [value]="customer.name"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="mb-3">
+          <mat-label>Nomor Telepon</mat-label>
+          <input matInput readonly [value]="customer.phone"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="mb-3" subscriptSizing="dynamic">
+          <mat-label>Email</mat-label>
+          <input matInput readonly [value]="customer.email"/>
+        </mat-form-field>
+      </div>
+      <div class="col d-flex flex-column">
+        <h3 class="mb-3">Detil Pesanan</h3>
+        <mat-form-field appearance="outline" class="mb-3">
+          <mat-label>Jenis Acara</mat-label>
+          <mat-select formControlName="occasion">
+            <mat-option *ngFor="let occasion of serviceOffer.occasions" [value]="occasion.id">{{occasion.name}}</mat-option>
+          </mat-select>
+          <mat-error>Jenis acara harus dipilih</mat-error>
+        </mat-form-field>
+        <div class="mb-3 d-flex">
+          <mat-form-field appearance="outline" class="flex-grow-1 pe-3">
+            <mat-label>Jumlah</mat-label>
+            <input matInput formControlName="qty" currencyMask [options]="{prefix: ''}"/>
+          </mat-form-field>
+          <span class="position-relative" style="top: 1rem;">x {{serviceOffer.minimumQty}} {{(serviceOffer.categoryId == 1 || serviceOffer.categoryId == 3) ? 'pax' : 'unit'}}</span>
+        </div>
+        <mat-form-field appearance="outline" class="mb-3" subscriptSizing="dynamic">
+          <mat-label>Tanggal</mat-label>
+          <mat-date-range-input [rangePicker]="picker" [min]="today">
+            <input matStartDate placeholder="Mulai" formControlName="startDate">
+            <input matEndDate placeholder="Selesai" formControlName="endDate">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker>
+            <mat-date-range-picker-actions>
+              <button mat-button matDateRangePickerCancel>Batal</button>
+              <button mat-raised-button color="primary" matDateRangePickerApply (click)="checkEndDate()">Pilih</button>
+            </mat-date-range-picker-actions>
+          </mat-date-range-picker>
+        </mat-form-field>
+      </div>
+    </form>
+    <hr>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Total Harga
+          </mat-panel-title>
+          <mat-panel-description>
+              {{totalPrice | currency: 'Rp' : 'symbol' : '1.0-0'}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="row color-secondary">
+          <span class="col-3 ">Harga produk</span>
+          <span class="col-9">: {{serviceOffer.price | currency: 'Rp' : 'symbol' : '1.0-0'}} / {{serviceOffer.minimumQty}} {{(serviceOffer.categoryId == 1 || serviceOffer.categoryId == 3) ? 'pax' : 'unit'}}</span>
+        </div>
+        <div class="row color-secondary" *ngIf="form.controls.qty.value">
+          <span class="col-3">Jumlah pesanan</span>
+          <span class="col-9">: {{form.controls.qty.value * serviceOffer.minimumQty}} {{(serviceOffer.categoryId == 1 || serviceOffer.categoryId == 3) ? 'pax' : 'unit'}}</span>
+        </div>
+        <div class="row color-secondary" *ngIf="totalDays != 0">
+          <span class="col-3">Jumlah hari</span>
+          <span class="col-9">: {{totalDays}}</span>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <div class="mt-3 w-100 d-flex justify-content-end">
+      <button style="width: 150px;" mat-flat-button color="primary" (click)="onSubmit()">Bayar</button>
+    </div>
+</mat-dialog-content>

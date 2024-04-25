@@ -14,3 +14,9 @@
     --mdc-elevated-card-container-elevation: 0px 5px 3px 1px rgba(0, 0, 0, 0.2),
       0px 3px 2px 0px rgba(0, 0, 0, 0.15), 0px 1px 1px 0px rgba(0, 0, 0, 0.1);
 }
+
+::ng-deep .loading {
+    background-color: #babbbc;
+    animation: hintloading 2s ease-in-out 0s infinite reverse;
+    -webkit-animation: hintloading 2s ease-in-out 0s infinite reverse;
+}

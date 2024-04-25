@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { ServiceOffer } from 'src/app/model/service-offer';
 import { ServiceOfferService } from 'src/app/service/service-offer.service';
+import { OrderServiceComponent } from '../../dialog/order-service/order-service.component';
 
 @Component({
   selector: 'app-vendor-service',
@@ -12,7 +14,7 @@ export class VendorServiceComponent implements OnInit{
   private serviceOfferSlugTitle!: string;
   public serviceOffer!: ServiceOffer;
 
-  constructor(private serviceOfferService: ServiceOfferService, private route: ActivatedRoute) {}
+  constructor(private serviceOfferService: ServiceOfferService, private route: ActivatedRoute, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.serviceOfferSlugTitle = this.route.snapshot.params['serviceTitle'];
@@ -25,5 +27,12 @@ export class VendorServiceComponent implements OnInit{
         this.serviceOffer = response;
       }
     })
+  }
+
+  public onOrder() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = this.serviceOffer;
+    dialogConfig.panelClass = 'container'
+    this.dialog.open(OrderServiceComponent, dialogConfig);
   }
 }

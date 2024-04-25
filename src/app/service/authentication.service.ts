@@ -42,7 +42,7 @@ export class AuthenticationService {
   public isUserLoggedIn(): boolean {
     this.loadToken();
     if(this.token != null && this.token != '') {
-      const subbed = this.jwtHelper.decodeToken(this.token).sub;
+      const subbed = this.getSubject();
       if(subbed != null || subbed != '') {
         return true;
       }
@@ -55,6 +55,10 @@ export class AuthenticationService {
   public hasAuthority(value: string): boolean {
     const authorities: string[] = this.jwtHelper.decodeToken(this.token!).authorities;
     return authorities.includes(value);
+  }
+
+  public getSubject() {
+    return this.jwtHelper.decodeToken(this.token!).sub;
   }
 
   public getUserName() {

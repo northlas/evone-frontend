@@ -9,6 +9,7 @@ export interface ServiceOffer {
   slugTitle: string,
   description: string,
   price: number,
+  minimumQty: number,
   isActive: boolean,
   createdDt: Date,
   updatedDt: Date,

@@ -13,6 +13,10 @@ export class CustomerService {
 
   constructor(private http: HttpClient) { }
 
+  public getCustomer(email: string): Observable<Customer> {
+    return this.http.get<Customer>(`${this.host}/api/customers/${email}`);
+  }
+
   public addCustomer(customer: Customer): Observable<HttpResponse<BaseResponse>> {
     return this.http.post<BaseResponse>(`${this.host}/api/customers`, customer, {observe: 'response'})
   }

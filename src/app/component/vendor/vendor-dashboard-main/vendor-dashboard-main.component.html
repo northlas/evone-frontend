@@ -12,8 +12,8 @@
           <mat-card style="width: 90%;">
             <a [href]="'vendor/' + vendor.slugName">
               <ng-container *ngIf="'vendor/' + vendor.slugName | image | async as picture">
-                <img *ngIf="picture.value" class="border-bottom border-top w-100 object-fit-cover" style="aspect-ratio: 1/1;" mat-card-image [src]="picture.value">
-                <div *ngIf="picture.loading" class="border-bottom border-top loading" style="aspect-ratio: 1/1;"></div>
+                <img *ngIf="picture.value" class="border-bottom border-top w-100 object-fit-cover" style="aspect-ratio: 5/3;" mat-card-image [src]="picture.value">
+                <div *ngIf="picture.loading" class="border-bottom border-top loading" style="aspect-ratio: 5/3;"></div>
               </ng-container>
               <mat-card-content class="mt-2">
                 <div class="d-flex flex-column text-break">
