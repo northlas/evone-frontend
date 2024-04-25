@@ -9,7 +9,7 @@
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
     <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
       <button mat-icon-button disabled></button>
-      <p class="fs-4 text-secondary" > {{node.name}} </p>
+      <p class="fs-5 text-secondary" > {{node.name}} </p>
     </mat-tree-node>
     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
       <button mat-icon-button matTreeNodeToggle
@@ -18,7 +18,7 @@
           {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
         </mat-icon>
       </button>
-      <p class="fs-4"> {{node.name}} </p>
+      <p class="fs-5"> {{node.name}} </p>
     </mat-tree-node>
   </mat-tree>
 </div>

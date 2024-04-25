@@ -55,7 +55,7 @@ export class VendorDashboardMainComponent implements OnInit{
 
   private getVendors(categories: Category[]) {
     from(categories)
-      .pipe(concatMap(category => this.vendorService.getAllVendor({category: category.slugName} as VendorServiceOfferParam, 1)))
+      .pipe(concatMap(category => this.vendorService.getAllVendor({category: [category.slugName]} as VendorServiceOfferParam, 1)))
       .subscribe(response => {
         this.categoryVendors.set(categories.shift()!.name, response.items);
         if(categories.length == 0) this.isLoading = false;

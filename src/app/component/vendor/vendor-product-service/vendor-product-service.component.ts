@@ -6,7 +6,7 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
 import { ServiceOfferService } from 'src/app/service/service-offer.service';
 import { AddServiceComponent } from '../../dialog/add-service/add-service.component';
 import { ActivatedRoute, Router, Scroll } from '@angular/router';
-import { VendorServiceOfferParam } from 'src/app/model/vendor-service-offer-param';
+import { assignQueryParams, VendorServiceOfferParam } from 'src/app/model/vendor-service-offer-param';
 
 @Component({
   selector: 'app-vendor-product-service',
@@ -19,26 +19,38 @@ export class VendorProductServiceComponent implements OnInit{
   public searchParam = {} as VendorServiceOfferParam;
   public serviceOffers: ServiceOffer[] = [];
   public isLoading: boolean = true;
+  public isInitiated = false;
 
   constructor(private serviceOfferService: ServiceOfferService, private authService: AuthenticationService, private dialog: MatDialog, private router: Router, private route: ActivatedRoute) {
     this.router.events.forEach(event => {
       if (event instanceof Scroll) {
-        Object.assign(this.searchParam, this.route.snapshot.queryParams);
-        this.getServiceOffers();
+        const queryParams = assignQueryParams(route.snapshot.queryParams);
+        const isEmpty = (Object.keys(queryParams).length + Object.keys(this.searchParam).length) == 0;
+        const isChangeParam = isEmpty || (JSON.stringify(this.searchParam) !== JSON.stringify(queryParams));
+        console.log(isEmpty)
+        console.log(isChangeParam)
+        console.log(this.isInitiated)
+        if (isChangeParam && !this.isInitiated) {
+          console.log('test')
+          this.serviceOffers = [];
+          this.searchParam = queryParams;
+          this.getServiceOffers();
+        }
       }
     })
   }
 
   ngOnInit(): void {
-    
+    this.isInitiated = true;
+    this.getServiceOffers();
   }
 
   private getServiceOffers() {
-    console.log(this.searchParam)
-    this.serviceOfferService.getAllServiceOfferByVendor(this.authService.getSlugName(), this.searchParam).subscribe({
+    this.serviceOfferService.getAllServiceOffer(this.authService.getSlugName(), this.searchParam, 1).subscribe({
       next: response => {
-        this.serviceOffers = response;
+        this.serviceOffers = response.items;
         this.isLoading = false;
+        this.isInitiated = false;
       }
     })
   }

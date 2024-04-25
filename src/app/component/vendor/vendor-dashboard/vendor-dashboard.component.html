@@ -2,7 +2,7 @@
     <nav class="d-flex align-items-center ps-4 pt-3 pb-1" style="background-color: white;">
         <ng-container *ngFor="let category of categories">
             <div class="me-3">
-                <button mat-flat-button (click)="filterCategory(category.slugName)" [disabled]="searchParam.category == category.slugName">
+                <button mat-flat-button (click)="filterCategory(category.slugName)" [disabled]="searchParam.category && searchParam.category.includes(category.slugName)">
                     {{category.name}}
                 </button>
             </div>

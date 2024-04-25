@@ -33,9 +33,9 @@ export class VendorDetailComponent implements OnInit{
   }
 
   private getServiceOffers() {
-    this.serviceOfferService.getAllServiceOfferByVendor(this.vendorSlugName, undefined).subscribe({
+    this.serviceOfferService.getAllServiceOffer(this.vendorSlugName, undefined, 1).subscribe({
       next: response => {
-        this.serviceOffers = response;
+        this.serviceOffers = response.items;
         this.isLoading = false;
       }
     })

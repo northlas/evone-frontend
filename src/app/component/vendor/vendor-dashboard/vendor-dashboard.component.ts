@@ -64,7 +64,7 @@ export class VendorDashboardComponent implements OnInit{
   }
 
   public filterCategory(slugName: string) {
-    this.searchParam = {'category' : slugName} as VendorServiceOfferParam;
+    this.searchParam = {'category' : [slugName]} as VendorServiceOfferParam;
     this.searchField.nativeElement.value = '';
     this.filterCount = 0;
     this.isSorting = false;
@@ -73,10 +73,10 @@ export class VendorDashboardComponent implements OnInit{
 
   public search(param: string) {
     if(param.length == 0) {
-      const {name, ...param} = this.searchParam;
+      const {vendor: name, ...param} = this.searchParam;
       this.searchParam = param as VendorServiceOfferParam;
     }
-    else this.searchParam.name = param;
+    else this.searchParam.vendor = param;
     this.navigate();
   }
 
