@@ -71,6 +71,7 @@ import { SettingsComponent } from './component/personal/settings/settings.compon
 import { ServiceOrderComponent } from './component/personal/service-order/service-order.component';
 import { JobOrderComponent } from './component/personal/job-order/job-order.component';
 import { ProfileComponent } from './component/personal/profile/profile.component';
+import { OrderServiceDetailComponent } from './component/dialog/order-service-detail/order-service-detail.component';
 
 const notifierCustomOptions: NotifierOptions = {
   position: {
@@ -125,7 +126,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
 
 registerLocaleData(localeId)
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, ChatComponent, WishlistComponent, VendorProductComponent, VendorProductServiceComponent, VendorProductJobComponent, AddServiceComponent, AddJobComponent, LoadingComponent, OrderServiceComponent, SettingsComponent, ServiceOrderComponent, JobOrderComponent, ProfileComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, ChatComponent, WishlistComponent, VendorProductComponent, VendorProductServiceComponent, VendorProductJobComponent, AddServiceComponent, AddJobComponent, LoadingComponent, OrderServiceComponent, SettingsComponent, ServiceOrderComponent, JobOrderComponent, ProfileComponent, OrderServiceDetailComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

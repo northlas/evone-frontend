@@ -1,39 +1,40 @@
 <div *ngIf="vendor" class="flex-grow-1 d-flex flex-column rounded-top-5 p-4" style="background-color: white;">
   <div class="container">
-    <div class="border rounded d-flex justify-content-center" style="height: 300px;">
-      <ng-container *ngIf="'vendor/' + vendor.slugName | image | async as picture">
-        <img *ngIf="picture.value" class="rounded h-100" mat-card-image [src]="picture.value">
-        <div *ngIf="picture.loading" class="rounded h-100"></div>
-      </ng-container>
-    </div>
-    <div class="d-flex flex-column my-3">
-      <h3 class="color-primary">{{vendor.name}}</h3>
-      <div class="d-flex justify-content-between">
-        <div class="w-50 d-flex flex-column">
-          <span>{{vendor.city.name + ', ' + vendor.province.name}}</span>
-          <span>4,7/5 (23 review)</span>
-          <ul class="color-primary row row-cols-2 mt-2" style="text-wrap: nowrap;">
-            <li *ngFor="let category of vendor.categories" class="col">{{category.name}}</li>
-          </ul>
-        </div>
-        <div class="w-50 d-flex justify-content-end">
-          <div>
-            <span>Media Sosial</span>
-            <ul class="color-primary mt-2">
-              <li *ngFor="let social of vendor.socialMedia" class="" style="width: fit-content;">
-                <div class="d-flex">
-                  <span>{{social.platform.name}}</span>
-                  <span class="ps-2">: {{social.username}}</span>
-                </div>
-              </li>
+    <div class="d-flex mb-4">
+      <div class="border rounded d-flex justify-content-center me-4" style="height: 300px;">
+        <ng-container *ngIf="'vendor/' + vendor.slugName | image | async as picture">
+          <img *ngIf="picture.value" class="rounded h-100" mat-card-image [src]="picture.value">
+          <div *ngIf="picture.loading" class="rounded h-100"></div>
+        </ng-container>
+      </div>
+      <div class="d-flex flex-column">
+        <h3 class="color-primary">{{vendor.name}}</h3>
+        <div class="d-flex justify-content-between">
+          <div class="w-50 d-flex flex-column">
+            <span>{{vendor.city.name + ', ' + vendor.province.name}}</span>
+            <span>4,7/5 (23 review)</span>
+            <ul class="color-primary row row-cols-2 mt-2" style="text-wrap: nowrap;">
+              <li *ngFor="let category of vendor.categories" class="col">{{category.name}}</li>
             </ul>
           </div>
+          <div class="w-50 d-flex justify-content-end">
+            <div>
+              <span>Media Sosial</span>
+              <ul class="color-primary mt-2">
+                <li *ngFor="let social of vendor.socialMedia" class="" style="width: fit-content;">
+                  <div class="d-flex">
+                    <span>{{social.platform.name}}</span>
+                    <span class="ps-2">: {{social.username}}</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
+        <span class="my-2" style="color: #7A6969; white-space: pre-line;">{{vendor.description}}</span>
       </div>
-      <span class="my-2" style="color: #7A6969; white-space: pre-line;">{{vendor.description}}</span>
     </div>
-
-    <div class="d-flex align-items-center mb-3">
+    <div class="d-flex align-items-center">
         <h4 class="m-0 me-3">Etalase</h4>
     </div>
     <mat-tab-group class="border-top">

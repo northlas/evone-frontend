@@ -1,0 +1,63 @@
+<mat-dialog-actions class="d-flex justify-content-between align-items-start">
+  <h1 mat-dialog-title class="fs-4 pt-3 pb-1 ps-3">Pesanan</h1>
+  <button matDialogClose mat-icon-button>
+    <mat-icon fontIcon="close"></mat-icon>
+  </button>
+</mat-dialog-actions>
+<mat-dialog-content>
+  <h3 class="mb-2">Data Pemesan</h3>
+  <ul>
+    <li class="row">
+      <span class="col-4">Nama</span>
+      <span class="col-8">: {{serviceTransaction.customer.name}}</span>
+    </li>
+    <li class="row">
+      <span class="col-4">Email</span>
+      <span class="col-8">: {{serviceTransaction.customer.email}}</span>
+    </li>
+    <li class="row">
+      <span class="col-4">No. HP</span>
+      <span class="col-8">: {{serviceTransaction.customer.phone}}</span>
+    </li>
+  </ul> 
+  <hr>
+  <h3 class="mb-2">Detil Pesanan</h3>
+  <div class="mb-3 ps-3">
+    <div class="d-flex">
+      <img class="me-4" [src]="picture">
+      <div>
+        <h3>{{serviceTransaction.serviceOffer.title}}</h3>
+        <h3>{{serviceTransaction.serviceOffer.vendor.city.name}}, {{serviceTransaction.serviceOffer.vendor.province.name}}</h3>
+      </div>
+    </div>
+    <ul class="row row-cols-2">
+      <li class="col row">
+        <span class="col-4">Jenis Acara</span>
+        <span class="col-8">: {{serviceTransaction.occasion.name}}</span>
+      </li>
+      <li class="col">
+        <span class="col-4">Jumlah Pesanan</span>
+        <span class="col-8">: {{serviceTransaction.qty}} {{serviceTransaction.serviceOffer.category.measureUnit}}</span>
+      </li>
+      <li class="col">
+        <span class="col-4">Tanggal Acara</span>
+        <span class="col-8">: {{serviceTransaction.startDt}} - {{serviceTransaction.endDt}}</span>
+      </li>
+      <li class="col">
+        <span class="col-4">Lokasi Acara</span>
+        <span class="col-8">: {{serviceTransaction.address}}</span>
+      </li>
+    </ul>
+    <div id="snap-container"></div>
+  </div>
+  <div class="d-flex justify-content-end">
+    <div class="w-50">
+      <span class="text-end">{{serviceTransaction.paymentAmount | currency : 'Rp' : 'symbol' : '1.0-0'}}</span>
+      <hr>
+      <div class="d-flex justify-content-between">
+        <button mat-flat-button color="primary">Selesai</button>
+        <button mat-flat-button color="warn">Batalkan</button>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
