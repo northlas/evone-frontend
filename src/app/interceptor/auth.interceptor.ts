@@ -17,18 +17,36 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthenticationService, private loadingService: LoadingService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (Constant.PUBLIC_POST_URL.includes(request.url) && request.method === 'POST') {
+    if (this.requestMatchers(request.url, Constant.PUBLIC_GET_URL) && request.method === 'GET') {
+      return next.handle(request);
+    }
+
+    if (this.requestMatchers(request.url, Constant.PUBLIC_POST_URL) && request.method !== 'GET') {
       this.loadingRef = this.loadingService.open();
       return next.handle(request).pipe(finalize(() => this.loadingRef.close()));
     }
 
+    this.authService.loadToken();
+    const token = this.authService.getToken();
+
     if (request.method !== 'GET') {
-      this.authService.loadToken();
-      const token = this.authService.getToken();
       this.loadingRef = this.loadingService.open();
       return next.handle(request.clone({setHeaders: {Authorization: `Bearer ${token}`}})).pipe(finalize(() => this.loadingRef.close()));
     }
 
-    return next.handle(request);
+    return next.handle(request.clone({setHeaders: {Authorization: `Bearer ${token}`}}));
+  }
+
+  private requestMatchers(url: string, publicUrls: string[]): boolean {
+    let isIncluded = false;
+    for(let publicUrl of publicUrls) {
+      let urls = url.split('/');
+      let publics = publicUrl.split('/');
+      if (urls.length == publics.length) {
+        isIncluded = urls.find((value, index) => !publics.includes(value) && publics[index] !== '**') == undefined;
+      }
+      if (isIncluded) return isIncluded;
+    }
+    return isIncluded;
   }
 }

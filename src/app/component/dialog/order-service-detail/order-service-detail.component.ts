@@ -17,7 +17,23 @@ export class OrderServiceDetailComponent implements OnInit{
   ngOnInit(): void {
     if (this.serviceTransaction.status == 0) {
       snap.embed(this.serviceTransaction.id, {
-        embedId: 'snap-container'
+        embedId: 'snap-container',
+        onSuccess: function (result: any) {
+          /* You may add your own implementation here */
+          alert("payment success!"); console.log(result);
+        },
+        onPending: function (result: any) {
+          /* You may add your own implementation here */
+          alert("wating your payment!"); console.log(result);
+        },
+        onError: function (result: any) {
+          /* You may add your own implementation here */
+          alert("payment failed!"); console.log(result);
+        },
+        onClose: function () {
+          /* You may add your own implementation here */
+          alert('you closed the popup without finishing the payment');
+        }
       })
     }
   }
