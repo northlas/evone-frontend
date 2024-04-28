@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Customer } from 'src/app/model/customer';
 import { ServiceOffer } from 'src/app/model/service-offer';
@@ -21,10 +21,11 @@ export class OrderServiceComponent implements OnInit{
   public totalPrice = this.serviceOffer.price;
   public totalDays = 0;
   public form = this.formBuilder.group({
-    occasion: new FormControl<number | null>(null),
-    qty: new FormControl<number | null>(1),
-    startDate: new FormControl<Date | null>(null),
-    endDate: new FormControl<Date | null>(null)
+    occasion: new FormControl<number | null>(null, [Validators.required]),
+    qty: new FormControl<number | null>(1, [Validators.required]),
+    startDate: new FormControl<Date | null>(null, [Validators.required]),
+    endDate: new FormControl<Date | null>(null, [Validators.required]),
+    address: new FormControl<string | null>(null, [Validators.required])
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public serviceOffer: ServiceOffer, private customerService: CustomerService, private serviceTransactionService: ServiceTransactionService, private authService: AuthenticationService, private formBuilder: FormBuilder, private dialogRef: MatDialogRef<OrderServiceComponent>) {}
@@ -87,15 +88,12 @@ export class OrderServiceComponent implements OnInit{
     serviceTransaction.qty = this.form.controls.qty.value!;
     serviceTransaction.startDt = this.form.controls.startDate.value!;
     serviceTransaction.endDt = this.form.controls.endDate.value!;
+    serviceTransaction.address = this.form.controls.address.value!;
     serviceTransaction.paymentAmount = this.totalPrice;
 
-    this.serviceTransactionService.postTransaction(this.serviceOffer.slugTitle, serviceTransaction).subscribe({
+    this.serviceTransactionService.postTransaction(this.serviceOffer.vendor.slugName, this.serviceOffer.slugTitle, serviceTransaction).subscribe({
       next: response => {
-        // this.dialogRef.close();
-        window.open('https://simulator.sandbox.midtrans.com/bca/va/index', '_blank');
-        snap.embed(response.snapToken, {
-          embedId: 'snap-container'
-        })
+        this.dialogRef.close(response);
       }
     })
   }

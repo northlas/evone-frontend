@@ -15,9 +15,9 @@ export class VendorService {
 
   constructor(private http:HttpClient) { }
 
-  public getAllVendor(param: VendorServiceOfferParam, page: number): Observable<BasePageResponse> {
+  public getAllVendor(param: VendorServiceOfferParam, page: number): Observable<BasePageResponse<Vendor>> {
     const params = new HttpParams({fromObject: param}).append('page', page);
-    return this.http.get<BasePageResponse>(`${this.host}/api/vendors`, {params: params})
+    return this.http.get<BasePageResponse<Vendor>>(`${this.host}/api/vendors`, {params: params})
   }
 
   public getVendorDetail(slugName: string): Observable<Vendor> {

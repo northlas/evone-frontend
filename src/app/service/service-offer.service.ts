@@ -15,9 +15,9 @@ export class ServiceOfferService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllServiceOffer(vendorSlugName: string, param: VendorServiceOfferParam | undefined, page: number): Observable<BasePageResponse> {
+  public getAllServiceOffer(vendorSlugName: string, param: VendorServiceOfferParam | undefined, page: number): Observable<BasePageResponse<ServiceOffer>> {
     const params = new HttpParams({fromObject: param}).append('vendor', vendorSlugName).append('page', page);
-    return this.http.get<any>(`${this.host}/api/service-offers`, {params: params})
+    return this.http.get<BasePageResponse<ServiceOffer>>(`${this.host}/api/service-offers`, {params: params})
   }
 
   public getServiceOfferDetail(vendorSlugName: string, serviceSlugTitle: string): Observable<any> {

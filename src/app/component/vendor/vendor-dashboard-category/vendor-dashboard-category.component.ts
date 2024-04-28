@@ -39,7 +39,7 @@ export class VendorDashboardCategoryComponent {
       this.isLoading = true;
       this.page++;
       this.vendorService.getAllVendor(this.searchParam, this.page).subscribe({
-        next: (response: BasePageResponse) => {
+        next: (response: BasePageResponse<Vendor>) => {
           this.isLoading = false;
 
           if (isChangeParam) this.vendors = response.items;

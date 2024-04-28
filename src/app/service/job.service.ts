@@ -6,6 +6,7 @@ import { BasePageResponse } from '../model/base-page-response';
 import { VendorJobOfferParam } from '../model/vendor-job-offer-param';
 import { Vendor } from '../model/vendor';
 import { BaseResponse } from '../model/base-response';
+import { Job } from '../model/job';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +16,12 @@ export class JobService {
 
   constructor(private http:HttpClient) { }
 
-  public getAllJob(param: VendorJobOfferParam, page: number): Observable<BasePageResponse> {
+  public getAllJob(param: VendorJobOfferParam, page: number): Observable<BasePageResponse<Job>> {
     const params = new HttpParams({fromObject: param}).append('page', page);
-    var output = this.http.get<BasePageResponse>(`${this.host}/api/job-offers`, {params: params});
-    this.http.get<BasePageResponse>(`${this.host}/api/job-offers`, {params: params}).subscribe(data => {
+    var output = this.http.get<BasePageResponse<Job>>(`${this.host}/api/job-offers`, {params: params});
+    this.http.get<BasePageResponse<Job>>(`${this.host}/api/job-offers`, {params: params}).subscribe(data => {
     });
-    return this.http.get<BasePageResponse>(`${this.host}/api/job-offers`, {params: params})
+    return this.http.get<BasePageResponse<Job>>(`${this.host}/api/job-offers`, {params: params})
   }
 
 

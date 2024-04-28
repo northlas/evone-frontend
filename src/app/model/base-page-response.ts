@@ -1,4 +1,7 @@
-export interface BasePageResponse {
-    items: any[],
-    totalItems: number
+export interface BasePageResponse<T> {
+    items: T[],
+    totalItems: number,
+    totalPage: number,
+    pageSize: number,
+    currentPage: number
 }

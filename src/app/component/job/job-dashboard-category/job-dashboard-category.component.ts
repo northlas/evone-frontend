@@ -39,7 +39,7 @@ export class JobDashboardCategoryComponent {
       this.isLoading = true;
       this.page++;
       this.jobService.getAllJob(this.searchParam, this.page).subscribe({
-        next: (response: BasePageResponse) => {
+        next: (response: BasePageResponse<Job>) => {
           this.isLoading = false;
 
           if (isChangeParam) this.jobs = response.items;
