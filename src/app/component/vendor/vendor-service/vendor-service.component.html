@@ -14,7 +14,12 @@
         </p-galleria>
       </div>
       <div class="d-flex flex-column my-3">
-        <h3 class="color-primary">{{serviceOffer.title}}</h3>
+        <div class="d-flex align-items-center mb-2">
+          <h3 class="color-primary mb-0 me-2">{{serviceOffer.title}}</h3>
+          <button mat-icon-button color="warn" (click)="onWishlist()">
+            <mat-icon [fontIcon]="wishlist?.id ? 'favorite' : 'favorite_outline'"></mat-icon>
+          </button>
+        </div>
         <div class="d-flex flex-column">
           <span>{{serviceOffer.vendor.city.name + ', ' + serviceOffer.vendor.province.name}}</span>
           <span>4,7/5 (23 review)</span>

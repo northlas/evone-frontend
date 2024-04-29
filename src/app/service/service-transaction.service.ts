@@ -21,4 +21,8 @@ export class ServiceTransactionService {
   public postTransaction(vendorName: string, slugTitle: string, serviceTransaction: ServiceTransaction): Observable<ServiceTransaction> {
     return this.http.post<ServiceTransaction>(`${this.host}/api/vendors/${vendorName}/service-offers/${slugTitle}/transactions`, serviceTransaction);
   }
+
+  public putTransaction(param: ServiceTransactionParam): Observable<ServiceTransaction> {
+    return this.http.put<ServiceTransaction>(`${this.host}/api/service-transactions`, param);
+  }
 }

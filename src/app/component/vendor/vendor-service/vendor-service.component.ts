@@ -9,6 +9,9 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { concatMap, from } from 'rxjs';
 import { ServiceTransaction } from 'src/app/model/service-transaction';
 import { OrderServiceDetailComponent } from '../../dialog/order-service-detail/order-service-detail.component';
+import { ServiceOfferWishlistService } from 'src/app/service/service-offer-wishlist.service';
+import { ServiceOfferWishlist } from 'src/app/model/service-offer-wishlist';
+import { BaseResponse } from 'src/app/model/base-response';
 
 @Component({
   selector: 'app-vendor-service',
@@ -16,12 +19,13 @@ import { OrderServiceDetailComponent } from '../../dialog/order-service-detail/o
   styleUrls: ['./vendor-service.component.css']
 })
 export class VendorServiceComponent implements OnInit{
+  public wishlist?: ServiceOfferWishlist;
   private vendorSlugName!: string;
   private serviceOfferSlugTitle!: string;
   public serviceOffer!: ServiceOffer;
   public pictures: SafeResourceUrl[] = [];
 
-  constructor(private serviceOfferService: ServiceOfferService, private route: ActivatedRoute, private dialog: MatDialog, private s3Service: S3Service, private sanitizer: DomSanitizer) {}
+  constructor(private serviceOfferService: ServiceOfferService, private serviceOfferWishlistService: ServiceOfferWishlistService, private route: ActivatedRoute, private dialog: MatDialog, private s3Service: S3Service, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.vendorSlugName = this.route.snapshot.params['vendorName'];
@@ -30,11 +34,14 @@ export class VendorServiceComponent implements OnInit{
   }
 
   private getServiceOffer() {
-    this.serviceOfferService.getServiceOfferDetail(this.vendorSlugName, this.serviceOfferSlugTitle).subscribe({
-      next: response => {
-        this.serviceOffer = response;
-        this.getPictures();
-      }
+    from(this.serviceOfferService.getServiceOfferDetail(this.vendorSlugName, this.serviceOfferSlugTitle))
+    .pipe(concatMap(serviceOffer => {
+      this.serviceOffer = serviceOffer;
+      this.getPictures();
+      return this.serviceOfferWishlistService.getWishlist(serviceOffer.vendor.slugName, serviceOffer.slugTitle);
+    }))
+    .subscribe(wishlist => {
+      this.wishlist = wishlist;
     })
   }
 
@@ -72,5 +79,23 @@ export class VendorServiceComponent implements OnInit{
         }
       }
     })
+  }
+
+  public onWishlist() {
+    if (this.wishlist?.id) {
+      this.serviceOfferWishlistService.deleteWishlist(this.wishlist.id).subscribe({
+        next: () => {
+          this.wishlist = undefined;  
+        }
+      });
+    }
+    else {
+      this.serviceOfferWishlistService.addWishlist(this.serviceOffer.vendor.slugName, this.serviceOffer.slugTitle).subscribe({
+        next: (response: ServiceOfferWishlist) => {
+          this.wishlist = response;
+          console.log(this.wishlist.id)
+        }
+      });
+    }
   }
 }

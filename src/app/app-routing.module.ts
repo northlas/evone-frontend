@@ -34,9 +34,9 @@ const routes: Routes = [
       {path: 'profile', component: ProfileComponent},
       {path: 'service-order', component: ServiceOrderComponent},
       {path: 'job-order', component: JobOrderComponent}
-    ]}
-  ]}, 
-  {path: '', redirectTo: 'vendor', pathMatch: 'full'},
+    ]},
+    {path: '', redirectTo: 'vendor', pathMatch: 'full'},
+  ]},
 ];
 
 @NgModule({
