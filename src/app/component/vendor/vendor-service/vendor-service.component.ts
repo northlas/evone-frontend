@@ -55,13 +55,14 @@ export class VendorServiceComponent implements OnInit{
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {'serviceTransaction' : serviceTransaction, 'picture': this.pictures[0]};
     dialogConfig.autoFocus = false;
+    dialogConfig.minWidth = '30%';
     const dialogRef = this.dialog.open(OrderServiceDetailComponent, dialogConfig);
   }
 
   public onOrder() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = this.serviceOffer;
-    dialogConfig.minWidth = '70%'
+    dialogConfig.minWidth = '60%'
     dialogConfig.autoFocus = false;
     const dialogRef = this.dialog.open(OrderServiceComponent, dialogConfig);
     dialogRef.afterClosed().subscribe({

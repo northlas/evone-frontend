@@ -1,5 +1,6 @@
-export enum ServiecTransactionStatus {
+export enum ServiceTransactionStatus {
     ORDERED,
+    EXPIRED,
     PAID,
     CONFIRMED,
     DONE,

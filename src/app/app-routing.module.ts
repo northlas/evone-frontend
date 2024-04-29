@@ -17,7 +17,6 @@ import { ServiceOrderComponent } from './component/personal/service-order/servic
 import { JobOrderComponent } from './component/personal/job-order/job-order.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'vendor', pathMatch: 'full'},
   {path: '', title: 'Evone', component: NavigationComponent, children: [
     {path: 'vendor', title: 'Vendor', component: VendorDashboardComponent, children: [
       {path: '', component: VendorDashboardMainComponent},
@@ -36,7 +35,8 @@ const routes: Routes = [
       {path: 'service-order', component: ServiceOrderComponent},
       {path: 'job-order', component: JobOrderComponent}
     ]}
-  ]},
+  ]}, 
+  {path: '', redirectTo: 'vendor', pathMatch: 'full'},
 ];
 
 @NgModule({

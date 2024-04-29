@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ServiecTransactionStatus } from '../enum/header-type.enum copy';
+import { ServiceTransactionStatus } from '../enum/service-transaction-status';
 
 @Pipe({
   name: 'status'
@@ -9,15 +9,17 @@ export class StatusPipe implements PipeTransform {
   transform(value: number, type: string): string | undefined {
     if (type == 'service') {
       switch (value) {
-        case ServiecTransactionStatus.ORDERED:
+        case ServiceTransactionStatus.ORDERED:
           return 'Menunggu Pembayaran';
-        case ServiecTransactionStatus.PAID:
+        case ServiceTransactionStatus.EXPIRED:
+          return 'Dibatalkan';
+        case ServiceTransactionStatus.PAID:
           return 'Menunggu Konfirmasi Vendor';
-        case ServiecTransactionStatus.CONFIRMED:
+        case ServiceTransactionStatus.CONFIRMED:
           return 'Sedang Berjalan';
-        case ServiecTransactionStatus.DONE:
+        case ServiceTransactionStatus.DONE:
           return 'Selesai';
-        case ServiecTransactionStatus.CANCELLED:
+        case ServiceTransactionStatus.CANCELLED:
           return undefined;
       }
     }
