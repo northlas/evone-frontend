@@ -37,8 +37,7 @@ const routes: Routes = [
       {path: 'profile', component: ProfileComponent},
       {path: 'service-order', component: ServiceOrderComponent},
       {path: 'job-order', component: JobOrderComponent}
-    ]}
-    {path: 'product', title: 'Product', component: VendorProductComponent},
+    ]},
     {path: 'helpcenter', title: 'Pusat Bantuan', component: HelpcenterComponent},
     {path: 'callcenter', title: 'Kontak', component: CallcenterComponent}
   ]},

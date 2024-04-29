@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Job } from 'src/app/model/job';
+import { JobOffer } from 'src/app/model/job-offer';
 import { Vendor } from 'src/app/model/vendor';
 import { JobService } from 'src/app/service/job.service';
 import { VendorService } from 'src/app/service/vendor.service';
@@ -12,7 +12,7 @@ import { VendorService } from 'src/app/service/vendor.service';
 })
 export class JobDetailComponent implements OnInit{
   private jobSlugTitle!: string;
-  public job!: Job;
+  public job!: JobOffer;
   public isLoading = true;
 
   constructor(private route: ActivatedRoute, private vendorService: VendorService, private jobService: JobService) {}
