@@ -20,8 +20,8 @@ export class ServiceOfferService {
     return this.http.get<BasePageResponse<ServiceOffer>>(`${this.host}/api/service-offers`, {params: params})
   }
 
-  public getServiceOfferDetail(vendorSlugName: string, serviceSlugTitle: string): Observable<any> {
-    return this.http.get<any>(`${this.host}/api/vendors/${vendorSlugName}/service-offers/${serviceSlugTitle}`);
+  public getServiceOfferDetail(vendorSlugName: string, serviceSlugTitle: string): Observable<ServiceOffer> {
+    return this.http.get<ServiceOffer>(`${this.host}/api/vendors/${vendorSlugName}/service-offers/${serviceSlugTitle}`);
   }
 
   public addServiceOffer(model: ServiceOffer, pictures: File[]): Observable<any> {

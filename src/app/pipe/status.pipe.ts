@@ -11,16 +11,14 @@ export class StatusPipe implements PipeTransform {
       switch (value) {
         case ServiceTransactionStatus.ORDERED:
           return 'Menunggu Pembayaran';
-        case ServiceTransactionStatus.EXPIRED:
-          return 'Dibatalkan';
         case ServiceTransactionStatus.PAID:
-          return 'Menunggu Konfirmasi Vendor';
+          return 'Menunggu Konfirmasi';
         case ServiceTransactionStatus.CONFIRMED:
-          return 'Sedang Berjalan';
-        case ServiceTransactionStatus.DONE:
+          return 'Berlangsung';
+        case ServiceTransactionStatus.FINISHED:
           return 'Selesai';
-        case ServiceTransactionStatus.CANCELLED:
-          return undefined;
+        case ServiceTransactionStatus.FAILED:
+          return 'Dibatalkan';
       }
     }
     else if (type == 'job') {

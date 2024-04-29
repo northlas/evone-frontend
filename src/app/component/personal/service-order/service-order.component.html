@@ -1,21 +1,21 @@
 <div class="container">
   <div class="d-flex align-items-center mb-3">
     <h3 class="me-5">Pesanan</h3>
-    <form class="ps-5 flex-grow-1">
+    <form class="ps-5 flex-grow-1" (submit)="search(input.value)">
       <mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-100">
-        <input #input matInput placeholder="Cari vendor">
+        <input #input matInput placeholder="Cari pesanan" >
         <button type="button" #button matPrefix mat-icon-button disabled>
           <mat-icon fontIcon="search"></mat-icon>
         </button>
       </mat-form-field>
     </form>
-    <button mat-icon-button class="mx-2">
-      <mat-icon>filter_alt</mat-icon>
+    <button mat-icon-button class="mx-2" (click)="onFilter()">
+      <mat-icon [matBadge]="filterCount" [matBadgeHidden]="filterCount == 0" matBadgeColor="accent">filter_alt</mat-icon>
     </button>
   </div>
   <div *ngIf="page">
     <div *ngFor="let serviceTransaction of page.items">
-      <mat-card class="p-1 pointer-event mb-3">
+      <mat-card class="p-2 pointer-event mb-4">
         <a class="d-flex flex-row" (click)="onDetail(serviceTransaction)">
           <img *ngIf="pictureMap.has(serviceTransaction.id)" class="object-fit-cover rounded me-3" style="width: 280px; height: 210px;" mat-card-image [src]="pictureMap.get(serviceTransaction.id)">
           <div *ngIf="!pictureMap.has(serviceTransaction.id)" class="rounded loading me-3" style="min-width: 280px; height: 210px;"></div>
@@ -25,25 +25,25 @@
               <div>
                 <h4>{{serviceTransaction.serviceOffer.title}}</h4>
                 <div class="row row-cols-1">
-                  <div class="col row">
-                    <span class="col-3">Harga</span>
-                    <span class="col-9">: {{serviceTransaction.serviceOffer.price | currency: 'Rp' : 'symbol' : '1.0-0'}} / {{serviceTransaction.serviceOffer.minimumQty}} {{serviceTransaction.serviceOffer.category.measureUnit}}</span>
+                  <div class="col d-flex">
+                    <div style="width: 150px;">Harga</div>
+                    <div>: {{serviceTransaction.serviceOffer.price | currency: 'Rp' : 'symbol' : '1.0-0'}} / {{serviceTransaction.serviceOffer.minimumQty}} {{serviceTransaction.serviceOffer.category.measureUnit}}</div>
                   </div>
-                  <div class="col row">
-                    <span class="col-3">Jenis Acara</span>
-                    <span class="col-9">: {{serviceTransaction.occasion.name}}</span>
+                  <div class="col d-flex">
+                    <div style="width: 150px;">Jenis Acara</div>
+                    <div>: {{serviceTransaction.occasion.name}}</div>
                   </div>
-                  <div class="col row">
-                    <span class="col-3">Jumlah Pesanan</span>
-                    <span class="col-9">: {{serviceTransaction.qty}} {{serviceTransaction.serviceOffer.category.measureUnit}}</span>
+                  <div class="col d-flex">
+                    <div style="width: 150px;">Jumlah Pesanan</div>
+                    <div>: {{serviceTransaction.qty}} {{serviceTransaction.serviceOffer.category.measureUnit}}</div>
                   </div>
-                  <div class="col row">
-                    <span class="col-3">Tanggal Acara</span>
-                    <span class="col-9">: {{serviceTransaction.startDt | date : 'dd MMMM YYYY'}} - {{serviceTransaction.endDt | date : 'dd MMMM YYYY'}}</span>
+                  <div class="col d-flex">
+                    <div style="width: 150px;">Tanggal Acara</div>
+                    <div>: {{serviceTransaction.startDt | date : 'dd MMMM YYYY'}} - {{serviceTransaction.endDt | date : 'dd MMMM YYYY'}}</div>
                   </div>
-                  <div class="col row">
-                    <span class="col-3">Lokasi Acara</span>
-                    <span class="col-9">: {{serviceTransaction.address}}</span>
+                  <div class="col d-flex">
+                    <div style="width: 150px;">Lokasi Acara</div>
+                    <div>: {{serviceTransaction.address}}</div>
                   </div>
                 </div>
               </div>
