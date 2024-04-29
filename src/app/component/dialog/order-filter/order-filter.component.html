@@ -1,0 +1,52 @@
+<mat-dialog-actions class="d-flex justify-content-between align-items-start">
+    <h1 mat-dialog-title class="fs-4 pt-3 pb-1 ps-3">Filter</h1>
+    <button matDialogClose mat-icon-button>
+      <mat-icon fontIcon="close"></mat-icon>
+    </button>
+</mat-dialog-actions>
+<mat-dialog-content class="my-2 pt-0 text-dark">
+    <form [formGroup]="form">
+        <div class="mb-4">
+            <span class="me-3">Status</span>
+            <mat-chip-listbox formControlName="status">
+                <mat-chip-option [value]="0">{{0 | status: 'service'}}</mat-chip-option>
+                <mat-chip-option [value]="1">{{1 | status: 'service'}}</mat-chip-option>
+                <mat-chip-option [value]="2">{{2 | status: 'service'}}</mat-chip-option>
+                <mat-chip-option [value]="3">{{3 | status: 'service'}}</mat-chip-option>
+                <mat-chip-option [value]="4">{{4 | status: 'service'}}</mat-chip-option>
+            </mat-chip-listbox>
+        </div>
+        <div class="d-flex w-100">
+            <div class="mb-4 d-flex flex-column flex-grow-1 pe-2">
+                <span>Kategori</span>
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                    <mat-select placeholder="Semua jenis acara" formControlName="category">
+                        <mat-option *ngFor="let category of categories" [value]="category.slugName">
+                            {{category.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="mb-4 d-flex flex-column flex-grow-1 ps-2">
+                <span>Tanggal</span>
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate placeholder="Mulai" formControlName="startDt">
+                        <input matEndDate placeholder="Selesai" formControlName="endDt">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker>
+                        <mat-date-range-picker-actions>
+                            <button mat-button matDateRangePickerCancel>Batal</button>
+                            <button mat-raised-button color="primary" matDateRangePickerApply (click)="checkEndDate()">Pilih</button>
+                        </mat-date-range-picker-actions>
+                    </mat-date-range-picker>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="resetFilter()" [hidden]="!isFiltering()">Reset</button>
+    <button mat-flat-button (click)="saveFilter()" color="primary">Simpan</button>
+</mat-dialog-actions>
