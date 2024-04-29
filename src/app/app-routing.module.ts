@@ -19,7 +19,6 @@ import { HelpcenterComponent } from './component/helpcenter/helpcenter.component
 import { CallcenterComponent } from './component/callcenter/callcenter.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'vendor', pathMatch: 'full'},
   {path: '', title: 'Evone', component: NavigationComponent, children: [
     {path: 'vendor', title: 'Vendor', component: VendorDashboardComponent, children: [
       {path: '', component: VendorDashboardMainComponent},
@@ -37,10 +36,11 @@ const routes: Routes = [
       {path: 'profile', component: ProfileComponent},
       {path: 'service-order', component: ServiceOrderComponent},
       {path: 'job-order', component: JobOrderComponent}
-    ]},
-    {path: 'helpcenter', title: 'Pusat Bantuan', component: HelpcenterComponent},
-    {path: 'callcenter', title: 'Kontak', component: CallcenterComponent}
+    ]}
   ]},
+  {path: '', redirectTo: 'vendor', pathMatch: 'full'},
+  {path: 'helpcenter', title: 'Pusat Bantuan', component: HelpcenterComponent},
+  {path: 'callcenter', title: 'Kontak', component: CallcenterComponent}
 ];
 
 @NgModule({

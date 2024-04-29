@@ -47,9 +47,9 @@
                   </div>
                 </div>
               </div>
-              <div>
+              <div class="text-end">
                 <h3>{{serviceTransaction.paymentAmount | currency: 'Rp' : 'symbol' : '1.0-0'}}</h3>
-                <div>{{serviceTransaction.status | status : 'service'}}</div>
+                <div style="white-space: nowrap;">{{serviceTransaction.status | status : 'service'}}</div>
               </div>
             </div>
           </mat-card-content>
