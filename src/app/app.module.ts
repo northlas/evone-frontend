@@ -33,10 +33,12 @@ import { MatNativeDateModule} from "@angular/material/core";
 import { MatRippleModule } from '@angular/material/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CarouselModule } from "primeng/carousel";
 import { FileUploadModule } from 'primeng/fileupload';
 import { GalleriaModule } from 'primeng/galleria';
+import { RatingModule } from 'primeng/rating';
 import { VendorDashboardComponent } from './component/vendor/vendor-dashboard/vendor-dashboard.component';
 import { JobDashboardComponent } from './component/job/job-dashboard/job-dashboard.component';
 import { NavigationComponent } from './component/navigation/navigation.component';
@@ -74,6 +76,10 @@ import { ProfileComponent } from './component/personal/profile/profile.component
 import { OrderServiceDetailComponent } from './component/dialog/order-service-detail/order-service-detail.component';
 import { StatusPipe } from './pipe/status.pipe';
 import { OrderFilterComponent } from './component/dialog/order-filter/order-filter.component';
+import { WishlistDashboardComponent } from './component/personal/wishlist-dashboard/wishlist-dashboard.component';
+import { WishlistServiceComponent } from './component/personal/wishlist-service/wishlist-service.component';
+import { WishlistJobComponent } from './component/personal/wishlist-job/wishlist-job.component';
+import { ReviewComponent } from './component/dialog/review/review.component';
 
 const notifierCustomOptions: NotifierOptions = {
   position: {
@@ -128,7 +134,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
 
 registerLocaleData(localeId)
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, ChatComponent, WishlistComponent, VendorProductComponent, VendorProductServiceComponent, VendorProductJobComponent, AddServiceComponent, AddJobComponent, LoadingComponent, OrderServiceComponent, SettingsComponent, ServiceOrderComponent, JobOrderComponent, ProfileComponent, OrderServiceDetailComponent, StatusPipe, OrderFilterComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, ChatComponent, WishlistComponent, VendorProductComponent, VendorProductServiceComponent, VendorProductJobComponent, AddServiceComponent, AddJobComponent, LoadingComponent, OrderServiceComponent, SettingsComponent, ServiceOrderComponent, JobOrderComponent, ProfileComponent, OrderServiceDetailComponent, StatusPipe, OrderFilterComponent, WishlistDashboardComponent, WishlistServiceComponent, WishlistJobComponent, ReviewComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -161,9 +167,11 @@ registerLocaleData(localeId)
     MatNativeDateModule,
     MatRippleModule,
     MatChipsModule,
+    MatTooltipModule,
     CarouselModule,
     FileUploadModule,
     GalleriaModule,
+    RatingModule
   ],
   providers: [AuthenticationService, NotificationService, {provide: LOCALE_ID, useValue: 'id-ID'}, {provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig}, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],

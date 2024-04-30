@@ -11,6 +11,8 @@ import { OrderServiceDetailComponent } from '../../dialog/order-service-detail/o
 import { OrderFilterComponent } from '../../dialog/order-filter/order-filter.component';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { Role } from 'src/app/enum/role.enum';
+import { RatingRateEvent } from 'primeng/rating';
+import { ReviewComponent } from '../../dialog/review/review.component';
 
 @Component({
   selector: 'app-service-order',
@@ -22,6 +24,8 @@ export class ServiceOrderComponent implements OnInit{
 
   private isVendor!: boolean;
   private searchParam = {} as ServiceTransactionParam;
+  private isReviewing = false;
+  public reviewParam = {} as ServiceTransactionParam;
   public filterCount = 0;
   public page!: BasePageResponse<ServiceTransaction>;
   public pictureMap = new Map<string, SafeResourceUrl>();
@@ -95,9 +99,32 @@ export class ServiceOrderComponent implements OnInit{
   }
 
   public onDetail(serviceTransaction: ServiceTransaction) {
+    if (!this.isReviewing) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = {'serviceTransaction' : serviceTransaction, 'picture': this.pictureMap.get(serviceTransaction.id), 'isVendor': this.isVendor};
+      dialogConfig.autoFocus = false;
+      this.dialog.open(OrderServiceDetailComponent, dialogConfig);
+    }
+  }
+
+  public onReview(serviceTransction: ServiceTransaction) {
+    this.isReviewing = true;
+    this.reviewParam.id = serviceTransction.id;
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {'serviceTransaction' : serviceTransaction, 'picture': this.pictureMap.get(serviceTransaction.id), 'isVendor': this.isVendor};
+    dialogConfig.data = this.reviewParam;
     dialogConfig.autoFocus = false;
-    const dialogRef = this.dialog.open(OrderServiceDetailComponent, dialogConfig);
+    dialogConfig.minWidth = '40%';
+    const dialogRef = this.dialog.open(ReviewComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe({
+      next: (review: string | undefined) => {
+        if (review) {
+          serviceTransction.review = review;
+        }
+        else {
+          serviceTransction.rating = 0;
+          this.reviewParam.rating = 0;
+        }
+      }
+    })
   }
 }

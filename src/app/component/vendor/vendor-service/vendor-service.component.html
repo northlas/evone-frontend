@@ -16,7 +16,7 @@
       <div class="d-flex flex-column my-3">
         <div class="d-flex align-items-center mb-2">
           <h3 class="color-primary mb-0 me-2">{{serviceOffer.title}}</h3>
-          <button mat-icon-button color="warn" (click)="onWishlist()">
+          <button mat-icon-button color="warn" (click)="onWishlist()" [matTooltip]="wishlist?.id ? 'Hapus dari favorit' : 'Tambahkan ke favorit'">
             <mat-icon [fontIcon]="wishlist?.id ? 'favorite' : 'favorite_outline'"></mat-icon>
           </button>
         </div>

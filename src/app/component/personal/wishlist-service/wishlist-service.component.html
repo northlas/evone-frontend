@@ -1,0 +1,24 @@
+<div class="container">
+  <h3 class="me-5 mb-3">Favorit</h3>
+  <div>
+    <div *ngFor="let wishlist of wishlists">
+      <mat-card class="p-2 pointer-event mb-4">
+        <a class="d-flex flex-row" [routerLink]="'/vendor/' + wishlist.serviceOffer.vendor.slugName + '/service/' + wishlist.serviceOffer.slugTitle">
+          <img *ngIf="pictureMap.has(wishlist.id)" class="object-fit-cover rounded me-3" style="width: 160px; height: 120px;" mat-card-image [src]="pictureMap.get(wishlist.id)">
+          <div *ngIf="!pictureMap.has(wishlist.id)" class="rounded loading me-3" style="min-width: 160px; height: 120px;"></div>
+          <mat-card-content class="d-flex justify-content-between flex-grow-1">
+            <div class="d-flex flex-column">
+              <span class="fw-medium fs-4 mb-1">{{wishlist.serviceOffer.vendor.name}}</span>
+              <span class="text-secondary" style="font-size: 0.8rem;">{{wishlist.serviceOffer.vendor.province.name}}</span>
+              <span class="flex-grow-1" style="font-size: 0.8rem;">4,7/5 (23 review)</span>
+            </div>
+            <div class="d-flex flex-column align-items-end justify-content-center">
+              <span class="fs-4" style="color: #ec770c;">{{wishlist.serviceOffer.price | currency: 'Rp' : 'symbol' : '1.0-0'}}</span>
+              <span>per {{wishlist.serviceOffer.minimumQty}} {{wishlist.serviceOffer.category.measureUnit}}</span>
+            </div>
+          </mat-card-content>
+        </a>
+      </mat-card>
+    </div>
+  </div>
+</div>

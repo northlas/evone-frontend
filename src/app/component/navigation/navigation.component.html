@@ -1,5 +1,5 @@
 <header>
-    <mat-toolbar class="d-flex justify-content-between px-5">
+    <mat-toolbar class="d-flex justify-content-between px-4">
         <div>
             <a class="fs-3 color-primary" routerLink="/">EVONE</a>
         </div>
@@ -7,15 +7,15 @@
             <div class="d-flex pe-3">
                 <a class="me-3" routerLink="/vendor">Vendor</a>
                 <a class="me-3" routerLink="/freelance">Freelance</a>
-                <a class="me-3" routerLink="/product">Etalase</a>
+                <a class="me-3" routerLink="/product" *ngIf="isVendor">Etalase</a>
             </div>
             <div *ngIf="isLoggedIn" class="px-3 border-start border-end border-2 border-dark">
-                <button mat-icon-button>
+                <a mat-icon-button color="warn" routerLink="wishlist">
                     <mat-icon fontIcon="favorite"></mat-icon>
-                </button>
-                <button mat-icon-button>
+                </a>
+                <a mat-icon-button color="primary">
                     <mat-icon fontIcon="forum"></mat-icon>
-                </button>
+                </a>
             </div>
             <div class="ps-3" [ngClass]="isLoggedIn ? '' : 'border-start border-2 border-dark'">
                 <ng-container [ngSwitch]="isLoggedIn">
@@ -24,7 +24,10 @@
                         <button mat-flat-button (click)="openRegister()" color="primary">Daftar</button>
                     </div>
                     <div *ngSwitchDefault>
-                        <button mat-button [matMenuTriggerFor]="menu">Halo, {{userName}}</button>
+                        <button mat-fab extended [matMenuTriggerFor]="menu" color="primary" style="box-shadow: none;">
+                            <mat-icon fontIcon="account_circle"></mat-icon>
+                            {{userName}}
+                        </button>
                         <mat-menu #menu="matMenu" xPosition="before">
                           <button mat-menu-item routerLink="/settings/profile">Profil</button>
                           <button mat-menu-item routerLink="/settings/service-order">Pesanan</button>

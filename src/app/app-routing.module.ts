@@ -15,6 +15,9 @@ import { SettingsComponent } from './component/personal/settings/settings.compon
 import { ProfileComponent } from './component/personal/profile/profile.component';
 import { ServiceOrderComponent } from './component/personal/service-order/service-order.component';
 import { JobOrderComponent } from './component/personal/job-order/job-order.component';
+import { WishlistDashboardComponent } from './component/personal/wishlist-dashboard/wishlist-dashboard.component';
+import { WishlistServiceComponent } from './component/personal/wishlist-service/wishlist-service.component';
+import { WishlistJobComponent } from './component/personal/wishlist-job/wishlist-job.component';
 
 const routes: Routes = [
   {path: '', title: 'Evone', component: NavigationComponent, children: [
@@ -34,6 +37,11 @@ const routes: Routes = [
       {path: 'profile', component: ProfileComponent},
       {path: 'service-order', component: ServiceOrderComponent},
       {path: 'job-order', component: JobOrderComponent}
+    ]},
+    {path: 'wishlist', title: 'Wishlist', component: WishlistDashboardComponent, children: [
+      {path: 'service', component: WishlistServiceComponent},
+      {path: 'job', component: WishlistJobComponent},
+      {path: '', redirectTo: 'service', pathMatch: 'full'}
     ]},
     {path: '', redirectTo: 'vendor', pathMatch: 'full'},
   ]},

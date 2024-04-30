@@ -4,6 +4,8 @@ export interface ServiceTransactionParam {
     category: string,
     title: string,
     status: number,
+    rating: number,
+    review: string,
     startDt: string,
     endDt: string,
     page: number
