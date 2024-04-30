@@ -100,6 +100,8 @@ export class AddServiceComponent implements OnInit {
   }
 
   private priceListener() {
+  console.log("# price listener " + this.priceForm.value + " : " + this.existing.price);
+
     this.priceForm.valueChanges.subscribe({
       next: (value: number | null) => {
         if (value == null) {

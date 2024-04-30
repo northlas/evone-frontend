@@ -5,7 +5,7 @@ import { concatMap, from } from 'rxjs';
 import { Talent } from 'src/app/model/talent';
 import { Category } from 'src/app/model/category';
 import { Vendor } from 'src/app/model/vendor';
-import { Job } from 'src/app/model/job';
+import { JobOffer } from 'src/app/model/job-offer';
 import { VendorJobOfferParam } from 'src/app/model/vendor-job-offer-param';
 import { TalentService } from 'src/app/service/talent.service';
 import { JobService } from 'src/app/service/job.service';
@@ -17,7 +17,7 @@ import { JobService } from 'src/app/service/job.service';
 })
 export class JobDashboardMainComponent implements OnInit{
   public talents: Category[] = [];
-  public talentJobs = new Map<string, Job[]>();
+  public talentJobs = new Map<string, JobOffer[]>();
   public isLoading = true;
   private searchParam = {} as VendorJobOfferParam;
   public responsiveOptions = [

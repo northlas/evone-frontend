@@ -26,5 +26,5 @@
 </div>
 <ng-container [ngSwitch]="submenu">
   <app-vendor-product-service *ngSwitchCase="'service'"></app-vendor-product-service>
-  <app-vendor-product-job *ngSwitch="'job'"></app-vendor-product-job>
+  <app-vendor-product-job *ngSwitchCase="'job'"></app-vendor-product-job>
 </ng-container>

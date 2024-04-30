@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router, Scroll } from '@angular/router';
 import { BasePageResponse } from 'src/app/model/base-page-response';
 import { VendorJobOfferParam } from 'src/app/model/vendor-job-offer-param';
-import { Job } from 'src/app/model/job';
+import { JobOffer } from 'src/app/model/job-offer';
 import { JobService } from 'src/app/service/job.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { JobService } from 'src/app/service/job.service';
 })
 export class JobDashboardCategoryComponent {
   public isLoading = true;
-  public jobs: Job[] = []
+  public jobs: JobOffer[] = []
   private page!: number;
   private totalItems!: number;
   private searchParam: VendorJobOfferParam = {} as VendorJobOfferParam;
@@ -39,8 +39,9 @@ export class JobDashboardCategoryComponent {
       this.isLoading = true;
       this.page++;
       this.jobService.getAllJob(this.searchParam, this.page).subscribe({
-        next: (response: BasePageResponse<Job>) => {
+        next: (response: BasePageResponse<JobOffer>) => {
           this.isLoading = false;
+          console.log("# masuk sini : " + (response.items));
 
           if (isChangeParam) this.jobs = response.items;
           else this.jobs.push(...response.items);

@@ -42,36 +42,4 @@
       <button mat-flat-button color="primary" class="w-100">Daftar</button>
     </div>
   </div>
-  <div>
-    <h4>Rekomendasi yang mungkin sesuai untukmu</h4>
-    <mat-grid-list
-      *ngIf="jobOffers.length > 0"
-      cols="4"
-      rowHeight="350px"
-      style="width: 1200px;"
-      infinite-scroll
-      [infiniteScrollDistance]="1">
-      <mat-grid-tile *ngFor="let jobOffer of jobOffers">
-        <mat-card style="width: 90%;">
-          <a [href]="'freelance/' +job.vendor.slugName + '/job/' +job.slugTitle">
-            <img class="border-bottom border-top w-100" mat-card-image [src]="('job offer/' + jobOffer.pictures[0].id) | image |async">
-            <mat-card-content class="mt-2">
-              <div class="d-flex flex-column text-break">
-                <span class="fw-medium text-break">{{jobOffer.title}}</span>
-                <span class="mt-2 fw-medium" style="color: #ec770c;">
-                {{jobOffer.price | currency: 'Rp' : 'symbol' : '1.0-0'}}
-              </span>
-              </div>
-            </mat-card-content>
-          </a>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
-    <div class="flex-grow-1 d-flex justify-content-center align-items-center py-3 w-100" *ngIf="isLoading">
-      <mat-spinner [diameter]="80" color="accent"></mat-spinner>
-    </div>
-    <div class="flex-grow-1 d-flex align-items-center" *ngIf="!isLoading && jobOffers.length == 0">
-      <span>Pekerjaan tidak ditemukan</span>
-    </div>
-  </div>
 </div>

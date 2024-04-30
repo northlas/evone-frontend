@@ -6,7 +6,7 @@ import { Occasion } from "./occasion";
 import { JobPicture } from "./job-picture";
 
 
-export interface Job{
+export interface JobOffer{
     id: number,
     vendor: Vendor
     title: string,
@@ -16,7 +16,10 @@ export interface Job{
     minPrice: number,
     maxPrice: number,
     talent: Category,
+    talentId: number,
     occasion: Occasion,
+    occasionId: number,
     pictures: JobPicture[],
     createdDt: Date
+    isActive: boolean,
 }

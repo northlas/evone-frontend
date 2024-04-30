@@ -1,1 +1,58 @@
-<p>add-job works!</p>
+<mat-dialog-actions class="d-flex justify-content-between align-items-start">
+  <div class="d-flex align-items-center pt-3 pb-1 ps-3">
+    <h3 class="m-0 me-4">{{existing ? 'Ubah Pekerjaan' : 'Tambah Pekerjaan'}}</h3>
+    <mat-slide-toggle [(ngModel)]="isActive" style="height: fit-content;">{{isActive ? 'Aktif' : 'Nonaktif'}}</mat-slide-toggle>
+  </div>
+  <button matDialogClose mat-icon-button>
+    <mat-icon fontIcon="close"></mat-icon>
+  </button>
+</mat-dialog-actions>
+<mat-dialog-content class="text-dark">
+  <form [formGroup]="form">
+    <div class="row row-cols-sm-1 row-cols-md-2">
+      <mat-form-field appearance="outline" class="col mb-3">
+        <mat-label>Judul</mat-label>
+        <input matInput formControlName="title"/>
+        <mat-error>Judul harus diisi</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col mb-3">
+        <mat-label>Harga</mat-label>
+        <input matInput formControlName="price" currencyMask (blur)="checkPrice()" maxlength="13"/>
+        <mat-error>Harga harus diisi</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col mb-3">
+        <mat-label>Kategori</mat-label>
+        <mat-select formControlName="category">
+          <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+        </mat-select>
+        <mat-error>Kategori harus dipilih</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col mb-3">
+        <mat-label>Jenis Acara</mat-label>
+        <mat-select formControlName="occasion">
+          <mat-option *ngFor="let occasion of occasions" [value]="occasion.id">{{occasion.name}}</mat-option>
+        </mat-select>
+        <mat-error>Jenis acara harus dipilih</mat-error>
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline" class="w-100 mb-3">
+      <mat-label>Deskripsi</mat-label>
+      <textarea matInput cdkTextareaAutosize formControlName="description" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" required></textarea>
+      <mat-error>Deskripsi harus diisi</mat-error>
+    </mat-form-field>
+    <div class="border rounded">
+      <p-fileUpload class="file-upload" *ngIf="!existing || !isFetchingImage" [files]="pictures" (onSelect)="onAddPicture($event)" [multiple]="true" accept="image/*" [auto]="true" (onRemove)="onRemovePicture($event)" chooseLabel="Pilih gambar" [previewWidth]="300"></p-fileUpload>
+      <p-fileUpload class="file-upload" *ngIf="existing && isFetchingImage" [auto]="true" chooseLabel="Pilih gambar">
+        <ng-template pTemplate="content">
+          <div class="w-100 d-flex justify-content-center">
+            <mat-spinner></mat-spinner>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="file"></ng-template>
+      </p-fileUpload>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-flat-button color="accent" class="text-white mb-3" (click)="onSubmit()">{{existing ? 'Ubah' : 'Tambah'}}</button>
+</mat-dialog-actions>

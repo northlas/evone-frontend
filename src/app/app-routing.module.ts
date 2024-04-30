@@ -18,6 +18,8 @@ import { JobOrderComponent } from './component/personal/job-order/job-order.comp
 import { WishlistDashboardComponent } from './component/personal/wishlist-dashboard/wishlist-dashboard.component';
 import { WishlistServiceComponent } from './component/personal/wishlist-service/wishlist-service.component';
 import { WishlistJobComponent } from './component/personal/wishlist-job/wishlist-job.component';
+import { HelpcenterComponent } from './component/helpcenter/helpcenter.component';
+import { CallcenterComponent } from './component/callcenter/callcenter.component';
 
 const routes: Routes = [
   {path: '', title: 'Evone', component: NavigationComponent, children: [
@@ -44,6 +46,8 @@ const routes: Routes = [
       {path: '', redirectTo: 'service', pathMatch: 'full'}
     ]},
     {path: '', redirectTo: 'vendor', pathMatch: 'full'},
+    {path: 'helpcenter', title: 'Pusat Bantuan', component: HelpcenterComponent},
+    {path: 'callcenter', title: 'Kontak', component: CallcenterComponent}
   ]},
 ];
 
