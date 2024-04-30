@@ -10,7 +10,7 @@
                 <a class="me-3" routerLink="/product" *ngIf="isVendor">Etalase</a>
             </div>
             <div *ngIf="isLoggedIn" class="px-3 border-start border-end border-2 border-dark">
-                <a mat-icon-button color="warn" routerLink="wishlist">
+                <a mat-icon-button color="warn" routerLink="wishlist" *ngIf="!isVendor">
                     <mat-icon fontIcon="favorite"></mat-icon>
                 </a>
                 <a mat-icon-button color="primary">

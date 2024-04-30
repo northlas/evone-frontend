@@ -25,7 +25,7 @@ export class ServiceOrderComponent implements OnInit{
   private isVendor!: boolean;
   private searchParam = {} as ServiceTransactionParam;
   private isReviewing = false;
-  public reviewParam = {} as ServiceTransactionParam;
+  public reviewMap = new Map<string, number>();
   public filterCount = 0;
   public page!: BasePageResponse<ServiceTransaction>;
   public pictureMap = new Map<string, SafeResourceUrl>();
@@ -43,6 +43,7 @@ export class ServiceOrderComponent implements OnInit{
       next: response => {
         this.page = response;
         response.items.forEach(value => {
+          this.reviewMap.set(value.id, value.rating);
           if (!this.pictureMap.has(value.id)) {
             this.getPictures(value.id, value.serviceOffer.pictures[0].id);
           }
@@ -109,21 +110,21 @@ export class ServiceOrderComponent implements OnInit{
 
   public onReview(serviceTransction: ServiceTransaction) {
     this.isReviewing = true;
-    this.reviewParam.id = serviceTransction.id;
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = this.reviewParam;
+    dialogConfig.data = serviceTransction;
     dialogConfig.autoFocus = false;
     dialogConfig.minWidth = '40%';
     const dialogRef = this.dialog.open(ReviewComponent, dialogConfig);
     dialogRef.afterClosed().subscribe({
-      next: (review: string | undefined) => {
+      next: (review: boolean | undefined) => {
         if (review) {
-          serviceTransction.review = review;
+          this.reviewMap.set(serviceTransction.id, serviceTransction.rating);
         }
         else {
+          serviceTransction.review = '';
           serviceTransction.rating = 0;
-          this.reviewParam.rating = 0;
         }
+        this.isReviewing = false;
       }
     })
   }
