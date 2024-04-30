@@ -63,7 +63,9 @@ export class AddJobComponent implements OnInit {
     this.getCategories();
     this.getOccasions();
     this.priceListener();
-    if (this.existing) this.assignExistingData();
+    if (this.existing) {
+      this.assignExistingData();
+      }
   }
 
   private assignExistingData() {

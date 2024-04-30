@@ -21,7 +21,7 @@ export class JobService {
     var output = this.http.get<BasePageResponse<JobOffer>>(`${this.host}/api/job-offers`, {params: params});
     this.http.get<BasePageResponse<JobOffer>>(`${this.host}/api/job-offers`, {params: params}).subscribe(data => {
     });
-    return this.http.get<BasePageResponse<JobOffer>>(`${this.host}/api/job-offers`, {params: params})
+    return this.http.get<BasePageResponse<JobOffer>>(`${this.host}/api/job-offers/etalase`, {params: params})
   }
 
     public getAllJobEtalase(vendorSlugName: string, param: VendorJobOfferParam | undefined, page: number): Observable<BasePageResponse<JobOffer>> {
@@ -30,8 +30,8 @@ export class JobService {
     }
 
 
-  public getJobDetail(jobSlugTitle: string): Observable<any> {
-    return this.http.get<any>(`${this.host}/api/job-offers/${jobSlugTitle}`);
+  public getJobDetail(slugTitle: string): Observable<any> {
+    return this.http.get<any>(`${this.host}/api/job-offers/${slugTitle}`);
   }
 
   public getAllJobOfferByTalent(jobSlugTitle: string): Observable<any> {

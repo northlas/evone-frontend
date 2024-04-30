@@ -36,7 +36,7 @@ const routes: Routes = [
       {path: 'profile', component: ProfileComponent},
       {path: 'service-order', component: ServiceOrderComponent},
       {path: 'job-order', component: JobOrderComponent}
-    ]}
+    ]},
     {path: '', redirectTo: 'vendor', pathMatch: 'full'},
     {path: 'helpcenter', title: 'Pusat Bantuan', component: HelpcenterComponent},
     {path: 'callcenter', title: 'Kontak', component: CallcenterComponent}

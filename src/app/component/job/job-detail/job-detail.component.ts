@@ -11,19 +11,19 @@ import { VendorService } from 'src/app/service/vendor.service';
   styleUrls: ['./job-detail.component.css']
 })
 export class JobDetailComponent implements OnInit{
-  private jobSlugTitle!: string;
+  private slugTitle!: string;
   public job!: JobOffer;
   public isLoading = true;
 
   constructor(private route: ActivatedRoute, private vendorService: VendorService, private jobService: JobService) {}
 
   ngOnInit(): void {
-    this.jobSlugTitle = this.route.snapshot.params['jobTitle'];
+    this.slugTitle = this.route.snapshot.params['jobTitle'];
     this.getJob();
   }
 
   private getJob() {
-      this.jobService.getJobDetail(this.jobSlugTitle).subscribe({
+      this.jobService.getJobDetail(this.slugTitle).subscribe({
         next: response => {
           this.job = response;
         }
