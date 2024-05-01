@@ -12,7 +12,7 @@
         <div class="d-flex justify-content-between">
           <div class="w-50 d-flex flex-column">
             <span>{{vendor.city.name + ', ' + vendor.province.name}}</span>
-            <span>4,7/5 (23 review)</span>
+            <span>{{vendor.rating.avgRating | number : '1.0-1'}}/5 ({{vendor.rating.countRating}} ulasan)</span>
             <ul class="color-primary row row-cols-2 mt-2" style="text-wrap: nowrap;">
               <li *ngFor="let category of vendor.categories" class="col">{{category.name}}</li>
             </ul>
@@ -52,7 +52,7 @@
                     <mat-card-content class="my-2">
                         <div class="d-flex flex-column">
                             <span class="fw-medium text-ellipsis">{{serviceOffer.title}}</span>
-                            <span style="font-size: 0.7rem;">4,7/5 (23 review)</span>
+                            <span style="font-size: 0.7rem;">{{serviceOffer.rating.avgRating | number : '1.0-1'}}/5 ({{serviceOffer.rating.countRating}} ulasan)</span>
                             <span class="mt-2 fw-medium" style="color: #ec770c;">{{serviceOffer.price | currency: 'Rp' : 'symbol' : '1.0-0'}}</span>
                         </div>
                     </mat-card-content>

@@ -1,3 +1,5 @@
+import { BaseRating } from "./base-rating";
+import { BaseReview } from "./base-review";
 import { Category } from "./category";
 import { Occasion } from "./occasion";
 import { ServiceOfferPicture } from "./service-offer-picture";
@@ -13,8 +15,10 @@ export interface ServiceOffer {
   isActive: boolean,
   createdDt: Date,
   updatedDt: Date,
+  rating: BaseRating,
   vendor: Vendor,
   category: Category,
+  reviews: BaseReview[],
   occasions: Occasion[],
   pictures: ServiceOfferPicture[],
 }

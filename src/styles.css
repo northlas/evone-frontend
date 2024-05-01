@@ -27,10 +27,14 @@ a {color: inherit; text-decoration: none;}
     white-space: nowrap;
 }
 
-::ng-deep .loading {
+.loading {
     background-color: #babbbc;
     animation: hintloading 2s ease-in-out 0s infinite reverse;
     -webkit-animation: hintloading 2s ease-in-out 0s infinite reverse;
+}
+
+.p-rating .p-rating-item.p-rating-item-active .p-rating-icon {
+  color: #ffe700;
 }
 
 @keyframes hintloading

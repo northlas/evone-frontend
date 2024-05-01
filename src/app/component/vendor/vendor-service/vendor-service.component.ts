@@ -24,6 +24,23 @@ export class VendorServiceComponent implements OnInit{
   private serviceOfferSlugTitle!: string;
   public serviceOffer!: ServiceOffer;
   public pictures: SafeResourceUrl[] = [];
+  public responsiveOptions = [
+    {
+      breakpoint: '1280px',
+      numVisible: 4,
+      numScroll: 4
+    },
+    {
+      breakpoint: '720px',
+      numVisible: 2,
+      numScroll: 2
+    },
+    {
+      breakpoint: '480px',
+      numVisible: 1,
+      numScroll: 1
+    }
+  ]
 
   constructor(private serviceOfferService: ServiceOfferService, private serviceOfferWishlistService: ServiceOfferWishlistService, private route: ActivatedRoute, private dialog: MatDialog, private s3Service: S3Service, private sanitizer: DomSanitizer) {}
 
@@ -85,7 +102,7 @@ export class VendorServiceComponent implements OnInit{
     if (this.wishlist?.id) {
       this.serviceOfferWishlistService.deleteWishlist(this.wishlist.id).subscribe({
         next: () => {
-          this.wishlist = undefined;  
+          this.wishlist = undefined;
         }
       });
     }
