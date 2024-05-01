@@ -41,8 +41,6 @@ export class JobDashboardCategoryComponent {
       this.jobService.getAllJob(this.searchParam, this.page).subscribe({
         next: (response: BasePageResponse<JobOffer>) => {
           this.isLoading = false;
-          console.log("# masuk sini : " + (response.items));
-
           if (isChangeParam) this.jobs = response.items;
           else this.jobs.push(...response.items);
 

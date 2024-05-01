@@ -22,8 +22,8 @@
       </mat-form-field>
       <mat-form-field appearance="outline" class="col mb-3">
         <mat-label>Kategori</mat-label>
-        <mat-select formControlName="category">
-          <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+        <mat-select formControlName="talent">
+          <mat-option *ngFor="let talent of talents" [value]="talent.id">{{talent.name}}</mat-option>
         </mat-select>
         <mat-error>Kategori harus dipilih</mat-error>
       </mat-form-field>
@@ -39,6 +39,21 @@
       <mat-label>Deskripsi</mat-label>
       <textarea matInput cdkTextareaAutosize formControlName="description" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" required></textarea>
       <mat-error>Deskripsi harus diisi</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="mb-3" >
+      <mat-label>Tanggal</mat-label>
+      <mat-date-range-input [rangePicker]="picker" [min]="today">
+        <input matStartDate placeholder="Mulai" formControlName="startDt">
+        <input matEndDate placeholder="Selesai" formControlName="endDt">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker>
+        <mat-date-range-picker-actions>
+          <button mat-button matDateRangePickerCancel>Batal</button>
+          <button mat-raised-button color="primary" matDateRangePickerApply (click)="checkEndDate()">Pilih</button>
+        </mat-date-range-picker-actions>
+      </mat-date-range-picker>
+      <mat-error>Tanggal harus diisi</mat-error>
     </mat-form-field>
     <div class="border rounded">
       <p-fileUpload class="file-upload" *ngIf="!existing || !isFetchingImage" [files]="pictures" (onSelect)="onAddPicture($event)" [multiple]="true" accept="image/*" [auto]="true" (onRemove)="onRemovePicture($event)" chooseLabel="Pilih gambar" [previewWidth]="300"></p-fileUpload>
