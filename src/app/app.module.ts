@@ -59,8 +59,6 @@ import { NotificationService } from './service/notification.service';
 import { RegisterMainComponent } from './component/dialog/register/register-main/register-main.component';
 import { RegisterUserComponent } from './component/dialog/register/register-user/register-user.component';
 import { RegisterVendorComponent } from './component/dialog/register/register-vendor/register-vendor.component';
-import { ChatComponent } from './component/toolbar/chat/chat.component';
-import { WishlistComponent } from './component/toolbar/wishlist/wishlist.component';
 import { VendorProductComponent } from './component/vendor/vendor-product/vendor-product.component';
 import { VendorProductServiceComponent } from './component/vendor/vendor-product-service/vendor-product-service.component';
 import { VendorProductJobComponent } from './component/vendor/vendor-product-job/vendor-product-job.component';
@@ -80,6 +78,7 @@ import { WishlistDashboardComponent } from './component/personal/wishlist-dashbo
 import { WishlistServiceComponent } from './component/personal/wishlist-service/wishlist-service.component';
 import { WishlistJobComponent } from './component/personal/wishlist-job/wishlist-job.component';
 import { ReviewComponent } from './component/dialog/review/review.component';
+import { ChatComponent } from "./component/personal/chat/chat.component";
 
 const notifierCustomOptions: NotifierOptions = {
   position: {
@@ -134,7 +133,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
 
 registerLocaleData(localeId)
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, ChatComponent, WishlistComponent, VendorProductComponent, VendorProductServiceComponent, VendorProductJobComponent, AddServiceComponent, AddJobComponent, LoadingComponent, OrderServiceComponent, SettingsComponent, ServiceOrderComponent, JobOrderComponent, ProfileComponent, OrderServiceDetailComponent, StatusPipe, OrderFilterComponent, WishlistDashboardComponent, WishlistServiceComponent, WishlistJobComponent, ReviewComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, VendorProductComponent, VendorProductServiceComponent, VendorProductJobComponent, AddServiceComponent, AddJobComponent, LoadingComponent, OrderServiceComponent, SettingsComponent, ServiceOrderComponent, JobOrderComponent, ProfileComponent, OrderServiceDetailComponent, StatusPipe, OrderFilterComponent, WishlistDashboardComponent, WishlistServiceComponent, WishlistJobComponent, ReviewComponent, ChatComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

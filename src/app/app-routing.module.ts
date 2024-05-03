@@ -18,6 +18,7 @@ import { JobOrderComponent } from './component/personal/job-order/job-order.comp
 import { WishlistDashboardComponent } from './component/personal/wishlist-dashboard/wishlist-dashboard.component';
 import { WishlistServiceComponent } from './component/personal/wishlist-service/wishlist-service.component';
 import { WishlistJobComponent } from './component/personal/wishlist-job/wishlist-job.component';
+import { ChatComponent } from './component/personal/chat/chat.component';
 
 const routes: Routes = [
   {path: '', title: 'Evone', component: NavigationComponent, children: [
@@ -43,6 +44,7 @@ const routes: Routes = [
       {path: 'job', component: WishlistJobComponent},
       {path: '', redirectTo: 'service', pathMatch: 'full'}
     ]},
+    {path: 'chat', title: 'Chat', component: ChatComponent},
     {path: '', redirectTo: 'vendor', pathMatch: 'full'},
   ]},
 ];
