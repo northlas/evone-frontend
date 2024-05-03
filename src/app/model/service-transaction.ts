@@ -8,7 +8,7 @@ export interface ServiceTransaction {
     occasionId: number,
     reference: string,
     status: ServiceTransactionStatus,
-    qty: number
+    qty: number,
     paymentAmount: number,
     address: string,
     createdDt: Date,

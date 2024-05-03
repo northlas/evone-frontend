@@ -4,7 +4,7 @@ import { TalentService } from 'src/app/service/talent.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VendorJobOfferParam } from 'src/app/model/vendor-job-offer-param';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { JobFilterComponent } from '../../dialog/jobFilter/jobFilter.component';
+import { JobFilterComponent } from '../../dialog/job-filter/job-filter.component';
 import { JobSortComponent } from '../../dialog/jobSort/jobSort.component';
 
 

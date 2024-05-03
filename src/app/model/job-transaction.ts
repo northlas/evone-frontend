@@ -10,5 +10,6 @@ export interface JobTransaction {
     createdDt: Date,
     updatedDt: Date,
     freelancer: Customer,
-    jobOffer: JobOffer
+    jobOffer: JobOffer,
+    paymentAmount: number
 }

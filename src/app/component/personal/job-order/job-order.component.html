@@ -1,1 +1,57 @@
-<p>job-order works!</p>
+<div class="container">
+  <div class="d-flex align-items-center mb-3">
+    <h3 class="me-5">Pendaftaran</h3>
+    <form class="ps-5 flex-grow-1" (submit)="search(input.value)">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="w-100">
+        <input #input matInput placeholder="Cari pendaftaran" >
+        <button type="button" #button matPrefix mat-icon-button disabled>
+          <mat-icon fontIcon="search"></mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+    <button mat-icon-button class="mx-2" (click)="onFilter()">
+      <mat-icon [matBadge]="filterCount" [matBadgeHidden]="filterCount == 0" matBadgeColor="accent">filter_alt</mat-icon>
+    </button>
+  </div>
+  <div *ngIf="page">
+    <div *ngFor="let jobTransaction of page.items">
+      <mat-card class="p-2 pointer-event mb-4">
+        <a class="d-flex flex-row" (click)="onDetail(jobTransaction)">
+          <img *ngIf="pictureMap.has(jobTransaction.id)" class="object-fit-cover rounded me-3" style="width: 280px; height: 210px;" mat-card-image [src]="pictureMap.get(jobTransaction.id)">
+          <div *ngIf="!pictureMap.has(jobTransaction.id)" class="rounded loading me-3" style="min-width: 280px; height: 210px;"></div>
+          <mat-card-content>
+            <div class="mb-3" style="font-size: 0.8rem;">{{jobTransaction.createdDt | date : 'dd MMMM YYYY'}} | {{jobTransaction.reference}}</div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h4>{{jobTransaction.jobOffer.title}}</h4>
+                <div class="row row-cols-1">
+                  <div class="col d-flex">
+                    <div style="width: 150px;">Harga</div>
+                    <div>: {{jobTransaction.jobOffer.price | currency: 'Rp' : 'symbol' : '1.0-0'}} </div>
+                  </div>
+                  <div class="col d-flex">
+                    <div style="width: 150px;">Jenis Acara</div>
+                    <div>: {{jobTransaction.jobOffer.occasion.name}}</div>
+                  </div>
+                  <div class="col d-flex">
+                    <div style="width: 150px;">Kategori</div>
+                    <div>: {{jobTransaction.jobOffer.talent.name}}</div>
+                  </div>
+                  <div class="col d-flex">
+                    <div style="width: 150px;">Tanggal Acara</div>
+                    <div>: {{jobTransaction.jobOffer.startDt | date : 'dd MMMM YYYY'}} - {{jobTransaction.jobOffer.endDt | date : 'dd MMMM YYYY'}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-end">
+                <h3>{{jobTransaction.paymentAmount | currency: 'Rp' : 'symbol' : '1.0-0'}}</h3>
+                <div style="white-space: nowrap;">{{jobTransaction.status | status : 'service'}}</div>
+              </div>
+            </div>
+          </mat-card-content>
+        </a>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

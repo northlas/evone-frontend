@@ -1,0 +1,40 @@
+<mat-dialog-actions class="d-flex justify-content-between align-items-start">
+  <h1 mat-dialog-title class="fs-4 pt-3 pb-1 ps-3">Pesanan</h1>
+  <button matDialogClose mat-icon-button>
+    <mat-icon fontIcon="close"></mat-icon>
+  </button>
+</mat-dialog-actions>
+<mat-dialog-content style="max-height: 85vh;">
+  <h3 class="mb-2">Data Pendaftar</h3>
+  <ul>
+    <li style="white-space: nowrap;">
+      <div class="d-flex">
+        <div style="width: 150px;">Nama</div>
+        <span>: {{jobTransaction.freelancer.name}}</span>
+      </div>
+    </li>
+    <li style="white-space: nowrap;">
+      <div class="d-flex">
+        <div style="width: 150px;">Email</div>
+        <span>: {{jobTransaction.freelancer.email}}</span>
+      </div>
+    </li>
+    <li style="white-space: nowrap;">
+      <div class="d-flex">
+        <div style="width: 150px;">No. HP</div>
+        <span>: {{jobTransaction.freelancer.phone}}</span>
+      </div>
+    </li>
+  </ul>
+  <hr>
+  <div class="d-flex justify-content-end">
+    <div class="w-50">
+      <div class="text-end">{{jobTransaction.paymentAmount | currency : 'Rp' : 'symbol' : '1.0-0'}}</div>
+      <hr class="mb-1">
+      <div class="text-end mb-3" style="font-size: 0.8rem;"><i>{{jobTransaction.status | status : 'service'}}</i></div>
+      <div class="d-flex justify-content-end">
+        <button mat-flat-button (click)="onSubmit(4)" color="warn" *ngIf="jobTransaction.status == 0 || jobTransaction.status == 1">Batalkan</button>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>

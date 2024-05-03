@@ -1,0 +1,15 @@
+::ng-deep app-service-order{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+::ng-deep .loading {
+  background-color: #babbbc;
+  animation: hintloading 2s ease-in-out 0s infinite reverse;
+  -webkit-animation: hintloading 2s ease-in-out 0s infinite reverse;
+}
+
+.pointer-event:hover {
+  cursor: pointer;
+}

@@ -51,7 +51,7 @@ import { LoginComponent } from './component/dialog/login/login.component';
 import { SortComponent } from './component/dialog/sort/sort.component';
 import { JobSortComponent } from './component/dialog/jobSort/jobSort.component';
 import { FilterComponent } from './component/dialog/filter/filter.component';
-import { JobFilterComponent } from './component/dialog/jobFilter/jobFilter.component';
+import { JobFilterComponent } from './component/dialog/job-filter/job-filter.component';
 import { AuthenticationService } from './service/authentication.service';
 import { NotificationService } from './service/notification.service';
 import { RegisterMainComponent } from './component/dialog/register/register-main/register-main.component';
@@ -73,8 +73,10 @@ import { ServiceOrderComponent } from './component/personal/service-order/servic
 import { JobOrderComponent } from './component/personal/job-order/job-order.component';
 import { ProfileComponent } from './component/personal/profile/profile.component';
 import { OrderServiceDetailComponent } from './component/dialog/order-service-detail/order-service-detail.component';
+import { OrderJobDetailComponent } from './component/dialog/order-job-detail/order-job-detail.component';
 import { StatusPipe } from './pipe/status.pipe';
 import { OrderFilterComponent } from './component/dialog/order-filter/order-filter.component';
+import { JobOrderFilterComponent } from './component/dialog/job-order-filter/job-order-filter.component';
 
 const notifierCustomOptions: NotifierOptions = {
   position: {
@@ -129,7 +131,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
 
 registerLocaleData(localeId)
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, ChatComponent, WishlistComponent, VendorProductComponent, VendorProductServiceComponent, VendorProductJobComponent, AddServiceComponent, AddJobComponent, LoadingComponent, OrderServiceComponent, OrderJobComponent, SettingsComponent, ServiceOrderComponent, JobOrderComponent, ProfileComponent, OrderServiceDetailComponent, StatusPipe, OrderFilterComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, ChatComponent, WishlistComponent, VendorProductComponent, VendorProductServiceComponent, VendorProductJobComponent, AddServiceComponent, AddJobComponent, LoadingComponent, OrderServiceComponent, OrderJobComponent, SettingsComponent, ServiceOrderComponent, JobOrderComponent, ProfileComponent, OrderServiceDetailComponent, OrderJobDetailComponent, StatusPipe, OrderFilterComponent, JobOrderFilterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

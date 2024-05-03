@@ -1,8 +1,10 @@
 export interface JobTransactionParam {
     [key: string]: string | number,
     id: string,
-    category: string,
+    talent: string,
     title: string,
     status: number,
-    page: number
+    page: number,
+    startDt: string,
+    endDt: string
 }
