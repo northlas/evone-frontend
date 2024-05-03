@@ -11,7 +11,7 @@ import {
   FileUpload,
 } from 'primeng/fileupload';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
-import { Category } from 'src/app/model/category';
+import { Talent } from 'src/app/model/talent';
 import { Occasion } from 'src/app/model/occasion';
 import { JobOffer } from 'src/app/model/job-offer';
 import { TalentService } from 'src/app/service/talent.service';
@@ -35,7 +35,7 @@ export class AddJobComponent implements OnInit {
   public today = new Date();
 
   public totalDays = 0;
-  public talents: Category[] = [];
+  public talents: Talent[] = [];
   public occasions: Occasion[] = [];
   public pictures: File[] = [];
   public isActive = true;
@@ -92,7 +92,7 @@ export class AddJobComponent implements OnInit {
 
   private getCategories() {
     this.talentService.getAllTalent(true).subscribe({
-      next: (response: Category[]) => {
+      next: (response: Talent[]) => {
         this.talents = response;
       },
     });

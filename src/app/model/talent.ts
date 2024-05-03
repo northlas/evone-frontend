@@ -1,4 +1,5 @@
 export interface Talent {
     id: number,
-    name: string
+    name: string,
+    slugName: string
 }

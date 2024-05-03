@@ -49,7 +49,7 @@ import { VendorDashboardMainComponent } from './component/vendor/vendor-dashboar
 import { JobDashboardMainComponent } from './component/job/job-dashboard-main/job-dashboard-main.component';
 import { LoginComponent } from './component/dialog/login/login.component';
 import { SortComponent } from './component/dialog/sort/sort.component';
-import { JobSortComponent } from './component/dialog/jobSort/jobSort.component';
+import { JobSortComponent } from './component/dialog/job-sort/job-sort.component';
 import { FilterComponent } from './component/dialog/filter/filter.component';
 import { JobFilterComponent } from './component/dialog/job-filter/job-filter.component';
 import { AuthenticationService } from './service/authentication.service';
