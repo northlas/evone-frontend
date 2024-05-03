@@ -19,6 +19,8 @@ import { WishlistDashboardComponent } from './component/personal/wishlist-dashbo
 import { WishlistServiceComponent } from './component/personal/wishlist-service/wishlist-service.component';
 import { WishlistJobComponent } from './component/personal/wishlist-job/wishlist-job.component';
 import { ChatComponent } from './component/personal/chat/chat.component';
+import { HelpcenterComponent } from './component/helpcenter/helpcenter.component';
+import { CallcenterComponent } from './component/callcenter/callcenter.component';
 
 const routes: Routes = [
   {path: '', title: 'Evone', component: NavigationComponent, children: [
@@ -46,6 +48,8 @@ const routes: Routes = [
     ]},
     {path: 'chat', title: 'Chat', component: ChatComponent},
     {path: '', redirectTo: 'vendor', pathMatch: 'full'},
+    {path: 'helpcenter', title: 'Pusat Bantuan', component: HelpcenterComponent},
+    {path: 'callcenter', title: 'Kontak', component: CallcenterComponent}
   ]},
 ];
 

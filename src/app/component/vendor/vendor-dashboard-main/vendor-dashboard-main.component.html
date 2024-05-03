@@ -19,7 +19,7 @@
                 <div class="d-flex flex-column text-break">
                   <span class="fw-medium text-break">{{vendor.name}}</span>
                   <span class="text-secondary " style="font-size: 0.8rem;">{{vendor.province.name}}</span>
-                  <span class="flex-grow-1" style="font-size: 0.7rem;">4,7/5 (23 review)</span>
+                  <span class="flex-grow-1" style="font-size: 0.7rem;">{{vendor.rating.avgRating | number : '1.0-1'}}/5 ({{vendor.rating.countRating}} ulasan)</span>
                   <span class="mt-2 fw-medium" style="color: #ec770c;">
                       {{vendor.minPrice === vendor.maxPrice ? (vendor.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') :
                       (vendor.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') + ' - ' + (vendor.maxPrice | currency: 'Rp' : 'symbol' : '1.0-0')}}

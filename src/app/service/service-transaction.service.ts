@@ -28,6 +28,6 @@ export class ServiceTransactionService {
   }
 
   public putReview(param: ServiceTransactionParam): Observable<BaseResponse> {
-    return this.http.put<BaseResponse>(`${this.host}/api/service-transactions/reviews`, param);
+    return this.http.put<BaseResponse>(`${this.host}/api/service-transactions/${param.id}/reviews`, param);
   }
 }

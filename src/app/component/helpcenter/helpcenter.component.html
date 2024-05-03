@@ -1,0 +1,24 @@
+<div class="d-flex justify-content-center py-3 background-color-secondary">
+  <div class="d-flex-row w-75 align-items-center p-3 rounded-4 justify-content-center" style="background-color: white;">
+    <h1 class="text-center" style="color:#283593;">HALO!!</h1>
+    <h5 class="text-center fw-light text-secondary"> Apa yang bisa kami bantu?</h5>
+  </div>
+</div>
+
+<div class="d-flex flex-column justify-content-center rounded-top-5 p-4" style="background-color: white;">
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+      <button mat-icon-button disabled></button>
+      <p class="fs-5 text-secondary" > {{node.name}} </p>
+    </mat-tree-node>
+    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+      <button mat-icon-button matTreeNodeToggle
+              [attr.aria-label]="'Toggle ' + node.name">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+      <p class="fs-5"> {{node.name}} </p>
+    </mat-tree-node>
+  </mat-tree>
+</div>
