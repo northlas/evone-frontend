@@ -5,6 +5,7 @@ import { ServiceTransaction } from '../model/service-transaction';
 import { Observable } from 'rxjs';
 import { ServiceTransactionParam } from '../model/service-transaction-param ';
 import { BasePageResponse } from '../model/base-page-response';
+import { BaseResponse } from '../model/base-response';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,9 @@ export class ServiceTransactionService {
 
   public putTransaction(param: ServiceTransactionParam): Observable<ServiceTransaction> {
     return this.http.put<ServiceTransaction>(`${this.host}/api/service-transactions`, param);
+  }
+
+  public putReview(param: ServiceTransactionParam): Observable<BaseResponse> {
+    return this.http.put<BaseResponse>(`${this.host}/api/service-transactions/${param.id}/reviews`, param);
   }
 }

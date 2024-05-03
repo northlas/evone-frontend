@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
 import { LoginComponent } from '../dialog/login/login.component';
 import { RegisterMainComponent } from '../dialog/register/register-main/register-main.component';
 import { Router } from '@angular/router';
+import { Role } from 'src/app/enum/role.enum';
 
 @Component({
   selector: 'app-navigation',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit{
+  public isVendor!: boolean;
   public isLoggedIn!: boolean;
   public userName?: string;
 
@@ -18,6 +20,7 @@ export class NavigationComponent implements OnInit{
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isUserLoggedIn();
+    this.isVendor = this.authService.hasAuthority(Role.ROLE_VENDOR);
     if (this.isLoggedIn) this.userName = this.authService.getUserName();
   }
 

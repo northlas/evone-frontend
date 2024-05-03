@@ -17,6 +17,10 @@ export class ServiceOfferWishlistService {
     return this.http.get<ServiceOfferWishlist>(`${this.host}/api/vendors/${vendorName}/service-offers/${slugTitle}/wishlist`, undefined);
   }
 
+  public getAllWishlist(): Observable<ServiceOfferWishlist[]> {
+    return this.http.get<ServiceOfferWishlist[]>(`${this.host}/api/service-wishlists`);
+  }
+
   public addWishlist(vendorName: string, slugTitle: string): Observable<ServiceOfferWishlist> {
     return this.http.post<ServiceOfferWishlist>(`${this.host}/api/vendors/${vendorName}/service-offers/${slugTitle}/wishlist`, undefined);
   }

@@ -16,7 +16,7 @@
             <mat-card-content class="d-flex flex-column text-break flex-grow-1 mt-2">
               <span class="fw-medium text-break">{{vendor.name}}</span>
               <span class="text-secondary" style="font-size: 0.8rem;">{{vendor.city.name}}</span>
-              <span style="font-size: 0.7rem;">4,7/5 (23 review)</span>
+              <span style="font-size: 0.7rem;">{{vendor.rating.avgRating | number : '1.0-1'}}/5 ({{vendor.rating.countRating}} ulasan)</span>
               <span class="mt-2 fw-medium d-flex align-items-end flex-grow-1" style="color: #ec770c;">
                 {{vendor.minPrice === vendor.maxPrice ? (vendor.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') :
                 (vendor.minPrice | currency: 'Rp' : 'symbol' : '1.0-0') + ' - ' + (vendor.maxPrice | currency: 'Rp' : 'symbol' : '1.0-0')}}

@@ -17,5 +17,7 @@ export interface ServiceTransaction {
     endDt: Date,
     customer: Customer,
     serviceOffer: ServiceOffer,
-    occasion: Occasion
+    occasion: Occasion,
+    rating: number,
+    review: string;
 }

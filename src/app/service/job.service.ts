@@ -21,10 +21,10 @@ export class JobService {
       return this.http.get<BasePageResponse<JobOffer>>(`${this.host}/api/job-offers`, {params: params});
     }
 
-    public getAllJobEtalase(vendorSlugName: string, param: VendorJobOfferParam | undefined, page: number): Observable<BasePageResponse<JobOffer>> {
-      const params = new HttpParams({fromObject: param}).append('vendor', vendorSlugName).append('page', page);
-      return this.http.get<BasePageResponse<JobOffer>>(`${this.host}/api/job-offers/etalase`, {params: params})
-    }
+  public getAllJobEtalase(vendorSlugName: string, param: VendorJobOfferParam | undefined, page: number): Observable<BasePageResponse<JobOffer>> {
+    const params = new HttpParams({fromObject: param}).append('vendor', vendorSlugName).append('page', page);
+    return this.http.get<BasePageResponse<JobOffer>>(`${this.host}/api/job-offers/etalase`, {params: params})
+  }
 
 
   public getJobDetail(slugTitle: string): Observable<any> {
