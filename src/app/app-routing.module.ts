@@ -18,6 +18,7 @@ import { JobOrderComponent } from './component/personal/job-order/job-order.comp
 import { WishlistDashboardComponent } from './component/personal/wishlist-dashboard/wishlist-dashboard.component';
 import { WishlistServiceComponent } from './component/personal/wishlist-service/wishlist-service.component';
 import { WishlistJobComponent } from './component/personal/wishlist-job/wishlist-job.component';
+import { ChatComponent } from './component/personal/chat/chat.component';
 import { HelpcenterComponent } from './component/helpcenter/helpcenter.component';
 import { CallcenterComponent } from './component/callcenter/callcenter.component';
 
@@ -45,6 +46,7 @@ const routes: Routes = [
       {path: 'job', component: WishlistJobComponent},
       {path: '', redirectTo: 'service', pathMatch: 'full'}
     ]},
+    {path: 'chat', title: 'Chat', component: ChatComponent},
     {path: '', redirectTo: 'vendor', pathMatch: 'full'},
     {path: 'helpcenter', title: 'Pusat Bantuan', component: HelpcenterComponent},
     {path: 'callcenter', title: 'Kontak', component: CallcenterComponent}
