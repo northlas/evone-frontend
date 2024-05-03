@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { BasePageResponse } from '../model/base-page-response';
 import { ServiceOffer } from '../model/service-offer';
 import { VendorServiceOfferParam } from '../model/vendor-service-offer-param';

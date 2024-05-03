@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpResponseBase } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { BasePageResponse } from '../model/base-page-response';
 import { VendorServiceOfferParam } from '../model/vendor-service-offer-param';
 import { Vendor } from '../model/vendor';
@@ -22,6 +22,10 @@ export class VendorService {
 
   public getVendorDetail(slugName: string): Observable<Vendor> {
     return this.http.get<Vendor>(`${this.host}/api/vendors/${slugName}`)
+  }
+
+  public getProfile(): Observable<Vendor> {
+    return this.http.get<Vendor>(`${this.host}/api/vendors/profile`);
   }
 
   public addVendor(model: Vendor, profile: File): Observable<BaseResponse> {

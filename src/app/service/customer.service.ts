@@ -1,6 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { Customer } from '../model/customer';
 import { Observable } from 'rxjs';
 import { BaseResponse } from '../model/base-response';
@@ -15,6 +15,10 @@ export class CustomerService {
 
   public getCustomer(email: string): Observable<Customer> {
     return this.http.get<Customer>(`${this.host}/api/customers/${email}`);
+  }
+
+  public getProfile(): Observable<Customer> {
+    return this.http.get<Customer>(`${this.host}/api/customers/profile`);
   }
 
   public addCustomer(customer: Customer): Observable<HttpResponse<BaseResponse>> {

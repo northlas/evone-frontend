@@ -22,7 +22,7 @@ export class OrderServiceDetailComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.serviceTransaction = this.data.serviceTransaction;
     if (this.serviceTransaction.status == 0) {
-      snap.embed('2b23ef07-dfc4-4f19-89c6-cd2c46f7249f', {
+      snap.embed(this.serviceTransaction.id, {
         embedId: 'snap-container'
       })
     }

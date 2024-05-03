@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable, retry } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { BaseResponse } from '../model/base-response';
 import { HeaderType } from '../enum/header-type.enum';
 

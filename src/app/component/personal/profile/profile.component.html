@@ -1,3 +1,106 @@
 <div class="container">
   <h3>Profil</h3>
+  <div class="row">
+    <div class="col-4 d-flex flex-column">
+      <ng-container *ngIf="vendor" [ngTemplateOutlet]="vendorPicture" [ngTemplateOutletContext]="{vendorData: vendor}"></ng-container>
+    </div>
+    <div class="col-8">
+      <ng-container *ngIf="vendor" [ngTemplateOutlet]="vendorDetail" [ngTemplateOutletContext]="{vendorData: vendor}"></ng-container>
+    </div>
+  </div>
 </div>
+
+<ng-template #vendorPicture let-vendor="vendorData">
+  <mat-card class="mb-3">
+    <mat-card-content class="d-flex flex-column justify-content-center align-items-center">
+      <ng-container *ngIf="'vendor/' + vendor?.slugName | image | async as picture">
+        <p-image [src]="picture.value ? picture.value : 'assets/image/profile.png'" imageClass="image" class="mb-2" [preview]="true"></p-image>
+      </ng-container>
+      <h4 class="mb-0">{{vendor.name}}</h4>
+      <div>{{vendor.city.name}}, {{vendor.province.name}}</div>
+      <div class="d-flex mt-3">
+        <p-rating [readonly]="true" [ngModel]="vendor.rating.avgRating" [cancel]="false" class="me-2" style="padding-top:1px;"></p-rating>
+        <div>{{vendor.rating.avgRating | number : '1.0-1'}}/5 ({{vendor.rating.countRating}} ulasan)</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content>
+      <div *ngFor="let socmed of vendor.socialMedia" class="d-flex justify-content-between align-items-center py-2">
+        <div class="d-flex align-items-center">
+          <img [src]="'assets/image/' + socmed.platform.name + '.png'" class="me-3 logo">
+          <div class="fw-medium fs-5">{{socmed.platform.name}}</div>
+        </div>
+        <div>{{socmed.username}}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
+<ng-template #vendorDetail let-vendor="vendorData">
+  <mat-card class="mb-3">
+    <mat-card-content>
+      <div class="row">
+        <div class="col-3">Nama</div>
+        <div class="col-9 text-secondary">
+          {{vendor.name}}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-3">Email</div>
+        <div class="col-9 text-secondary">
+          {{vendor.email}}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-3">Nomor Telepon</div>
+        <div class="col-9 text-secondary">
+          {{vendor.phone}}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-3">Provinsi</div>
+        <div class="col-9 text-secondary">
+          {{vendor.province.name}}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-3">Kabupaten / Kota</div>
+        <div class="col-9 text-secondary">
+          {{vendor.city.name}}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-3">Alamat</div>
+        <div class="col-9 text-secondary">
+          {{vendor.address}}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-3">Kategori</div>
+        <div class="col-9 text-secondary">
+          {{joinCategory(vendor.categories)}}
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-3">Nomor Rekening</div>
+        <div class="col-9 text-secondary">{{vendor.wallet.accountNo}}</div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-3">Saldo Evone</div>
+        <div class="col-9 text-secondary">{{vendor.wallet.balance | currency: 'Rp' : 'symbol' : '1.0-0'}}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { ServiceTransaction } from '../model/service-transaction';
 import { Observable } from 'rxjs';
 import { ServiceTransactionParam } from '../model/service-transaction-param ';

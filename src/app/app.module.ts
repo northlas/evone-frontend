@@ -39,6 +39,7 @@ import { CarouselModule } from "primeng/carousel";
 import { FileUploadModule } from 'primeng/fileupload';
 import { GalleriaModule } from 'primeng/galleria';
 import { RatingModule } from 'primeng/rating';
+import { ImageModule } from 'primeng/image';
 import { VendorDashboardComponent } from './component/vendor/vendor-dashboard/vendor-dashboard.component';
 import { JobDashboardComponent } from './component/job/job-dashboard/job-dashboard.component';
 import { NavigationComponent } from './component/navigation/navigation.component';
@@ -171,7 +172,8 @@ registerLocaleData(localeId)
     CarouselModule,
     FileUploadModule,
     GalleriaModule,
-    RatingModule
+    RatingModule,
+    ImageModule
   ],
   providers: [AuthenticationService, NotificationService, {provide: LOCALE_ID, useValue: 'id-ID'}, {provide: CURRENCY_MASK_CONFIG, useValue: currencyMaskConfig}, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],

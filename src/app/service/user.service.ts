@@ -1,18 +1,18 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Occasion} from '../model/occasion';
+import { User } from '../model/user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OccasionService {
+export class UserService {
   private host = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
-  public getAllOccasion(): Observable<Occasion[]> {
-    return this.http.get<Occasion[]>(`${this.host}/api/occasions`);
+  public getProfile(): Observable<User> {
+    return this.http.get<User>(`${this.host}/api/users/profile`);
   }
 }
