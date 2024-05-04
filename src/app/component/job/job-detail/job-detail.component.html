@@ -1,45 +1,107 @@
-<div *ngIf="job" class="flex-grow-1 d-flex flex-column rounded-top-5 p-4" style="background-color: white;">
-  <div class="border rounded" style="height: 300px;">
-    <img [src]="('job offer/' + job.pictures[0].id) | image | async" class="w-100 rounded h-100" style="object-fit: contain; background-color: gray">
-  </div>
-  <div class="d-flex flex-column my-3">
-    <span class="d-flex flex-row justify-content-between">
-      <span class="d-flex flex-column w-25">
-        <h3 class="color-primary">{{job.title}}</h3>
-        <h5> {{job.vendor.name}}</h5>
-      </span>
-      <span class="d-flex align-items-center flex-row">
-        <div class="mx-1">
-          <button mat-stroked-button color="primary"><mat-icon>message</mat-icon>Chat</button>
+<!--<div *ngIf="job" class="flex-grow-1 d-flex flex-column rounded-top-5 p-4" style="background-color: white;">-->
+<!--  <div class="border rounded" style="height: 300px;">-->
+<!--    <img [src]="('job offer/' + job.pictures[0].id) | image | async" class="w-100 rounded h-100" style="object-fit: contain; background-color: gray">-->
+<!--  </div>-->
+<!--  <div class="d-flex flex-column my-3">-->
+<!--    <span class="d-flex flex-row justify-content-between">-->
+<!--      <span class="d-flex flex-column w-25">-->
+<!--        <h3 class="color-primary">{{job.title}}</h3>-->
+<!--        <h5> {{job.vendor.name}}</h5>-->
+<!--      </span>-->
+<!--      <span class="d-flex align-items-center flex-row">-->
+<!--        <div class="mx-1">-->
+<!--          <button mat-stroked-button color="primary"><mat-icon>message</mat-icon>Chat</button>-->
+<!--        </div>-->
+<!--        <div class="mx-1">-->
+<!--          <a [href]="'vendor/' +job.vendor.slugName ">-->
+<!--            <button mat-stroked-button color="primary"><mat-icon>person</mat-icon>Profil Vendor</button>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--        <div class="mx-1 d-flex align-items-center">-->
+<!--          <button mat-icon-button color="primary"><mat-icon>bookmark_border</mat-icon></button>-->
+<!--        </div>-->
+<!--      </span>-->
+<!--    </span>-->
+<!--    <span class="my-2" style="color: #7A6969;">{{ job.description }}</span>-->
+<!--    <br>-->
+<!--    <span class="d-flex flex-row w-25" style="color: #7A6969;">-->
+<!--      <span class="w-25">Kategori</span>-->
+<!--      <span>: {{ job.talent.name}}</span>-->
+<!--    </span>-->
+<!--    <span class="d-flex flex-row w-25" style="color: #7A6969;">-->
+<!--      <span class="w-25">Hari, Tanggal </span>-->
+<!--      <span>: {{ job.createdDt | date:'fullDate' }}</span>-->
+<!--    </span>-->
+<!--    <span class="d-flex flex-row w-25" style="color: #7A6969;">-->
+<!--      <span class="w-25">Lokasi </span>-->
+<!--      <span>: {{ job.vendor.city.name }} , {{ job.vendor.province.name }}</span>-->
+<!--    </span>-->
+<!--    <br>-->
+<!--    <h4 class="color-orange">{{job.price | currency: 'Rp' : 'symbol' : '1.0-0'}}</h4>-->
+<!--    <div class="align-self-end" style="width: 150px;">-->
+<!--      <button mat-flat-button color="primary" class="w-100" (click)="onOrder()">Daftar</button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<div *ngIf="jobOffer" class="flex-grow-1 d-flex flex-column rounded-top-5 p-4" style="background-color: white;">
+  <div class="container">
+    <div class="d-flex" *ngIf="pictures.length === jobOffer.pictures.length">
+      <div class="border rounded me-4" style="background: rgba(0, 0, 0, 0.8); height: fit-content;">
+        <p-galleria [value]="pictures" [showIndicators]="false" [showThumbnailNavigators]="false" [showItemNavigators]="true">
+          <ng-template pTemplate="item" let-item>
+            <img *ngIf="item" class="" style="max-height: 400px; object-fit: contain;" [src]="item">
+          </ng-template>
+          <ng-template pTemplate="thumbnail" let-item>
+            <div class="d-flex justify-content-center mx-2">
+              <img style="width: 150px;" [src]="item" >
+            </div>
+          </ng-template>
+        </p-galleria>
+      </div>
+      <div class="d-flex flex-column my-3">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <h3 class="color-primary mb-0 me-2">{{jobOffer.title}}</h3>
+          <button mat-icon-button color="warn" (click)="onWishlist()" [matTooltip]="wishlist?.id ? 'Hapus dari favorit' : 'Tambahkan ke favorit'">
+            <mat-icon [fontIcon]="wishlist?.id ? 'favorite' : 'favorite_outline'"></mat-icon>
+          </button>
+          <div class="mx-1 px-2">
+            <button mat-stroked-button color="primary"><mat-icon>message</mat-icon>Chat</button>
+            <a [href]="'vendor/' +jobOffer.vendor.slugName ">
+              <button mat-stroked-button color="primary"><mat-icon>person</mat-icon>Profil Vendor</button>
+            </a>
+          </div>
         </div>
-        <div class="mx-1">
-          <a [href]="'vendor/' +job.vendor.slugName ">
-            <button mat-stroked-button color="primary"><mat-icon>person</mat-icon>Profil Vendor</button>
-          </a>
+        <div class="d-flex flex-column">
+          <span>{{jobOffer.vendor.city.name + ', ' + jobOffer.vendor.province.name}}</span>
+          <ul class="color-primary row row-cols-2 mt-2" style="text-wrap: nowrap;">
+            <li class="col">{{jobOffer.occasion.name}}</li>
+          </ul>
         </div>
-        <div class="mx-1 d-flex align-items-center">
-          <button mat-icon-button color="primary"><mat-icon>bookmark_border</mat-icon></button>
+        <span class="mb-4" style="color: #7A6969; white-space: pre-line;">{{jobOffer.description}}</span>
+        <div class="d-flex flex-column my-3">
+          <span class="d-flex flex-row w-50" style="color: #7A6969;">
+            <span class="w-25">Kategori</span>
+            <span>: {{ jobOffer.talent.name}}</span>
+          </span>
+                <span class="d-flex flex-row w-50" style="color: #7A6969;">
+            <span class="w-25">Hari, Tanggal </span>
+            <span>: {{ jobOffer.startDt | date:'fullDate' }} - {{ jobOffer.endDt | date:'fullDate' }}</span>
+          </span>
+                <span class="d-flex flex-row w-50" style="color: #7A6969;">
+            <span class="w-25">Lokasi </span>
+            <span>: {{ jobOffer.vendor.city.name }} , {{ jobOffer.vendor.province.name }}</span>
+          </span>
+                <br>
+                <h4 class="color-orange">{{jobOffer.price | currency: 'Rp' : 'symbol' : '1.0-0'}}</h4>
         </div>
-      </span>
-    </span>
-    <span class="my-2" style="color: #7A6969;">{{ job.description }}</span>
-    <br>
-    <span class="d-flex flex-row w-25" style="color: #7A6969;">
-      <span class="w-25">Kategori</span>
-      <span>: {{ job.talent.name}}</span>
-    </span>
-    <span class="d-flex flex-row w-25" style="color: #7A6969;">
-      <span class="w-25">Hari, Tanggal </span>
-      <span>: {{ job.createdDt | date:'fullDate' }}</span>
-    </span>
-    <span class="d-flex flex-row w-25" style="color: #7A6969;">
-      <span class="w-25">Lokasi </span>
-      <span>: {{ job.vendor.city.name }} , {{ job.vendor.province.name }}</span>
-    </span>
-    <br>
-    <h4 class="color-orange">{{job.price | currency: 'Rp' : 'symbol' : '1.0-0'}}</h4>
-    <div class="align-self-end" style="width: 150px;">
-      <button mat-flat-button color="primary" class="w-100">Daftar</button>
+
+        <div class="align-self-end" style="width: 150px;">
+          <button mat-flat-button color="primary" class="w-100" (click)="onOrder()">Daftar</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+

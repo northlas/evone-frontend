@@ -15,17 +15,18 @@ export class JobService {
   constructor(private http:HttpClient) { }
 
   public getAllJob(param: VendorJobOfferParam, page: number): Observable<BasePageResponse<JobOffer>> {
-    const params = new HttpParams({fromObject: param}).append('page', page);
-    return this.http.get<BasePageResponse<JobOffer>>(`${this.host}/api/job-offers`, {params: params});
-  }
+      const params = new HttpParams({fromObject: param}).append('page', page);
+      return this.http.get<BasePageResponse<JobOffer>>(`${this.host}/api/job-offers`, {params: params});
+    }
 
   public getAllJobEtalase(vendorSlugName: string, param: VendorJobOfferParam | undefined, page: number): Observable<BasePageResponse<JobOffer>> {
     const params = new HttpParams({fromObject: param}).append('vendor', vendorSlugName).append('page', page);
     return this.http.get<BasePageResponse<JobOffer>>(`${this.host}/api/job-offers/etalase`, {params: params})
   }
 
-  public getJobDetail(slugTitle: string): Observable<any> {
-    return this.http.get<any>(`${this.host}/api/job-offers/${slugTitle}`);
+
+  public getJobDetail(slugTitle: string): Observable<JobOffer> {
+    return this.http.get<JobOffer>(`${this.host}/api/job-offers/${slugTitle}`);
   }
 
   public getAllJobOfferByTalent(jobSlugTitle: string): Observable<any> {

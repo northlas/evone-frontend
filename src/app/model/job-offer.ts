@@ -20,6 +20,8 @@ export interface JobOffer{
     occasion: Occasion,
     occasionId: number,
     pictures: JobPicture[],
-    createdDt: Date
+    createdDt: Date,
     isActive: boolean,
+    startDt: Date,
+    endDt: Date
 }

@@ -4,9 +4,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { VendorJobOfferParam } from 'src/app/model/vendor-job-offer-param';
 
 @Component({
-  selector: 'app-jobSort',
-  templateUrl: './jobSort.component.html',
-  styleUrls: ['./jobSort.component.css']
+  selector: 'app-job-sort',
+  templateUrl: './job-sort.component.html',
+  styleUrls: ['./job-sort.component.css']
 })
 export class JobSortComponent implements OnInit{
   public sortForm = new FormControl();

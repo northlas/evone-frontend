@@ -11,10 +11,10 @@ import {
   FileUpload,
 } from 'primeng/fileupload';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
-import { Category } from 'src/app/model/category';
+import { Talent } from 'src/app/model/talent';
 import { Occasion } from 'src/app/model/occasion';
 import { JobOffer } from 'src/app/model/job-offer';
-import { CategoryService } from 'src/app/service/category.service';
+import { TalentService } from 'src/app/service/talent.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { OccasionService } from 'src/app/service/occasion.service';
 import { S3Service } from 'src/app/service/s3.service';
@@ -31,7 +31,11 @@ export class AddJobComponent implements OnInit {
 
   private min = 0;
   private max = 999_999_999;
-  public categories: Category[] = [];
+
+  public today = new Date();
+
+  public totalDays = 0;
+  public talents: Talent[] = [];
   public occasions: Occasion[] = [];
   public pictures: File[] = [];
   public isActive = true;
@@ -39,14 +43,16 @@ export class AddJobComponent implements OnInit {
   public form = this.formBuilder.group({
     title: new FormControl<string | null>(null, [Validators.required]),
     price: new FormControl<number | null>(null, [Validators.required]),
-    category: new FormControl<number | null>(null, [Validators.required]),
+    talent: new FormControl<number | null>(null, [Validators.required]),
     occasion: new FormControl<number | null>(null, [Validators.required]),
     description: new FormControl<string | null>(null, [Validators.required]),
+    startDt: new FormControl<Date | null>(null, [Validators.required]),
+    endDt: new FormControl<Date | null>(null, [Validators.required])
   });
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public existing: JobOffer,
-    private categoryService: CategoryService,
+    private talentService: TalentService,
     private occasionService: OccasionService,
     private jobService: JobService,
     private s3Service: S3Service,
@@ -71,7 +77,7 @@ export class AddJobComponent implements OnInit {
   private assignExistingData() {
     this.form.controls.title.setValue(this.existing.title);
     this.form.controls.price.setValue(this.existing.price);
-    this.form.controls.category.setValue(this.existing.talentId);
+    this.form.controls.talent.setValue(this.existing.talentId);
     this.form.controls.occasion.setValue(this.existing.occasionId);
     this.form.controls.description.setValue(this.existing.description);
     this.existing.pictures.forEach(value => {
@@ -85,9 +91,9 @@ export class AddJobComponent implements OnInit {
   }
 
   private getCategories() {
-    this.categoryService.getAllCategory(true).subscribe({
-      next: (response: Category[]) => {
-        this.categories = response;
+    this.talentService.getAllTalent(true).subscribe({
+      next: (response: Talent[]) => {
+        this.talents = response;
       },
     });
   }
@@ -135,7 +141,7 @@ export class AddJobComponent implements OnInit {
 
   public onSubmit() {
     const model = {} as JobOffer;
-    model.talentId = this.form.controls.category.value!;
+    model.talentId = this.form.controls.talent.value!;
     model.title = this.form.controls.title.value!;
     model.description = this.form.controls.description.value!;
     model.price = this.form.controls.price.value!;
@@ -168,6 +174,12 @@ export class AddJobComponent implements OnInit {
       });
     }
 
+  }
+
+  public checkEndDate() {
+    if (this.form.controls.endDt.value == null) {
+      this.form.controls.endDt.setValue(this.form.controls.startDt.value)
+    }
   }
 
 }

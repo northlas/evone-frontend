@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Category } from 'src/app/model/category';
+import { Talent } from 'src/app/model/talent';
 import { TalentService } from 'src/app/service/talent.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VendorJobOfferParam } from 'src/app/model/vendor-job-offer-param';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { JobFilterComponent } from '../../dialog/jobFilter/jobFilter.component';
-import { JobSortComponent } from '../../dialog/jobSort/jobSort.component';
+import { JobFilterComponent } from '../../dialog/job-filter/job-filter.component';
+import { JobSortComponent } from '../../dialog/job-sort/job-sort.component';
 
 
 
@@ -17,7 +17,7 @@ import { JobSortComponent } from '../../dialog/jobSort/jobSort.component';
 export class JobDashboardComponent implements OnInit{
   @ViewChild('input') searchField!: ElementRef;
 
-  public talents: Category[] = [];
+  public talents: Talent[] = [];
   private searchParam = {} as VendorJobOfferParam;
   public filterCount = 0;
   public isSorting = false;
@@ -33,7 +33,7 @@ export class JobDashboardComponent implements OnInit{
 
   private getTalents() {
       this.talentService.getAllTalent(true).subscribe({
-        next: (response: Category[]) => {
+        next: (response: Talent[]) => {
           this.talents = response;
         }
       })

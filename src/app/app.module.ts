@@ -52,9 +52,9 @@ import { VendorDashboardMainComponent } from './component/vendor/vendor-dashboar
 import { JobDashboardMainComponent } from './component/job/job-dashboard-main/job-dashboard-main.component';
 import { LoginComponent } from './component/dialog/login/login.component';
 import { SortComponent } from './component/dialog/sort/sort.component';
-import { JobSortComponent } from './component/dialog/jobSort/jobSort.component';
+import { JobSortComponent } from './component/dialog/job-sort/job-sort.component';
 import { FilterComponent } from './component/dialog/filter/filter.component';
-import { JobFilterComponent } from './component/dialog/jobFilter/jobFilter.component';
+import { JobFilterComponent } from './component/dialog/job-filter/job-filter.component';
 import { AuthenticationService } from './service/authentication.service';
 import { NotificationService } from './service/notification.service';
 import { RegisterMainComponent } from './component/dialog/register/register-main/register-main.component';
@@ -68,13 +68,16 @@ import { AddJobComponent } from './component/dialog/add-job/add-job.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { LoadingComponent } from './component/dialog/loading/loading.component';
 import { OrderServiceComponent } from './component/dialog/order-service/order-service.component';
+import { OrderJobComponent } from './component/dialog/order-job/order-job.component';
 import { SettingsComponent } from './component/personal/settings/settings.component';
 import { ServiceOrderComponent } from './component/personal/service-order/service-order.component';
 import { JobOrderComponent } from './component/personal/job-order/job-order.component';
 import { ProfileComponent } from './component/personal/profile/profile.component';
 import { OrderServiceDetailComponent } from './component/dialog/order-service-detail/order-service-detail.component';
+import { OrderJobDetailComponent } from './component/dialog/order-job-detail/order-job-detail.component';
 import { StatusPipe } from './pipe/status.pipe';
 import { OrderFilterComponent } from './component/dialog/order-filter/order-filter.component';
+import { JobOrderFilterComponent } from './component/dialog/job-order-filter/job-order-filter.component';
 import { WishlistDashboardComponent } from './component/personal/wishlist-dashboard/wishlist-dashboard.component';
 import { WishlistServiceComponent } from './component/personal/wishlist-service/wishlist-service.component';
 import { WishlistJobComponent } from './component/personal/wishlist-job/wishlist-job.component';
@@ -134,7 +137,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
 
 registerLocaleData(localeId)
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, VendorProductComponent, VendorProductServiceComponent, VendorProductJobComponent, AddServiceComponent, AddJobComponent, LoadingComponent, OrderServiceComponent, SettingsComponent, ServiceOrderComponent, JobOrderComponent, ProfileComponent, OrderServiceDetailComponent, StatusPipe, OrderFilterComponent, WishlistDashboardComponent, WishlistServiceComponent, WishlistJobComponent, ReviewComponent, ChatComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, VendorProductComponent, VendorProductServiceComponent, VendorProductJobComponent, AddServiceComponent, AddJobComponent, LoadingComponent, OrderServiceComponent, SettingsComponent, ServiceOrderComponent, JobOrderComponent, ProfileComponent, OrderServiceDetailComponent, StatusPipe, OrderFilterComponent, WishlistDashboardComponent, WishlistServiceComponent, WishlistJobComponent, ReviewComponent, ChatComponent, OrderJobComponent, OrderJobDetailComponent, JobOrderFilterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
