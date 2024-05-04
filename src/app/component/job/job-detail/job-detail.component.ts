@@ -11,6 +11,8 @@ import { S3Service } from 'src/app/service/s3.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { concatMap, from } from 'rxjs';
 import { BaseResponse } from 'src/app/model/base-response';
+import { JobOfferWishlistService } from 'src/app/service/job-offer-wishlist.service';
+import { JobOfferWishlist } from 'src/app/model/job-offer-wishlist';
 
 
 @Component({
@@ -19,12 +21,13 @@ import { BaseResponse } from 'src/app/model/base-response';
   styleUrls: ['./job-detail.component.css']
 })
 export class JobDetailComponent implements OnInit{
+  public wishlist?: JobOfferWishlist;
   private slugTitle!: string;
   public jobOffer!: JobOffer;
   public isLoading = true;
   public pictures: SafeResourceUrl[] = [];
 
-  constructor(private route: ActivatedRoute, private vendorService: VendorService, private dialog: MatDialog, private jobService: JobService, private s3Service: S3Service, private sanitizer: DomSanitizer) {}
+  constructor(private route: ActivatedRoute, private vendorService: VendorService, private jobOfferWishlistService: JobOfferWishlistService, private dialog: MatDialog, private jobService: JobService, private s3Service: S3Service, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.slugTitle = this.route.snapshot.params['jobTitle'];
@@ -32,11 +35,14 @@ export class JobDetailComponent implements OnInit{
   }
 
   private getJobOffer() {
-      this.jobService.getJobDetail(this.slugTitle).subscribe({
-        next: response => {
-          this.jobOffer = response;
-          this.getPictures();
-        }
+      from(this.jobService.getJobDetail(this.slugTitle))
+      .pipe(concatMap(jobOffer => {
+        this.jobOffer = jobOffer;
+        this.getPictures();
+        return this.jobOfferWishlistService.getWishlist(jobOffer.vendor.slugName, jobOffer.slugTitle);
+      }))
+      .subscribe(wishlist => {
+        this.wishlist = wishlist;
       })
   }
 
@@ -68,21 +74,21 @@ export class JobDetailComponent implements OnInit{
   }
 
   public onWishlist() {
-//       if (this.wishlist?.id) {
-//         this.serviceOfferWishlistService.deleteWishlist(this.wishlist.id).subscribe({
-//           next: () => {
-//             this.wishlist = undefined;
-//           }
-//         });
-//       }
-//       else {
-//         this.serviceOfferWishlistService.addWishlist(this.serviceOffer.vendor.slugName, this.serviceOffer.slugTitle).subscribe({
-//           next: (response: ServiceOfferWishlist) => {
-//             this.wishlist = response;
-//             console.log(this.wishlist.id)
-//           }
-//         });
-//       }
+      if (this.wishlist?.id) {
+        this.jobOfferWishlistService.deleteWishlist(this.wishlist.id).subscribe({
+          next: () => {
+            this.wishlist = undefined;
+          }
+        });
+      }
+      else {
+        this.jobOfferWishlistService.addWishlist(this.jobOffer.vendor.slugName, this.jobOffer.slugTitle).subscribe({
+          next: (response: JobOfferWishlist) => {
+            this.wishlist = response;
+            console.log(this.wishlist.id)
+          }
+        });
+      }
     }
 
 

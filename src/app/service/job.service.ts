@@ -27,8 +27,8 @@ export class JobService {
   }
 
 
-  public getJobDetail(slugTitle: string): Observable<any> {
-    return this.http.get<any>(`${this.host}/api/job-offers/${slugTitle}`);
+  public getJobDetail(slugTitle: string): Observable<JobOffer> {
+    return this.http.get<JobOffer>(`${this.host}/api/job-offers/${slugTitle}`);
   }
 
   public getAllJobOfferByTalent(jobSlugTitle: string): Observable<any> {
