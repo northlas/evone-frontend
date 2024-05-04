@@ -9,7 +9,7 @@
       <div *ngFor="let job of jobs" class="col">
         <mat-card class="h-100">
           <a [href]="'freelance/' +job.vendor.slugName + '/job/' +job.slugTitle">
-            <ng-container *ngIf="job.pictures[0].id | image : 'job' | async as picture">
+            <ng-container *ngIf="job.vendor.email | image : 'profile' | async as picture">
               <img *ngIf="picture.value" class="border-bottom border-top w-100 object-fit-cover" style="aspect-ratio: 5/3;" mat-card-image [src]="picture.value">
               <div *ngIf="picture.loading" class="border-bottom border-top loading" style="aspect-ratio: 5/3;"></div>
             </ng-container>
