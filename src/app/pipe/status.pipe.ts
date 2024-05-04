@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { ServiceTransactionStatus } from '../enum/service-transaction-status';
+import { JobTransactionStatus } from '../enum/job-transaction-status';
 
 @Pipe({
   name: 'status'
@@ -22,7 +23,16 @@ export class StatusPipe implements PipeTransform {
       }
     }
     else if (type == 'job') {
-      return '';
+      switch (value) {
+          case JobTransactionStatus.ORDERED:
+            return 'Menunggu Konfirmasi';
+          case JobTransactionStatus.PAID:
+            return 'Berlangsung';
+          case JobTransactionStatus.FINISHED:
+            return 'Selesai';
+          case JobTransactionStatus.FAILED:
+            return 'Dibatalkan';
+        }
     }
     else if (type == 'service-bg') {
       switch (value) {
