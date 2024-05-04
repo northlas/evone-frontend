@@ -1,6 +1,7 @@
 export interface Chat {
-    chatRoomId: number,
-    sender: String,
-    receiver: String,
-    message: String
+    chatRoomId: string,
+    sender: string,
+    recipient: string,
+    message: string,
+    createdDt: Date
 }

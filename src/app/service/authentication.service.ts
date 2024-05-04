@@ -57,15 +57,15 @@ export class AuthenticationService {
     return authorities.includes(value);
   }
 
-  public getSubject() {
+  public getSubject(): string {
     return this.jwtHelper.decodeToken(this.token!).sub;
   }
 
-  public getUserName() {
+  public getUserName(): string {
     return this.jwtHelper.decodeToken(this.token!).name;
   }
 
-  public getSlugName() {
+  public getSlugName(): string {
     return this.jwtHelper.decodeToken(this.token!).slugName;
   }
 }
