@@ -1,4 +1,4 @@
-<mat-stepper>
+<mat-stepper linear>
     <mat-step [stepControl]="vendorFormGroup" label="Akun">
         <form [formGroup]="vendorFormGroup" class="pt-2 d-flex flex-column">
             <mat-form-field appearance="outline" class="mb-3">
@@ -95,33 +95,32 @@
         </button>
     </mat-step>
     <mat-step label="Profil" [stepControl]="profileFormGroup" (interacted)="profileStepListener()">
-        <form class="pt-2" [formGroup]="profileFormGroup">
-          <div class="border pb-4 rounded d-grid" [style.border-color]="borderColor + ' !important'" (mouseenter)="onHover()" (mouseleave)="onBlur()">
-                <input formControlName="profile" hidden>
-                <div class="px-1 floating-label" [style.opacity]="isProfileSelected() ? '1' :'0'">Foto profil*</div>
-                <p-fileUpload
-                    mode="basic"
-                    chooseLabel="Pilih foto profil"
-                    accept="image/*"
-                    class="z-1 file-upload"
-                    (onSelect)="onSelect($event)"
-                    [ngClass]="isProfileSelected() ? 'position-absolute pt-4' : ''"
-                    [style.opacity]="(isProfileSelected() && !isProfileHovered) ? '0' :'1'"></p-fileUpload>
-                <img
-                    *ngIf="profileFormGroup.controls.profile.value?.length != 0"
-                    class="px-1 profile-image"
-                    [src]="profileFormGroup.controls.profile.value"
-                    [style.filter]="isProfileHovered ? 'brightness(0.5)' : ''">
-          </div>
-          <div [style.visibility]="isProfileError ? 'visible' : 'hidden'" class="mb-3 px-3" style="color: #f44336;">Foto profil harus dipilih</div>
-          <mat-form-field appearance="outline" class="mb-3 w-100">
-                <mat-label>Deskripsi</mat-label>
-                <textarea formControlName="description" matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" required></textarea>
-                <mat-error *ngIf="profileFormGroup.controls.description.hasError('required')">Deskripsi harus diisi</mat-error>
-          </mat-form-field>
-        </form>
-        <button mat-flat-button matStepperNext (click)="onRegister()" color="primary" class="d-flex flex-row-reverse w-100">
-            <span class="me-2">Daftar</span>
-        </button>
+      <form class="pt-2" [formGroup]="profileFormGroup">
+        <div class="border pb-4 rounded d-grid" [style.border-color]="borderColor + ' !important'" (mouseenter)="onHover()" (mouseleave)="onBlur()">
+          <div class="px-1 floating-label" [style.opacity]="isProfileSelected() ? '1' :'0'">Foto profil*</div>
+          <p-fileUpload
+            mode="basic"
+            chooseLabel="Pilih foto profil"
+            accept="image/*"
+            class="z-1 file-upload"
+            (onSelect)="onSelect($event)"
+            [ngClass]="isProfileSelected() ? 'position-absolute pt-4' : ''"
+            [style.opacity]="(isProfileSelected() && !isProfileHovered) ? '0' :'1'"></p-fileUpload>
+          <img
+            *ngIf="uploadedImage"
+            class="px-1 profile-image"
+            [src]="uploadedImage"
+            [style.filter]="isProfileHovered ? 'brightness(0.5)' : ''">
+        </div>
+        <div [style.visibility]="isProfileError ? 'visible' : 'hidden'" class="mb-3 px-3" style="color: #f44336;">Foto profil harus dipilih</div>
+        <mat-form-field appearance="outline" class="mb-3 w-100">
+          <mat-label>Deskripsi</mat-label>
+          <textarea formControlName="description" matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" required></textarea>
+          <mat-error *ngIf="profileFormGroup.controls.description.hasError('required')">Deskripsi harus diisi</mat-error>
+        </mat-form-field>
+      </form>
+      <button mat-flat-button matStepperNext (click)="onRegister()" color="primary" class="d-flex flex-row-reverse w-100" [disabled]="vendorFormGroup.invalid || companyFormGroup.invalid || profileFormGroup.invalid">
+        <span class="me-2">Daftar</span>
+      </button>
     </mat-step>
 </mat-stepper>

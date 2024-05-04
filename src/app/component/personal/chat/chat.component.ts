@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { Client } from '@stomp/stompjs';
+import { filter } from 'rxjs';
 import * as SockJS from 'sockjs-client';
 import { Chat } from 'src/app/model/chat';
 import { User } from 'src/app/model/user';
@@ -27,15 +29,28 @@ export class ChatComponent implements OnInit {
   public email = this.authService.getSubject();
   public userChatRooms: UserChatRoom[] = [];
   public currentChatRoom?: UserChatRoom;
+  public isNavigated = false;
 
-  constructor(private chatService: ChatService, private authService: AuthenticationService) {}
+  constructor(private chatService: ChatService, private authService: AuthenticationService, private router: Router) {
+    router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => {
+      const navigation = router.getCurrentNavigation();
+      this.isNavigated = true;
+      console.log(navigation?.extras.state)
+      if (navigation?.extras.state) {
+        this.getChatRooms();
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.stomp.activate();
-    this.getChatRooms();
+    if(!this.isNavigated) {
+      this.getChatRooms();
+    }
   }
 
   public getChatRooms() {
+    console.log('test')
     this.chatService.getAllChatRoom(this.email).subscribe({
       next: (response: UserChatRoom[]) => {
         this.userChatRooms = response;

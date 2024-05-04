@@ -53,8 +53,8 @@ export class AuthenticationService {
   }
 
   public hasAuthority(value: string): boolean {
-    const authorities: string[] = this.jwtHelper.decodeToken(this.token!).authorities;
-    return authorities.includes(value);
+    const authorities: string[] = this.jwtHelper.decodeToken(this.token!)?.authorities;
+    return authorities?.includes(value);
   }
 
   public getSubject(): string {

@@ -8,7 +8,7 @@
                 <ng-template let-job pTemplate="item">
                   <mat-card style="width: 90%;">
                     <a [href]="'freelance/' + job.vendor.slugName + '/job/' +job.slugTitle">
-                      <ng-container *ngIf="'job offer/' + job.pictures[0].id | image | async as picture">
+                      <ng-container *ngIf="job.pictures[0].id | image : 'job' | async as picture">
                         <img *ngIf="picture.value" class="border-bottom border-top w-100 object-fit-cover"
                              style="aspect-ratio: 1/1;" mat-card-image [src]="picture.value">
                         <div *ngIf="picture.loading" class="border-bottom border-top loading"

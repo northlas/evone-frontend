@@ -10,9 +10,19 @@ export class ImagePipe implements PipeTransform {
   private sanitizer = inject(DomSanitizer);
   private s3Service = inject(S3Service);
 
-  transform(slugName: string): Observable<any> {
+  transform(slugName: string, folder: string): Observable<any> {
     return defer(async () => {
-      const response = await this.s3Service.getImage(slugName);
+      const prefix = () => {
+        switch(folder) {
+          case 'profile':
+            return 'profile/'
+          case 'service':
+            return 'service offer/'
+          default:
+            return 'job offer/'
+        }
+      }
+      const response = await this.s3Service.getImage(prefix() + slugName);
       return response.Body?.transformToByteArray().then(body => {
         let binary = '';
         for (let i = 0; i < body.length; i++) {

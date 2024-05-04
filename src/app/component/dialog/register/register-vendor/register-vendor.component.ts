@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
+import { Validators, FormBuilder, ValidatorFn, AbstractControl, FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FileSelectEvent } from 'primeng/fileupload';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
@@ -35,6 +35,7 @@ export class RegisterVendorComponent implements OnInit{
   public isProfileHovered = false;
   public borderColor = '#9e9e9e'
   public isProfileError = false;
+  public uploadedImage?: string;
 
   public vendorFormGroup = this.formBuilder.group({
     name: ['', Validators.required],
@@ -47,16 +48,15 @@ export class RegisterVendorComponent implements OnInit{
   })
 
   public companyFormGroup = this.formBuilder.group({
-    province: [undefined, Validators.required],
-    city: [{value: undefined, disabled: true}, Validators.required],
-    address: ['', Validators.required],
-    category: [[] as number[], Validators.required],
-    platform: [[] as number[], Validators.required]
+    province: new FormControl<number | null>(null, Validators.required),
+    city: new FormControl<number | null>({value: null, disabled: true}, Validators.required),
+    address: new FormControl<string | null>(null, Validators.required),
+    category: new FormControl<number[]>([], Validators.required),
+    platform: new FormControl<number[]>([], Validators.required),
   })
 
   public profileFormGroup = this.formBuilder.group({
     image: [{} as File],
-    profile: ['', Validators.required],
     description: ['', Validators.required],
   })
 
@@ -132,17 +132,17 @@ export class RegisterVendorComponent implements OnInit{
   private provinceListener() {
     this.companyFormGroup.controls.province.valueChanges.subscribe({
       next: value => {
+        console.log(value)
         if (value !== null) {
           this.filteredCities = this.cities.filter(({provinceId}) => provinceId === value)
           this.companyFormGroup.controls.city.enable();
-          this.companyFormGroup.controls.city.setValue(undefined);
         }
       }
     })
   }
 
   public profileStepListener() {
-    if (this.profileFormGroup.controls.profile.invalid) {
+    if (this.profileFormGroup.controls.image.invalid) {
       this.isProfileError = true;
       this.borderColor = '#f44336';
     }
@@ -172,7 +172,7 @@ export class RegisterVendorComponent implements OnInit{
   }
 
   public isProfileSelected() {
-    return this.profileFormGroup.controls.profile.value!.length > 0;
+    return this.uploadedImage;
   }
 
   public onHover() {
@@ -195,12 +195,16 @@ export class RegisterVendorComponent implements OnInit{
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.isProfileError = false;
+      this.uploadedImage = reader.result?.toString();
       this.profileFormGroup.controls.image.setValue(file);
-      this.profileFormGroup.controls.profile.setValue(reader.result!.toString());
     }
   }
 
   public onRegister() {
+    if (this.vendorFormGroup.invalid || this.companyFormGroup.invalid || this.profileFormGroup.invalid) {
+      return
+    }
+
     const accountForm = this.vendorFormGroup.controls;
     const companyForm = this.companyFormGroup.controls;
     const profileForm = this.profileFormGroup.controls;

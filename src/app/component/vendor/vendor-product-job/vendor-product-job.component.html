@@ -10,7 +10,7 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3">
       <div class="col" *ngFor="let jobOffer of jobOffers">
         <mat-card (click)="editJob(jobOffer)" class="pointer-event" matRipple [matRippleCentered]="true">
-          <ng-container *ngIf="'job offer/' + jobOffer.pictures[0].id | image | async as picture">
+          <ng-container *ngIf="jobOffer.pictures[0].id | image : 'job' | async as picture">
             <img *ngIf="picture.value" class="border-bottom border-top w-100 object-fit-cover"
                  style="aspect-ratio: 1/1;" mat-card-image [src]="picture.value">
             <div *ngIf="picture.loading" class="border-bottom border-top loading"

@@ -1,6 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
+import { FileSelectEvent } from 'primeng/fileupload';
 import { HeaderType } from 'src/app/enum/header-type.enum';
 import { BaseResponse } from 'src/app/model/base-response';
 import { Customer } from 'src/app/model/customer';
@@ -15,6 +16,11 @@ import { CustomerService } from 'src/app/service/customer.service';
 })
 export class RegisterUserComponent {
   public talents: Talent[] = [];
+  public profileImage?: File;
+  public isProfileHovered = false;
+  public borderColor = '#9e9e9e'
+  public isProfileError = false;
+  public uploadedImage?: string;
   public userFormGroup = this.formBuilder.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -23,8 +29,14 @@ export class RegisterUserComponent {
   }, {
     validators: this.matchPassword('password', 'confirmPassword')
   })
+  public freelancerFormGroup = this.formBuilder.group({
+    gender: ['', Validators.required],
+    phone: ['', Validators.required],
+    image: [{} as File],
+    description: ['', Validators.required],
+  })
 
-  constructor(private formBuilder: FormBuilder, private customerService: CustomerService, private authService: AuthenticationService) {} 
+  constructor(private formBuilder: FormBuilder, private customerService: CustomerService, private authService: AuthenticationService) {}
 
   private matchPassword(password: string, confirmPassword: string): ValidatorFn {
     return (abstractControl: AbstractControl) => {
@@ -53,8 +65,33 @@ export class RegisterUserComponent {
     }
   }
 
-  public getTalents() {
-    
+  public isProfileSelected() {
+    return this.uploadedImage;
+  }
+
+  public onHover() {
+    if (!this.isProfileError) {
+      this.isProfileHovered = true;
+      this.borderColor = '#212121'
+    }
+  }
+
+  public onBlur() {
+    if (!this.isProfileError) {
+      this.isProfileHovered = false;
+      this.borderColor = '#9e9e9e'
+    }
+  }
+
+  public onSelect(event: FileSelectEvent) {
+    const file = event.currentFiles.pop()!;
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.isProfileError = false;
+      this.uploadedImage = reader.result?.toString();
+      this.freelancerFormGroup.controls.image.setValue(file);
+    }
   }
 
   public onRegister() {

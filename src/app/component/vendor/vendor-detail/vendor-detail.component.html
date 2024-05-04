@@ -1,14 +1,17 @@
-<div *ngIf="vendor" class="flex-grow-1 d-flex flex-column rounded-top-5 p-4" style="background-color: white;">
-  <div class="container">
+<div class="flex-grow-1 d-flex flex-column rounded-top-5 p-4" style="background-color: white;">
+  <div class="container" *ngIf="vendor">
     <div class="d-flex mb-4">
       <div class="border rounded d-flex justify-content-center me-4" style="height: 300px;">
-        <ng-container *ngIf="'vendor/' + vendor.slugName | image | async as picture">
+        <ng-container *ngIf="vendor.email | image : 'profile' | async as picture">
           <img *ngIf="picture.value" class="rounded h-100" mat-card-image [src]="picture.value">
-          <div *ngIf="picture.loading" class="rounded h-100"></div>
+          <div *ngIf="!picture.value"  class="rounded h-100 loading" style="width: 450px;"></div>
         </ng-container>
       </div>
       <div class="d-flex flex-column">
-        <h3 class="color-primary">{{vendor.name}}</h3>
+        <div class="d-flex align-items-center">
+          <h3 class="color-primary me-2 mb-0">{{vendor.name}}</h3>
+          <button mat-icon-button color="primary" [routerLink]="['/chat']" [state]="{recipient: vendor.email}"><mat-icon fontIcon="forum"></mat-icon></button>
+        </div>
         <div class="d-flex justify-content-between">
           <div class="w-50 d-flex flex-column">
             <span>{{vendor.city.name + ', ' + vendor.province.name}}</span>
@@ -43,7 +46,7 @@
             <div class="col" *ngFor="let serviceOffer of serviceOffers">
                 <mat-card class="pointer-event" matRipple [matRippleCentered]="true">
                   <a [routerLink]="'service/' + serviceOffer.slugTitle">
-                    <ng-container *ngIf="'service offer/' + serviceOffer.pictures[0].id | image | async as picture">
+                    <ng-container *ngIf="serviceOffer.pictures[0].id | image : 'service' | async as picture">
                         <img *ngIf="picture.value" class="border-bottom border-top w-100 object-fit-cover"
                             style="aspect-ratio: 1/1;" mat-card-image [src]="picture.value">
                         <div *ngIf="picture.loading" class="border-bottom border-top loading"
@@ -73,7 +76,7 @@
           <div class="col" *ngFor="let jobOffer of jobOffers">
             <mat-card class="pointer-event" matRipple [matRippleCentered]="true">
               <a [routerLink]="'/freelance/' + vendor.slugName + '/job/' +jobOffer.slugTitle">
-                <ng-container *ngIf="'job offer/' + jobOffer.pictures[0].id | image | async as picture">
+                <ng-container *ngIf="jobOffer.pictures[0].id | image : 'job' | async as picture">
                   <img *ngIf="picture.value" class="border-bottom border-top w-100 object-fit-cover"
                        style="aspect-ratio: 1/1;" mat-card-image [src]="picture.value">
                   <div *ngIf="picture.loading" class="border-bottom border-top loading"

@@ -13,7 +13,7 @@
 <ng-template #vendorPicture let-vendor="vendorData">
   <mat-card class="mb-3">
     <mat-card-content class="d-flex flex-column justify-content-center align-items-center">
-      <ng-container *ngIf="'vendor/' + vendor?.slugName | image | async as picture">
+      <ng-container *ngIf="vendor?.email | image : 'profile' | async as picture">
         <p-image [src]="picture.value ? picture.value : 'assets/image/profile.png'" imageClass="image" class="mb-2" [preview]="true"></p-image>
       </ng-container>
       <h4 class="mb-0">{{vendor.name}}</h4>
