@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Freelancer } from '../model/freelancer';
+import { Customer } from '../model/customer';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class FreelancerService {
 
   constructor(private http: HttpClient) { }
 
-  public getProfile(): Observable<Freelancer> {
-    return this.http.get<Freelancer>(`${this.host}/api/freelancers/profile`);
+  public getProfile(): Observable<Customer> {
+    return this.http.get<Customer>(`${this.host}/api/freelancers/profile`);
   }
 }

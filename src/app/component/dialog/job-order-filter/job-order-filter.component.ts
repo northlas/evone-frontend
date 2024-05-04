@@ -3,10 +3,9 @@ import { FormControl, FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { JobFilter } from 'src/app/model/job-filter';
 import { JobFilterComponent } from '../job-filter/job-filter.component';
-import { JobTransactionStatus } from 'src/app/enum/job-transaction-status';
-import { Category } from 'src/app/model/category';
 import { TalentService } from 'src/app/service/talent.service';
 import { JobTransactionParam } from 'src/app/model/job-transaction-param';
+import { Talent } from 'src/app/model/talent';
 
 @Component({
   selector: 'app-job-order-filter',
@@ -17,7 +16,7 @@ export class JobOrderFilterComponent implements OnInit{
   private isFilterStatus = false;
   private isFilterTalent = false;
   private isFilterDate = false;
-  public talents: Category[] = [];
+  public talents: Talent[] = [];
   public form = this.formBuilder.group({
     talent: new FormControl<string | null>(null),
     startDt: new FormControl<Date | null>(null),
@@ -48,7 +47,7 @@ export class JobOrderFilterComponent implements OnInit{
 
   private getTalents() {
     this.talentService.getAllTalent(true).subscribe({
-      next: (response: Category[]) => {
+      next: (response: Talent[]) => {
         this.talents = response;
       }
     })

@@ -1,24 +1,31 @@
 <div class="flex-grow-1 d-flex justify-content-center bg-white mt-5 p-5 rounded-top-5">
     <div class="w-75 row">
         <div class="col-3 border rounded-start-3 p-0 d-flex flex-column">
-            <div>
-                <mat-form-field class="w-100 search" subscriptSizing="dynamic">
-                    <input matInput placeholder="Cari">
-                </mat-form-field>
+            <div class="border-bottom d-flex align-items-center px-3" style="height: 60px;">
+                <h3 class="mb-0">Pesan</h3>
             </div>
-            <div>
-              <div *ngFor="let chatRoom of userChatRooms" class="d-flex align-items-center p-3 chat" [ngClass]="currentChatRoom?.recipient == chatRoom.recipient ? 'chat-selected' : '' " (click)="openChat(chatRoom)">
-                <img src="assets/image/profile.png" class="profile">
-                <div class="d-flex flex-column ms-3 flex-grow-1" style="min-width: 0;">
-                  <span class="mb-2">{{chatRoom.recipient.name}}</span>
-                  <span class="mt-2 text-secondary" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">{{chatRoom.chatRoom.chats.length > 0 ? chatRoom.chatRoom.chats[0].message : '&nbsp;'}}</span>
+            <div class="flex-grow-1 d-flex" style="height: 0;">
+              <div class="flex-grow-1 d-flex flex-column overflow-y-auto">
+                <div *ngFor="let chatRoom of userChatRooms" class="d-flex align-items-center p-3 chat" [ngClass]="currentChatRoom?.recipient == chatRoom.recipient ? 'chat-selected' : '' " (click)="openChat(chatRoom)">
+                  <ng-container *ngIf="chatRoom.recipient.email | image : 'profile' | async as picture">
+                    <img *ngIf="picture.value" class="profile" [src]="picture.value">
+                    <img *ngIf="picture.error" class="profile" src="assets/image/profile.png">
+                    <div *ngIf="picture.loading" class="profile loading"></div>
+                  </ng-container>
+                  <div class="d-flex flex-column ms-3 flex-grow-1" style="min-width: 0;">
+                    <span class="mb-2">{{chatRoom.recipient.name}}</span>
+                    <span class="mt-2 text-secondary" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">{{chatRoom.chatRoom.chats.length > 0 ? chatRoom.chatRoom.chats[0].message : '&nbsp;'}}</span>
+                  </div>
+                </div>
+                <div *ngIf="userChatRooms.length == 0 || isLoading" class="flex-grow-1 d-flex align-items-center justify-content-center">
+                  <h4>Tidak ada pesan</h4>
                 </div>
               </div>
             </div>
         </div>
         <div class="col-9 border border-start-0 rounded-end-3 p-0 d-flex flex-column">
             <ng-container *ngIf="currentChatRoom">
-              <div style="height: 56px;" class="border-bottom d-flex align-items-center">
+              <div style="height: 60px;" class="border-bottom d-flex align-items-center">
                 <span class="fw-medium ms-3">{{currentChatRoom.recipient.name}}</span>
               </div>
               <div class="flex-grow-1 d-flex p-3"  style="height: 0;">
@@ -35,6 +42,12 @@
                     <input matInput placeholder="Pesan..." #input>
                   </mat-form-field>
                 </form>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="!currentChatRoom && userChatRooms.length > 0">
+              <div style="height: 60px;">&nbsp;</div>
+              <div class="flex-grow-1 d-flex align-items-center justify-content-center">
+                <h4>Pilih pesan</h4>
               </div>
             </ng-container>
         </div>

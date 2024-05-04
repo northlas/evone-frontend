@@ -16,6 +16,7 @@ import { PlatformService } from 'src/app/service/platform.service';
 import { ProvinceService } from 'src/app/service/province.service';
 import { VendorService } from 'src/app/service/vendor.service';
 import { RegisterMainComponent } from '../register-main/register-main.component';
+import { Wallet } from 'src/app/model/wallet';
 
 @Component({
   selector: 'app-register-vendor',
@@ -51,12 +52,13 @@ export class RegisterVendorComponent implements OnInit{
     province: new FormControl<number | null>(null, Validators.required),
     city: new FormControl<number | null>({value: null, disabled: true}, Validators.required),
     address: new FormControl<string | null>(null, Validators.required),
+    accountNo: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[0-9]+')]),
     category: new FormControl<number[]>([], Validators.required),
     platform: new FormControl<number[]>([], Validators.required),
   })
 
   public profileFormGroup = this.formBuilder.group({
-    image: [{} as File],
+    image: [{} as File, Validators.required],
     description: ['', Validators.required],
   })
 
@@ -234,7 +236,7 @@ export class RegisterVendorComponent implements OnInit{
     vendor.address = companyForm.address.value!;
     vendor.phone = accountForm.phone.value!;
     vendor.description = profileForm.description.value!;
-    vendor.accountNo = '123456789';
+    vendor.wallet = {accountNo: companyForm.accountNo.value!} as Wallet;
     vendor.city = city;
     vendor.categories = categories;
     vendor.socialMedia = socialMedia;

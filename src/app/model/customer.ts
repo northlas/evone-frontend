@@ -1,6 +1,10 @@
+import { Talent } from "./talent";
 import { User } from "./user";
 
 export interface Customer extends User {
+    isFreelancer: boolean,
     phone: string,
-    isFreelancer: boolean
+    gender: number,
+    description: string,
+    talents: Talent[]
 }

@@ -1,4 +1,4 @@
-<mat-stepper linear>
+<mat-stepper>
     <mat-step [stepControl]="vendorFormGroup" label="Akun">
         <form [formGroup]="vendorFormGroup" class="pt-2 d-flex flex-column">
             <mat-form-field appearance="outline" class="mb-3">
@@ -58,6 +58,12 @@
                 <mat-error *ngIf="companyFormGroup.controls.address.hasError('required')">Alamat harus diisi</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="mb-3">
+              <mat-label>Nomor Rekening</mat-label>
+              <input matInput required formControlName="accountNo">
+              <mat-error *ngIf="companyFormGroup.controls.accountNo.hasError('required')">Nomor rekening harus diisi</mat-error>
+              <mat-error *ngIf="companyFormGroup.controls.accountNo.hasError('pattern')">Nomor rekening hanya boleh diisi dengan angka</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Kategori</mat-label>
                 <mat-select formControlName="category" multiple>
                     <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
@@ -98,19 +104,20 @@
       <form class="pt-2" [formGroup]="profileFormGroup">
         <div class="border pb-4 rounded d-grid" [style.border-color]="borderColor + ' !important'" (mouseenter)="onHover()" (mouseleave)="onBlur()">
           <div class="px-1 floating-label" [style.opacity]="isProfileSelected() ? '1' :'0'">Foto profil*</div>
-          <p-fileUpload
-            mode="basic"
-            chooseLabel="Pilih foto profil"
-            accept="image/*"
-            class="z-1 file-upload"
-            (onSelect)="onSelect($event)"
-            [ngClass]="isProfileSelected() ? 'position-absolute pt-4' : ''"
-            [style.opacity]="(isProfileSelected() && !isProfileHovered) ? '0' :'1'"></p-fileUpload>
-          <img
-            *ngIf="uploadedImage"
-            class="px-1 profile-image"
-            [src]="uploadedImage"
-            [style.filter]="isProfileHovered ? 'brightness(0.5)' : ''">
+          <div class="position-relative d-inline-block" [ngClass]="isProfileSelected() ? '' : 'p-4'">
+            <p-fileUpload
+              mode="basic"
+              chooseLabel="Pilih foto profil"
+              accept="image/*"
+              class="z-1 file-upload"
+              (onSelect)="onSelect($event)"
+              [style.opacity]="(isProfileSelected() && !isProfileHovered) ? '0' :'1'"></p-fileUpload>
+            <img
+              *ngIf="uploadedImage"
+              class="px-1 profile-image"
+              [src]="uploadedImage"
+              [style.filter]="isProfileHovered ? 'brightness(0.5)' : ''">
+          </div>
         </div>
         <div [style.visibility]="isProfileError ? 'visible' : 'hidden'" class="mb-3 px-3" style="color: #f44336;">Foto profil harus dipilih</div>
         <mat-form-field appearance="outline" class="mb-3 w-100">

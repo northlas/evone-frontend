@@ -1,14 +1,14 @@
+import { Location } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Client } from '@stomp/stompjs';
 import { filter } from 'rxjs';
 import * as SockJS from 'sockjs-client';
 import { Chat } from 'src/app/model/chat';
-import { User } from 'src/app/model/user';
 import { UserChatRoom } from 'src/app/model/user-chat-room';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { ChatService } from 'src/app/service/chat.service';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-chat',
@@ -29,38 +29,60 @@ export class ChatComponent implements OnInit {
   public email = this.authService.getSubject();
   public userChatRooms: UserChatRoom[] = [];
   public currentChatRoom?: UserChatRoom;
-  public isNavigated = false;
+  public isFetched = false;
+  public isLoading = true;
 
-  constructor(private chatService: ChatService, private authService: AuthenticationService, private router: Router) {
+  constructor(private chatService: ChatService, private authService: AuthenticationService, private router: Router, private location: Location) {
     router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => {
       const navigation = router.getCurrentNavigation();
-      this.isNavigated = true;
-      console.log(navigation?.extras.state)
-      if (navigation?.extras.state) {
-        this.getChatRooms();
+      const state = navigation?.extras.state;
+      if (state && !this.isFetched) {
+        console.log(state)
+        this.isFetched = true;
+        this.getChatRooms(true, state['recipient']);
       }
     })
   }
 
   ngOnInit(): void {
     this.stomp.activate();
-    if(!this.isNavigated) {
-      this.getChatRooms();
+    if(!this.isFetched) {
+      this.getChatRooms(false);
     }
   }
 
-  public getChatRooms() {
-    console.log('test')
+  public getChatRooms(checkExisting: boolean, recipient?: string) {
     this.chatService.getAllChatRoom(this.email).subscribe({
       next: (response: UserChatRoom[]) => {
-        this.userChatRooms = response;
-        this.sortChatRoom();
+        if (checkExisting) {
+          this.currentChatRoom = response.find((value) => value.recipient.email == recipient)
+          if (!this.currentChatRoom) {
+            this.chatService.addChatRoom(this.email, recipient!).subscribe({
+              next: (room: UserChatRoom) => {
+                this.userChatRooms = response;
+                this.isLoading = false;
+                this.sortChatRoom();
+                this.userChatRooms.unshift(room);
+                this.currentChatRoom = room;
+              }
+            })
+          }
+          else {
+            this.userChatRooms = response;
+            this.isLoading = false;
+            this.sortChatRoom();
+          }
+        }
+        else {
+          this.userChatRooms = response;
+          this.isLoading = false;
+          this.sortChatRoom();
+        }
       }
     })
   }
 
   public sortChatRoom() {
-    console.log(this.userChatRooms[0].chatRoom.chats[0])
     this.userChatRooms = this.userChatRooms.sort((a, b) => {
       if (a.chatRoom.chats.length > 0 && b.chatRoom.chats.length > 0) {
         return new Date(b.chatRoom.chats[0].createdDt).getTime() - new Date(a.chatRoom.chats[0].createdDt).getTime();

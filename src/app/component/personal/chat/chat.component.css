@@ -16,7 +16,7 @@
 .profile {
   width: 100px;
   height: 100px;
-  object-fit: contain;
+  object-fit: cover;
   border: solid 3px;
   border-radius: 50%;
 }
@@ -32,11 +32,11 @@
 
 .sender {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   background-color: #f0f3f7;
   padding: 0.5rem 1rem;
   border-radius: 30px;
-  align-self: end;
+  align-self: flex-end;
   margin: 0.2rem 0;
   width: fit-content;
   max-width: 80%;
@@ -44,7 +44,7 @@
 
 .recipient {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   width: fit-content;
   border: solid 1px #e4ebf5;
   padding: 0.5rem 1rem;

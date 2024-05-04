@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Role } from 'src/app/enum/role.enum';
 import { Category } from 'src/app/model/category';
 import { Customer } from 'src/app/model/customer';
-import { Freelancer } from 'src/app/model/freelancer';
 import { User } from 'src/app/model/user';
 import { Vendor } from 'src/app/model/vendor';
 import { AuthenticationService } from 'src/app/service/authentication.service';
@@ -19,7 +18,6 @@ import { VendorService } from 'src/app/service/vendor.service';
 export class ProfileComponent implements OnInit{
   public user!: User;
   public customer?: Customer;
-  public freelancer? : Freelancer;
   public vendor?: Vendor;
   public isVendor = false;
   public isCustomer = false;
@@ -72,9 +70,9 @@ export class ProfileComponent implements OnInit{
 
   private getFreelancer() {
     this.freelancerService.getProfile().subscribe({
-      next: (response: Freelancer) => {
-        this.freelancer = response;
-        this.freelancer.wallet = this.user.wallet;
+      next: (response: Customer) => {
+        this.customer = response;
+        this.customer.wallet = this.user.wallet;
       }
     })
   }

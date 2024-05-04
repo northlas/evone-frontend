@@ -46,7 +46,7 @@ export class JobDashboardMainComponent implements OnInit{
 
   private getTalents() {
     this.talentService.talents$.subscribe({
-      next: (talents: Category[]) => {
+      next: (talents: Talent[]) => {
         if (talents.length > 0) {
           this.getJobs(structuredClone(talents));
         }
@@ -54,7 +54,7 @@ export class JobDashboardMainComponent implements OnInit{
     })
   }
 
-  private getJobs(talents: Category[]) {
+  private getJobs(talents: Talent[]) {
     from(talents)
       .pipe(concatMap(talent => this.jobService.getAllJob({talent: talent.slugName} as VendorJobOfferParam, 1)))
       .subscribe(response => {

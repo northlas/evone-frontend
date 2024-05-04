@@ -7,5 +7,5 @@ export interface User {
     slugName: string,
     password: string,
     wallet: Wallet,
-    roleIds: string[]
+    accountNo: string
 }

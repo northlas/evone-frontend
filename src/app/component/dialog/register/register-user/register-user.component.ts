@@ -1,20 +1,24 @@
-import { HttpResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { FileSelectEvent } from 'primeng/fileupload';
 import { HeaderType } from 'src/app/enum/header-type.enum';
+import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { BaseResponse } from 'src/app/model/base-response';
 import { Customer } from 'src/app/model/customer';
 import { Talent } from 'src/app/model/talent';
+import { Wallet } from 'src/app/model/wallet';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { CustomerService } from 'src/app/service/customer.service';
+import { NotificationService } from 'src/app/service/notification.service';
+import { TalentService } from 'src/app/service/talent.service';
 
 @Component({
   selector: 'app-register-user',
   templateUrl: './register-user.component.html',
   styleUrls: ['./register-user.component.css']
 })
-export class RegisterUserComponent {
+export class RegisterUserComponent implements OnInit{
   public talents: Talent[] = [];
   public profileImage?: File;
   public isProfileHovered = false;
@@ -30,13 +34,19 @@ export class RegisterUserComponent {
     validators: this.matchPassword('password', 'confirmPassword')
   })
   public freelancerFormGroup = this.formBuilder.group({
-    gender: ['', Validators.required],
-    phone: ['', Validators.required],
-    image: [{} as File],
-    description: ['', Validators.required],
+    gender: new FormControl<number | null>(null, Validators.required),
+    phone: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[0-9]+')]),
+    accountNo: new FormControl<string | null>(null, [Validators.required, Validators.pattern('[0-9]+')]),
+    talents: new FormControl<number[] | null>(null, Validators.required),
+    image: new FormControl<File | null>(null, Validators.required),
+    description: new FormControl<string | null>(null, Validators.required),
   })
 
-  constructor(private formBuilder: FormBuilder, private customerService: CustomerService, private authService: AuthenticationService) {}
+  constructor(private formBuilder: FormBuilder, private customerService: CustomerService, private talentService: TalentService, private authService: AuthenticationService, private notificationService: NotificationService) {}
+
+  ngOnInit(): void {
+    this.getTalents();
+  }
 
   private matchPassword(password: string, confirmPassword: string): ValidatorFn {
     return (abstractControl: AbstractControl) => {
@@ -65,6 +75,14 @@ export class RegisterUserComponent {
     }
   }
 
+  public getTalents() {
+    this.talentService.getAllTalent(true).subscribe({
+      next: (response: Talent[]) => {
+        this.talents = response;
+      }
+    })
+  }
+
   public isProfileSelected() {
     return this.uploadedImage;
   }
@@ -80,6 +98,13 @@ export class RegisterUserComponent {
     if (!this.isProfileError) {
       this.isProfileHovered = false;
       this.borderColor = '#9e9e9e'
+    }
+  }
+
+  public profileStepListener() {
+    if (this.freelancerFormGroup.controls.image.invalid) {
+      this.isProfileError = true;
+      this.borderColor = '#f44336';
     }
   }
 
@@ -100,12 +125,24 @@ export class RegisterUserComponent {
     customer.email = this.userFormGroup.controls.email.value!;
     customer.password = this.userFormGroup.controls.password.value!;
     customer.isFreelancer = false;
-    customer.roleIds = ['ROLE_CUSTOMER'];
-    this.customerService.addCustomer(customer).subscribe({
+
+    if (this.freelancerFormGroup.valid) {
+      customer.isFreelancer = true;
+      customer.gender = this.freelancerFormGroup.controls.gender.value!;
+      customer.phone = this.freelancerFormGroup.controls.phone.value!;
+      customer.talents = this.freelancerFormGroup.controls.talents.value!.map((value) => ({id: value}) as Talent)
+      customer.description = this.freelancerFormGroup.controls.description.value!;
+      customer.wallet = {accountNo: this.freelancerFormGroup.controls.accountNo.value!} as Wallet;
+    }
+
+    this.customerService.addCustomer(customer, this.freelancerFormGroup.controls.image.value).subscribe({
       next: (response: HttpResponse<BaseResponse>) => {
         const token = response.headers.get(HeaderType.JWT_TOKEN)!;
-        this.authService.saveToken(token);
-        window.location.reload();
+        // this.authService.saveToken(token);
+        // window.location.reload();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.notificationService.notify(NotificationType.ERROR, error.error.message);
       }
     })
   }

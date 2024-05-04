@@ -21,7 +21,12 @@ export class CustomerService {
     return this.http.get<Customer>(`${this.host}/api/customers/profile`);
   }
 
-  public addCustomer(customer: Customer): Observable<HttpResponse<BaseResponse>> {
-    return this.http.post<BaseResponse>(`${this.host}/api/customers`, customer, {observe: 'response'})
+  public addCustomer(customer: Customer, profile: File | null): Observable<HttpResponse<BaseResponse>> {
+    const formData = new FormData();
+    formData.set('model', new Blob([JSON.stringify(customer)], {type: 'application/json'}))
+    if (customer.isFreelancer) {
+      formData.set('profile', profile!);
+    }
+    return this.http.post<BaseResponse>(`${this.host}/api/customers`, formData, {observe: 'response'})
   }
 }
