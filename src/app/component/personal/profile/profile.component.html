@@ -10,6 +10,30 @@
       <ng-container *ngIf="customer" [ngTemplateOutlet]="customerDetail" [ngTemplateOutletContext]="{customerData: customer}"></ng-container>
     </div>
   </div>
+  <div *ngIf="customer && isFreelancer && customer.reviews.length > 0" class="mt-5">
+    <p-carousel [value]="customer.reviews"  [numVisible]="4" [numScroll]="4" [responsiveOptions]="responsiveOptions">
+      <ng-template pTemplate="header">
+          <h5 class="mb-2">Ulasan</h5>
+      </ng-template>
+      <ng-template let-review pTemplate="item">
+        <div class="p-3">
+          <mat-card style=" aspect-ratio: 5/3">
+            <mat-card-header>
+              <p-rating [ngModel]="review.rating" [readonly]="true" [cancel]="false"></p-rating>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="my-2 d-flex align-items-center">
+                <mat-icon class="me-1">person</mat-icon>
+                <span>{{review.name}}</span>
+              </div>
+              <hr>
+              <span>{{review.review}}</span>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
 </div>
 
 <ng-template #vendorPicture let-vendor="vendorData">

@@ -9,10 +9,11 @@ import { OrderJobComponent } from '../../dialog/order-job/order-job.component';
 import { JobTransaction } from 'src/app/model/job-transaction';
 import { S3Service } from 'src/app/service/s3.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { concatMap, from } from 'rxjs';
+import { concatMap, from, of } from 'rxjs';
 import { BaseResponse } from 'src/app/model/base-response';
 import { JobOfferWishlistService } from 'src/app/service/job-offer-wishlist.service';
 import { JobOfferWishlist } from 'src/app/model/job-offer-wishlist';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 
 
 @Component({
@@ -26,24 +27,26 @@ export class JobDetailComponent implements OnInit{
   public jobOffer!: JobOffer;
   public isLoading = true;
   public pictures: SafeResourceUrl[] = [];
+  public isLoggedIn!: boolean;
 
-  constructor(private route: ActivatedRoute, private vendorService: VendorService, private jobOfferWishlistService: JobOfferWishlistService, private dialog: MatDialog, private jobService: JobService, private s3Service: S3Service, private sanitizer: DomSanitizer) {}
+  constructor(private route: ActivatedRoute, private authService: AuthenticationService, private jobOfferWishlistService: JobOfferWishlistService, private router: Router, private dialog: MatDialog, private jobService: JobService, private s3Service: S3Service, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
+    this.isLoggedIn = this.authService.isUserLoggedIn();
     this.slugTitle = this.route.snapshot.params['jobTitle'];
     this.getJobOffer();
   }
 
   private getJobOffer() {
-      from(this.jobService.getJobDetail(this.slugTitle))
-      .pipe(concatMap(jobOffer => {
-        this.jobOffer = jobOffer;
-        this.getPictures();
-        return this.jobOfferWishlistService.getWishlist(jobOffer.vendor.slugName, jobOffer.slugTitle);
-      }))
-      .subscribe(wishlist => {
-        this.wishlist = wishlist;
-      })
+    from(this.jobService.getJobDetail(this.slugTitle))
+    .pipe(concatMap(jobOffer => {
+      this.jobOffer = jobOffer;
+      this.getPictures();
+      return this.isLoggedIn ? this.jobOfferWishlistService.getWishlist(jobOffer.vendor.slugName, jobOffer.slugTitle) : of(undefined);
+    }))
+    .subscribe(wishlist => {
+      this.wishlist = wishlist;
+    })
   }
 
   private getPictures() {
@@ -61,19 +64,33 @@ export class JobDetailComponent implements OnInit{
 
 
   public onOrder() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = this.jobOffer;
-    dialogConfig.minWidth = '60%'
-    dialogConfig.autoFocus = false;
-    const dialogRef = this.dialog.open(OrderJobComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe({
-      next: (response: JobTransaction | undefined) => {
+    if (!this.isLoggedIn) {
+      this.authService.openLogin();
+    }
+    else {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = this.jobOffer;
+      dialogConfig.minWidth = '60%'
+      dialogConfig.autoFocus = false;
+      const dialogRef = this.dialog.open(OrderJobComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe
+    }
+  }
 
-      }
-    })
+  public onChat() {
+    if (!this.isLoggedIn) {
+      this.authService.openLogin();
+    }
+    else {
+      this.router.navigate(['/chat'], {state: {recipient: this.jobOffer.vendor.email}})
+    }
   }
 
   public onWishlist() {
+    if (!this.isLoggedIn) {
+      this.authService.openLogin();
+    }
+    else {
       if (this.wishlist?.id) {
         this.jobOfferWishlistService.deleteWishlist(this.wishlist.id).subscribe({
           next: () => {
@@ -90,6 +107,5 @@ export class JobDetailComponent implements OnInit{
         });
       }
     }
-
-
+  }
 }

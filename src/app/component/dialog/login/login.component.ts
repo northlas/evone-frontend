@@ -25,10 +25,6 @@ export class LoginComponent {
         const token = response.headers.get(HeaderType.JWT_TOKEN)!;
         this.authService.saveToken(token);
         this.dialogRef.close(true);
-      },
-      error: (error: HttpErrorResponse) => {
-        this.password = undefined;
-        this.notificationService.notify(NotificationType.ERROR, error.error.message);
       }
     })
   }

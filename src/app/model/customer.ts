@@ -1,4 +1,5 @@
 import { BaseRating } from "./base-rating";
+import { BaseReview } from "./base-review";
 import { Talent } from "./talent";
 import { User } from "./user";
 
@@ -8,5 +9,6 @@ export interface Customer extends User {
     gender: number,
     description: string,
     talents: Talent[],
-    rating: BaseRating
+    rating: BaseRating,
+    reviews: BaseReview[]
 }

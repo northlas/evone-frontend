@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { BaseResponse } from '../model/base-response';
 import { HeaderType } from '../enum/header-type.enum';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { LoginComponent } from '../component/dialog/login/login.component';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +16,25 @@ export class AuthenticationService {
   private token: string | null = null;
   private jwtHelper = new JwtHelperService();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dialog: MatDialog) { }
 
   public login(auth: string): Observable<HttpResponse<BaseResponse>> {
     const header = new HttpHeaders({Authorization: HeaderType.BASIC_AUTH + auth});
     return this.http.post<BaseResponse>(`${this.host}/api/auth/login`, null, {observe: 'response', headers: header})
+  }
+
+  public openLogin() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '400px';
+    dialogConfig.autoFocus = false;
+    const dialogRef = this.dialog.open(LoginComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe({
+      next: (isLoggedIn: boolean) => {
+        if(isLoggedIn) {
+          window.location.reload();
+        }
+      }
+    })
   }
 
   public clearToken(): void {

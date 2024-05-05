@@ -12,7 +12,7 @@ export const authenticationGuard: CanActivateFn = (route, state) => {
     }
     else {
       authService.clearToken();
-      router.navigate(['/login'])
+      router.navigate(['/vendor'])
       resolve(false);
     }
   });

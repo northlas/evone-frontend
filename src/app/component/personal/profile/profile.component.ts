@@ -23,6 +23,23 @@ export class ProfileComponent implements OnInit{
   public isVendor = false;
   public isCustomer = false;
   public isFreelancer = false;
+  public responsiveOptions = [
+    {
+      breakpoint: '1280px',
+      numVisible: 4,
+      numScroll: 4
+    },
+    {
+      breakpoint: '720px',
+      numVisible: 2,
+      numScroll: 2
+    },
+    {
+      breakpoint: '480px',
+      numVisible: 1,
+      numScroll: 1
+    }
+  ]
 
   constructor(private authSerivce: AuthenticationService, private userService: UserService, private vendorService: VendorService, private customerService: CustomerService, private freelancerService: FreelancerService) {}
 

@@ -16,7 +16,7 @@
       <div class="d-flex flex-column mb-3" style="width: 70%;">
         <div class="d-flex align-items-center mb-2">
           <h3 class="color-primary mb-0 me-2">{{serviceOffer.title}}</h3>
-          <button mat-icon-button color="primary" [routerLink]="['/chat']" [state]="{recipient: serviceOffer.vendor.email}"><mat-icon fontIcon="forum"></mat-icon></button>
+          <button mat-icon-button color="primary" (click)="onChat()"><mat-icon fontIcon="forum"></mat-icon></button>
           <button mat-icon-button color="warn" (click)="onWishlist()" [matTooltip]="wishlist?.id ? 'Hapus dari favorit' : 'Tambahkan ke favorit'">
             <mat-icon [fontIcon]="wishlist?.id ? 'favorite' : 'favorite_outline'"></mat-icon>
           </button>
@@ -30,8 +30,8 @@
         </div>
         <span class="mb-4" style="color: #7A6969; white-space: pre-line;">{{serviceOffer.description}}</span>
         <h4 class="color-orange">{{serviceOffer.price | currency: 'Rp' : 'symbol' : '1.0-0'}}</h4>
-        <div class="align-self-end" style="width: 150px;">
-          <button mat-flat-button color="primary" class="w-100" (click)="onOrder()">Pesan</button>
+        <div class="align-self-end me-5" style="width: 150px;">
+          <button mat-flat-button color="primary" class="w-100" (click)="onOrder()" style="white-space: nowrap;">Pesan</button>
         </div>
       </div>
     </div>

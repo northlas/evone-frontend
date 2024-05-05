@@ -6,6 +6,7 @@ import { Vendor } from 'src/app/model/vendor';
 import { ServiceOfferService } from 'src/app/service/service-offer.service';
 import { JobService } from 'src/app/service/job.service';
 import { VendorService } from 'src/app/service/vendor.service';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 
 @Component({
   selector: 'app-vendor-detail',
@@ -18,10 +19,12 @@ export class VendorDetailComponent implements OnInit{
   public serviceOffers: ServiceOffer[] = [];
   public jobOffers: JobOffer[] = [];
   public isLoading = true;
+  public isLoggedIn!: boolean;
 
-  constructor(private route: ActivatedRoute, private vendorService: VendorService, private serviceOfferService: ServiceOfferService, private jobService: JobService) {}
+  constructor(private route: ActivatedRoute, private router: Router, private vendorService: VendorService, private authService: AuthenticationService, private serviceOfferService: ServiceOfferService, private jobService: JobService) {}
 
   ngOnInit(): void {
+    this.isLoggedIn = this.authService.isUserLoggedIn();
     this.vendorSlugName = this.route.snapshot.params['vendorName'];
     this.getVendorDetail();
     this.getServiceOffers();
@@ -52,5 +55,14 @@ export class VendorDetailComponent implements OnInit{
         this.isLoading = false;
       }
     })
+  }
+
+  public onChat() {
+    if (!this.isLoggedIn) {
+      this.authService.openLogin();
+    }
+    else {
+      this.router.navigate(['/chat'], {state: {recipient: this.vendor.email}})
+    }
   }
 }

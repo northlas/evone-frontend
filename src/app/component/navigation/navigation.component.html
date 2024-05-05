@@ -20,7 +20,7 @@
             <div class="ps-3" [ngClass]="isLoggedIn ? '' : 'border-start border-2 border-dark'">
                 <ng-container [ngSwitch]="isLoggedIn">
                     <div *ngSwitchCase="false">
-                        <button mat-stroked-button (click)="openLogin()" color="primary" class="me-3 border-inherit">Masuk</button>
+                        <button mat-stroked-button (click)="openLogin()" color="primary" class="me-3 border-inherit" #login>Masuk</button>
                         <button mat-flat-button (click)="openRegister()" color="primary">Daftar</button>
                     </div>
                     <div *ngSwitchDefault>

@@ -25,17 +25,7 @@ export class NavigationComponent implements OnInit{
   }
 
   public openLogin() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '400px';
-    dialogConfig.autoFocus = false;
-    const dialogRef = this.dialog.open(LoginComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe({
-      next: (isLoggedIn: boolean) => {
-        if(isLoggedIn) {
-          window.location.reload();
-        }
-      }
-    })
+    this.authService.openLogin();
   }
 
   public openRegister() {

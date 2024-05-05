@@ -140,9 +140,6 @@ export class RegisterUserComponent implements OnInit{
         const token = response.headers.get(HeaderType.JWT_TOKEN)!;
         this.authService.saveToken(token);
         window.location.reload();
-      },
-      error: (error: HttpErrorResponse) => {
-        this.notificationService.notify(NotificationType.ERROR, error.error.message);
       }
     })
   }

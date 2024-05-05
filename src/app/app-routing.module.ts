@@ -21,6 +21,7 @@ import { WishlistJobComponent } from './component/personal/wishlist-job/wishlist
 import { ChatComponent } from './component/personal/chat/chat.component';
 import { HelpcenterComponent } from './component/helpcenter/helpcenter.component';
 import { CallcenterComponent } from './component/callcenter/callcenter.component';
+import { authenticationGuard } from './guard/authentication.guard';
 
 const routes: Routes = [
   {path: '', title: 'Evone', component: NavigationComponent, children: [
@@ -28,28 +29,31 @@ const routes: Routes = [
       {path: '', component: VendorDashboardMainComponent},
       {path: 'search', component: VendorDashboardCategoryComponent},
       {path: ':vendorName', component: VendorDetailComponent},
-      {path: ':vendorName/service/:serviceTitle', component: VendorServiceComponent}
+      {path: ':vendorName/service/:serviceTitle', component: VendorServiceComponent},
+      {path: '', redirectTo: 'vendor', pathMatch: 'full'}
     ]},
     {path: 'freelance', title: 'Freelance', component: JobDashboardComponent, children: [
       {path: '', component: JobDashboardMainComponent},
       {path: 'search', component: JobDashboardCategoryComponent},
-      {path: ':vendorName/job/:jobTitle', component: JobDetailComponent}
+      {path: ':vendorName/job/:jobTitle', component: JobDetailComponent},
+      {path: '', redirectTo: 'vendor', pathMatch: 'full'}
     ]},
-    {path: 'product', title: 'Product', component: VendorProductComponent},
-    {path: 'settings', component: SettingsComponent, children: [
+    {path: 'product', title: 'Product', canActivate: [authenticationGuard], component: VendorProductComponent},
+    {path: 'settings', component: SettingsComponent, canActivate: [authenticationGuard], children: [
       {path: 'profile', component: ProfileComponent},
       {path: 'service-order', component: ServiceOrderComponent},
-      {path: 'job-order', component: JobOrderComponent}
+      {path: 'job-order', component: JobOrderComponent},
+      {path: '', redirectTo: 'vendor', pathMatch: 'full'}
     ]},
-    {path: 'wishlist', title: 'Wishlist', component: WishlistDashboardComponent, children: [
+    {path: 'wishlist', title: 'Wishlist', component: WishlistDashboardComponent, canActivate: [authenticationGuard], children: [
       {path: 'service', component: WishlistServiceComponent},
       {path: 'job', component: WishlistJobComponent},
-      {path: '', redirectTo: 'service', pathMatch: 'full'}
+      {path: '', redirectTo: 'service', pathMatch: 'full'},
     ]},
-    {path: 'chat', title: 'Chat', component: ChatComponent},
-    {path: '', redirectTo: 'vendor', pathMatch: 'full'},
+    {path: 'chat', title: 'Chat', component: ChatComponent, canActivate: [authenticationGuard]},
     {path: 'helpcenter', title: 'Pusat Bantuan', component: HelpcenterComponent},
-    {path: 'callcenter', title: 'Kontak', component: CallcenterComponent}
+    {path: 'callcenter', title: 'Kontak', component: CallcenterComponent},
+    {path: '', redirectTo: 'vendor', pathMatch: 'full'}
   ]},
 ];
 
