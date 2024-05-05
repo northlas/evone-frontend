@@ -32,7 +32,7 @@ export class WishlistJobComponent implements OnInit{
 
     private getPictures(wishlistId: string, pictureId: string) {
       from([pictureId])
-      .pipe(concatMap(picture => this.s3Service.getImage('service offer/' + picture)))
+      .pipe(concatMap(picture => this.s3Service.getImage('job offer/' + picture)))
       .pipe(concatMap(response => response.Body!.transformToByteArray()))
       .subscribe(body => {
         let binary = '';

@@ -50,7 +50,7 @@ export class JobOrderComponent implements OnInit{
 
    private getPictures(serviceTransactionId: string, pictureId: string) {
      from([pictureId])
-     .pipe(concatMap(picture => this.s3Service.getImage('service offer/' + picture)))
+     .pipe(concatMap(picture => this.s3Service.getImage('job offer/' + picture)))
      .pipe(concatMap(response => response.Body!.transformToByteArray()))
      .subscribe(body => {
        let binary = '';
