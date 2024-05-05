@@ -138,8 +138,8 @@ export class RegisterUserComponent implements OnInit{
     this.customerService.addCustomer(customer, this.freelancerFormGroup.controls.image.value).subscribe({
       next: (response: HttpResponse<BaseResponse>) => {
         const token = response.headers.get(HeaderType.JWT_TOKEN)!;
-        // this.authService.saveToken(token);
-        // window.location.reload();
+        this.authService.saveToken(token);
+        window.location.reload();
       },
       error: (error: HttpErrorResponse) => {
         this.notificationService.notify(NotificationType.ERROR, error.error.message);

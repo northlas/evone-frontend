@@ -1,3 +1,4 @@
+import { BaseRating } from "./base-rating";
 import { Talent } from "./talent";
 import { User } from "./user";
 
@@ -6,5 +7,6 @@ export interface Customer extends User {
     phone: string,
     gender: number,
     description: string,
-    talents: Talent[]
+    talents: Talent[],
+    rating: BaseRating
 }

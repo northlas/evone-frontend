@@ -3,9 +3,11 @@
   <div class="row">
     <div class="col-4 d-flex flex-column">
       <ng-container *ngIf="vendor" [ngTemplateOutlet]="vendorPicture" [ngTemplateOutletContext]="{vendorData: vendor}"></ng-container>
+      <ng-container *ngIf="customer" [ngTemplateOutlet]="customerPicture" [ngTemplateOutletContext]="{customerData: customer}"></ng-container>
     </div>
     <div class="col-8">
       <ng-container *ngIf="vendor" [ngTemplateOutlet]="vendorDetail" [ngTemplateOutletContext]="{vendorData: vendor}"></ng-container>
+      <ng-container *ngIf="customer" [ngTemplateOutlet]="customerDetail" [ngTemplateOutletContext]="{customerData: customer}"></ng-container>
     </div>
   </div>
 </div>
@@ -19,7 +21,7 @@
       <h4 class="mb-0">{{vendor.name}}</h4>
       <div>{{vendor.city.name}}, {{vendor.province.name}}</div>
       <div class="d-flex mt-3">
-        <p-rating [readonly]="true" [ngModel]="vendor.rating.avgRating" [cancel]="false" class="me-2" style="padding-top:1px;"></p-rating>
+        <p-rating [readonly]="true" [ngModel]="ceiling(vendor.rating.avgRating)" [cancel]="false" class="me-2" style="padding-top:1px;"></p-rating>
         <div>{{vendor.rating.avgRating | number : '1.0-1'}}/5 ({{vendor.rating.countRating}} ulasan)</div>
       </div>
     </mat-card-content>
@@ -85,7 +87,7 @@
       <div class="row">
         <div class="col-3">Kategori</div>
         <div class="col-9 text-secondary">
-          {{joinCategory(vendor.categories)}}
+          {{joinName(vendor.categories)}}
         </div>
       </div>
     </mat-card-content>
@@ -100,6 +102,61 @@
       <div class="row">
         <div class="col-3">Saldo Evone</div>
         <div class="col-9 text-secondary">{{vendor.wallet.balance | currency: 'Rp' : 'symbol' : '1.0-0'}}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
+<ng-template #customerPicture let-customer="customerData">
+  <mat-card>
+    <mat-card-content class="d-flex flex-column justify-content-center align-items-center">
+      <ng-container *ngIf="customer?.email | image : 'profile' | async as picture">
+        <p-image [src]="picture.value ? picture.value : 'assets/image/profile.png'" imageClass="image" class="mb-2" [preview]="true"></p-image>
+      </ng-container>
+      <h4 class="mb-0">{{customer.name}}</h4>
+      <div class="d-flex mt-3">
+        <p-rating [readonly]="true" [ngModel]="ceiling(customer.rating.avgRating)" [cancel]="false" class="me-2" style="padding-top:1px;"></p-rating>
+        <div>{{customer.rating.avgRating | number : '1.0-1'}}/5 ({{customer.rating.countRating}} ulasan)</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
+<ng-template #customerDetail let-customer="customerData">
+  <mat-card class="mb-3">
+    <mat-card-content>
+      <div class="row">
+        <div class="col-3">Nama</div>
+        <div class="col-9 text-secondary">
+          {{customer.name}}
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-3">Email</div>
+        <div class="col-9 text-secondary">
+          {{customer.email}}
+        </div>
+      </div>
+      <hr>
+      <div class="row" *ngIf="customer.talents.length > 0">
+        <div class="col-3">Profesi</div>
+        <div class="col-9 text-secondary">
+          {{joinName(customer.talents)}}
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-3">Nomor Rekening</div>
+        <div class="col-9 text-secondary">{{customer.wallet.accountNo}}</div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-3">Saldo Evone</div>
+        <div class="col-9 text-secondary">{{customer.wallet.balance | currency: 'Rp' : 'symbol' : '1.0-0'}}</div>
       </div>
     </mat-card-content>
   </mat-card>

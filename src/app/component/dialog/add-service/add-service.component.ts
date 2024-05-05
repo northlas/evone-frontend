@@ -152,8 +152,7 @@ export class AddServiceComponent implements OnInit {
             NotificationType.SUCCESS,
             'Berhasil memperbarui produk jasa'
           );
-          this.dialogRef.close();
-          window.location.reload()
+          this.dialogRef.close(true);
         },
       });
     }
@@ -164,8 +163,7 @@ export class AddServiceComponent implements OnInit {
             NotificationType.SUCCESS,
             'Berhasil menambahkan produk jasa baru'
           );
-          this.dialogRef.close();
-          window.location.reload();
+          this.dialogRef.close(true);
         },
       });
     }

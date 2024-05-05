@@ -55,13 +55,21 @@ export class VendorProductJobComponent {
   public addJob() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = false
-    this.dialog.open(AddJobComponent, dialogConfig)
+    this.dialog.open(AddJobComponent, dialogConfig).afterClosed().subscribe({
+      next: (value: boolean | undefined) => {
+        if(value) this.getJobOffers();
+      }
+    });
   }
 
   public editJob(data: JobOffer) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = false
     dialogConfig.data = data;
-    this.dialog.open(AddJobComponent, dialogConfig);
+    this.dialog.open(AddJobComponent, dialogConfig).afterClosed().subscribe({
+      next: (value: boolean | undefined) => {
+        if(value) this.getJobOffers();
+      }
+    });
   }
 }

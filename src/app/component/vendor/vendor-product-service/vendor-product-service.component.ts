@@ -54,13 +54,21 @@ export class VendorProductServiceComponent implements OnInit{
   public addService() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = false
-    this.dialog.open(AddServiceComponent, dialogConfig)
+    this.dialog.open(AddServiceComponent, dialogConfig).afterClosed().subscribe({
+      next: (value: boolean | undefined) => {
+        if(value) this.getServiceOffers();
+      }
+    });
   }
 
   public editService(data: ServiceOffer) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = false
     dialogConfig.data = data;
-    this.dialog.open(AddServiceComponent, dialogConfig);
+    this.dialog.open(AddServiceComponent, dialogConfig).afterClosed().subscribe({
+      next: (value: boolean | undefined) => {
+        if(value) this.getServiceOffers();
+      }
+    });;
   }
 }

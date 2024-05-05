@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Role } from 'src/app/enum/role.enum';
 import { Category } from 'src/app/model/category';
 import { Customer } from 'src/app/model/customer';
+import { Talent } from 'src/app/model/talent';
 import { User } from 'src/app/model/user';
 import { Vendor } from 'src/app/model/vendor';
 import { AuthenticationService } from 'src/app/service/authentication.service';
@@ -77,7 +78,11 @@ export class ProfileComponent implements OnInit{
     })
   }
 
-  public joinCategory(categories: Category[]) {
+  public joinName(categories: Category[] | Talent[]) {
     return categories.map(({name}) => name).join(', ');
+  }
+
+  public ceiling(rating: number) {
+    return Math.ceil(rating);
   }
 }

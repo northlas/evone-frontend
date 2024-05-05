@@ -80,6 +80,8 @@ export class AddJobComponent implements OnInit {
     this.form.controls.talent.setValue(this.existing.talentId);
     this.form.controls.occasion.setValue(this.existing.occasionId);
     this.form.controls.description.setValue(this.existing.description);
+    this.form.controls.startDt.setValue(this.existing.startDt);
+    this.form.controls.endDt.setValue(this.existing.endDt);
     this.existing.pictures.forEach(value => {
       this.s3Service.getImage('job offer/' + value.id).then(response => {
         response.Body?.transformToByteArray().then(bytea => {
@@ -146,7 +148,8 @@ export class AddJobComponent implements OnInit {
     model.description = this.form.controls.description.value!;
     model.price = this.form.controls.price.value!;
     model.occasionId = this.form.controls.occasion.value!;
-
+    model.startDt = this.form.controls.startDt.value!;
+    model.endDt = this.form.controls.endDt.value!;
 
     if (this.existing) {
       model.slugTitle = this.existing.slugTitle;
@@ -156,8 +159,7 @@ export class AddJobComponent implements OnInit {
             NotificationType.SUCCESS,
             'Berhasil memperbarui produk jasa'
           );
-          this.dialogRef.close();
-          window.location.reload()
+          this.dialogRef.close(true);
         },
       });
     }
@@ -168,8 +170,7 @@ export class AddJobComponent implements OnInit {
             NotificationType.SUCCESS,
             'Berhasil menambahkan produk jasa baru'
           );
-          this.dialogRef.close();
-          window.location.reload();
+          this.dialogRef.close(true);
         },
       });
     }
