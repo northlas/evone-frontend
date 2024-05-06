@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { JobOfferWishlist } from '../model/job-offer-wishlist';
 import { Observable } from 'rxjs';
 import { BaseResponse } from '../model/base-response';

@@ -1,0 +1,19 @@
+<mat-dialog-actions class="d-flex justify-content-between align-items-start">
+  <h1 mat-dialog-title class="fs-4 pt-3 pb-1 ps-3">Penarikan</h1>
+  <button matDialogClose mat-icon-button>
+    <mat-icon fontIcon="close"></mat-icon>
+  </button>
+</mat-dialog-actions>
+<mat-dialog-content class="my-2 pt-0 text-dark">
+  <form class="d-flex flex-column">
+    <span>Jumlah</span>
+    <mat-form-field class="w-100" appearance="outline">
+      <input matInput currencyMask [formControl]="amountForm">
+      <mat-error *ngIf="amountForm.hasError('required')">Jumlah harus diisi</mat-error>
+      <mat-error *ngIf="amountForm.hasError('min')">Minimal penarikan saldo sebesar Rp10.000</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button (click)="withdrawBalance()" color="primary">Proses</button>
+</mat-dialog-actions>

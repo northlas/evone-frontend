@@ -49,7 +49,7 @@ export class VendorDetailComponent implements OnInit{
   }
 
   private getJobOffers() {
-    this.jobService.getAllJobEtalase(this.vendorSlugName, undefined, 1).subscribe({
+    this.jobService.getAllJobEtalase(this.vendorSlugName, undefined, 1).subscribe({  
       next: response => {
         this.jobOffers = response.items;
         this.isLoading = false;

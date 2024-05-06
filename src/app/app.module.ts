@@ -83,6 +83,7 @@ import { WishlistServiceComponent } from './component/personal/wishlist-service/
 import { WishlistJobComponent } from './component/personal/wishlist-job/wishlist-job.component';
 import { ReviewComponent } from './component/dialog/review/review.component';
 import { ChatComponent } from "./component/personal/chat/chat.component";
+import { WithdrawComponent } from './component/dialog/withdraw/withdraw.component';
 
 const notifierCustomOptions: NotifierOptions = {
   position: {
@@ -137,7 +138,7 @@ const currencyMaskConfig: CurrencyMaskConfig = {
 
 registerLocaleData(localeId)
 @NgModule({
-  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, VendorProductComponent, VendorProductServiceComponent, VendorProductJobComponent, AddServiceComponent, AddJobComponent, LoadingComponent, OrderServiceComponent, SettingsComponent, ServiceOrderComponent, JobOrderComponent, ProfileComponent, OrderServiceDetailComponent, StatusPipe, OrderFilterComponent, WishlistDashboardComponent, WishlistServiceComponent, WishlistJobComponent, ReviewComponent, ChatComponent, OrderJobComponent, OrderJobDetailComponent, JobOrderFilterComponent],
+  declarations: [AppComponent, VendorDashboardComponent, NavigationComponent, VendorDashboardCategoryComponent, JobDashboardCategoryComponent, VendorDetailComponent, JobDetailComponent, VendorServiceComponent, LoginComponent, VendorDashboardMainComponent, JobDashboardMainComponent, SortComponent, JobSortComponent, FilterComponent, JobFilterComponent,RegisterMainComponent, RegisterUserComponent, RegisterVendorComponent, ImagePipe, JobDashboardComponent, VendorProductComponent, VendorProductServiceComponent, VendorProductJobComponent, AddServiceComponent, AddJobComponent, LoadingComponent, OrderServiceComponent, SettingsComponent, ServiceOrderComponent, JobOrderComponent, ProfileComponent, OrderServiceDetailComponent, StatusPipe, OrderFilterComponent, WishlistDashboardComponent, WishlistServiceComponent, WishlistJobComponent, ReviewComponent, ChatComponent, OrderJobComponent, OrderJobDetailComponent, JobOrderFilterComponent, WithdrawComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

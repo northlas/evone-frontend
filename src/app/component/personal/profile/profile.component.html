@@ -138,7 +138,7 @@
         <p-image [src]="picture.value ? picture.value : 'assets/image/profile.png'" imageClass="image" class="mb-2" [preview]="true"></p-image>
       </ng-container>
       <h4 class="mb-0">{{customer.name}}</h4>
-      <div class="d-flex mt-3">
+      <div class="d-flex mt-3" *ngIf="isFreelancer">
         <p-rating [readonly]="true" [ngModel]="ceiling(customer.rating.avgRating)" [cancel]="false" class="me-2" style="padding-top:1px;"></p-rating>
         <div>{{customer.rating.avgRating | number : '1.0-1'}}/5 ({{customer.rating.countRating}} ulasan)</div>
       </div>
@@ -162,13 +162,15 @@
           {{customer.email}}
         </div>
       </div>
-      <hr>
-      <div class="row" *ngIf="customer.talents.length > 0">
-        <div class="col-3">Profesi</div>
-        <div class="col-9 text-secondary">
-          {{joinName(customer.talents)}}
+      <ng-container *ngIf="isFreelancer">
+        <hr>
+        <div class="row">
+          <div class="col-3">Profesi</div>
+          <div class="col-9 text-secondary">
+            {{joinName(customer.talents)}}
+          </div>
         </div>
-      </div>
+      </ng-container>
     </mat-card-content>
   </mat-card>
   <mat-card>
@@ -178,9 +180,12 @@
         <div class="col-9 text-secondary">{{customer.wallet.accountNo}}</div>
       </div>
       <hr>
-      <div class="row">
+      <div class="row d-flex align-items-center">
         <div class="col-3">Saldo Evone</div>
-        <div class="col-9 text-secondary">{{customer.wallet.balance | currency: 'Rp' : 'symbol' : '1.0-0'}}</div>
+        <div class="col-6 text-secondary">{{customer.wallet.balance | currency: 'Rp' : 'symbol' : '1.0-0'}}</div>
+        <div class="col-3 d-flex justify-content-center">
+          <button mat-flat-button color="accent" class="text-white" (click)="onWithdraw()">Tarik Saldo</button>
+        </div>
       </div>
     </mat-card-content>
   </mat-card>

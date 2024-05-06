@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { JobTransaction } from '../model/job-transaction';
 import { Observable } from 'rxjs';
 import { JobTransactionParam } from '../model/job-transaction-param';
