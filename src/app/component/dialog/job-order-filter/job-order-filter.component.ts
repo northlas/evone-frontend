@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { JobFilter } from 'src/app/model/job-filter';
-import { JobFilterComponent } from '../job-filter/job-filter.component';
-import { TalentService } from 'src/app/service/talent.service';
 import { JobTransactionParam } from 'src/app/model/job-transaction-param';
 import { Talent } from 'src/app/model/talent';
+import { TalentService } from 'src/app/service/talent.service';
+import { JobFilterComponent } from '../job-filter/job-filter.component';
 
 @Component({
   selector: 'app-job-order-filter',

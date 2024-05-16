@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GetObjectCommand, GetObjectCommandOutput, ListObjectsV2Command, S3Client } from '@aws-sdk/client-s3';
+import { GetObjectCommand, GetObjectCommandOutput, S3Client } from '@aws-sdk/client-s3';
 
 @Injectable({
   providedIn: 'root'

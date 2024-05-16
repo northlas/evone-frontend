@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { JobOfferWishlist } from '../model/job-offer-wishlist';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { BaseResponse } from '../model/base-response';
+import { JobOfferWishlist } from '../model/job-offer-wishlist';
 
 @Injectable({
   providedIn: 'root'

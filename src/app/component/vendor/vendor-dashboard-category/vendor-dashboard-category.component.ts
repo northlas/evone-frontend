@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, Scroll } from '@angular/router';
 import { BasePageResponse } from 'src/app/model/base-page-response';
-import { VendorServiceOfferParam } from 'src/app/model/vendor-service-offer-param';
 import { Vendor } from 'src/app/model/vendor';
+import { VendorServiceOfferParam } from 'src/app/model/vendor-service-offer-param';
 import { VendorService } from 'src/app/service/vendor.service';
 
 @Component({

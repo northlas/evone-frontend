@@ -1,11 +1,11 @@
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpResponseBase } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { BasePageResponse } from '../model/base-page-response';
-import { VendorServiceOfferParam } from '../model/vendor-service-offer-param';
-import { Vendor } from '../model/vendor';
 import { BaseResponse } from '../model/base-response';
+import { Vendor } from '../model/vendor';
+import { VendorServiceOfferParam } from '../model/vendor-service-offer-param';
 
 @Injectable({
   providedIn: 'root'

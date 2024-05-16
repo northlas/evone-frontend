@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { assignQueryParams, VendorServiceOfferParam } from 'src/app/model/vendor-service-offer-param';
 import { FilterComponent } from '../../dialog/filter/filter.component';
 import { SortComponent } from '../../dialog/sort/sort.component';

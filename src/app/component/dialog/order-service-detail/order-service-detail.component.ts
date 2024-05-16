@@ -1,10 +1,8 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SafeResourceUrl } from '@angular/platform-browser';
-import { Role } from 'src/app/enum/role.enum';
 import { ServiceTransaction } from 'src/app/model/service-transaction';
 import { ServiceTransactionParam } from 'src/app/model/service-transaction-param ';
-import { AuthenticationService } from 'src/app/service/authentication.service';
 import { ServiceTransactionService } from 'src/app/service/service-transaction.service';
 
 declare let snap: any;

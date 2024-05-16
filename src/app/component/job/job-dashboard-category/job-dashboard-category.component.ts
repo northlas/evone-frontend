@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, Scroll } from '@angular/router';
 import { BasePageResponse } from 'src/app/model/base-page-response';
-import { VendorJobOfferParam } from 'src/app/model/vendor-job-offer-param';
 import { JobOffer } from 'src/app/model/job-offer';
+import { VendorJobOfferParam } from 'src/app/model/vendor-job-offer-param';
 import { JobService } from 'src/app/service/job.service';
 
 @Component({

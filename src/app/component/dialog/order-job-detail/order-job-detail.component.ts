@@ -1,10 +1,8 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SafeResourceUrl } from '@angular/platform-browser';
-import { Role } from 'src/app/enum/role.enum';
 import { JobTransaction } from 'src/app/model/job-transaction';
 import { JobTransactionParam } from 'src/app/model/job-transaction-param';
-import { AuthenticationService } from 'src/app/service/authentication.service';
 import { JobTransactionService } from 'src/app/service/job-transaction.service';
 
 declare let snap: any;

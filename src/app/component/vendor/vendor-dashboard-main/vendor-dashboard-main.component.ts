@@ -1,6 +1,4 @@
-import { KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { concatMap, from } from 'rxjs';
 import { Category } from 'src/app/model/category';

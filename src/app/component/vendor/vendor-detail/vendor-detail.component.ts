@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ServiceOffer } from 'src/app/model/service-offer';
 import { JobOffer } from 'src/app/model/job-offer';
+import { ServiceOffer } from 'src/app/model/service-offer';
 import { Vendor } from 'src/app/model/vendor';
-import { ServiceOfferService } from 'src/app/service/service-offer.service';
-import { JobService } from 'src/app/service/job.service';
-import { VendorService } from 'src/app/service/vendor.service';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { JobService } from 'src/app/service/job.service';
+import { ServiceOfferService } from 'src/app/service/service-offer.service';
+import { VendorService } from 'src/app/service/vendor.service';
 
 @Component({
   selector: 'app-vendor-detail',

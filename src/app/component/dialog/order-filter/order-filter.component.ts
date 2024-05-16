@@ -1,12 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Filter } from 'src/app/model/filter';
-import { FilterComponent } from '../filter/filter.component';
-import { ServiceTransactionStatus } from 'src/app/enum/service-transaction-status';
 import { Category } from 'src/app/model/category';
-import { CategoryService } from 'src/app/service/category.service';
+import { Filter } from 'src/app/model/filter';
 import { ServiceTransactionParam } from 'src/app/model/service-transaction-param ';
+import { CategoryService } from 'src/app/service/category.service';
+import { FilterComponent } from '../filter/filter.component';
 
 @Component({
   selector: 'app-order-filter',

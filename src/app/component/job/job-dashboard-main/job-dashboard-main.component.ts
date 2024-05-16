@@ -1,14 +1,12 @@
-import { KeyValue } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { concatMap, from } from 'rxjs';
-import { Talent } from 'src/app/model/talent';
 import { Category } from 'src/app/model/category';
-import { Vendor } from 'src/app/model/vendor';
 import { JobOffer } from 'src/app/model/job-offer';
+import { Talent } from 'src/app/model/talent';
 import { VendorJobOfferParam } from 'src/app/model/vendor-job-offer-param';
-import { TalentService } from 'src/app/service/talent.service';
 import { JobService } from 'src/app/service/job.service';
+import { TalentService } from 'src/app/service/talent.service';
 
 @Component({
   selector: 'app-job-dashboard-main',

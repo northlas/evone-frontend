@@ -1,13 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Talent } from 'src/app/model/talent';
-import { TalentService } from 'src/app/service/talent.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { VendorJobOfferParam } from 'src/app/model/vendor-job-offer-param';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Talent } from 'src/app/model/talent';
+import { VendorJobOfferParam } from 'src/app/model/vendor-job-offer-param';
+import { TalentService } from 'src/app/service/talent.service';
 import { JobFilterComponent } from '../../dialog/job-filter/job-filter.component';
 import { JobSortComponent } from '../../dialog/job-sort/job-sort.component';
-
-
 
 @Component({
   selector: 'app-job-dashboard',

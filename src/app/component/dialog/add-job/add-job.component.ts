@@ -11,14 +11,14 @@ import {
   FileUpload,
 } from 'primeng/fileupload';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
-import { Talent } from 'src/app/model/talent';
-import { Occasion } from 'src/app/model/occasion';
 import { JobOffer } from 'src/app/model/job-offer';
-import { TalentService } from 'src/app/service/talent.service';
+import { Occasion } from 'src/app/model/occasion';
+import { Talent } from 'src/app/model/talent';
+import { JobService } from 'src/app/service/job.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { OccasionService } from 'src/app/service/occasion.service';
 import { S3Service } from 'src/app/service/s3.service';
-import { JobService } from 'src/app/service/job.service';
+import { TalentService } from 'src/app/service/talent.service';
 
 
 @Component({

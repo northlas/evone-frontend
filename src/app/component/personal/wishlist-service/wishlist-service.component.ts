@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { from, concatMap } from 'rxjs';
+import { concatMap, from } from 'rxjs';
 import { ServiceOfferWishlist } from 'src/app/model/service-offer-wishlist';
 import { S3Service } from 'src/app/service/s3.service';
 import { ServiceOfferWishlistService } from 'src/app/service/service-offer-wishlist.service';

@@ -1,8 +1,7 @@
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HeaderType } from 'src/app/enum/header-type.enum';
-import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { BaseResponse } from 'src/app/model/base-response';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';

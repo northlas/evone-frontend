@@ -1,9 +1,9 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { Customer } from '../model/customer';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { BaseResponse } from '../model/base-response';
+import { Customer } from '../model/customer';
 
 @Injectable({
   providedIn: 'root'

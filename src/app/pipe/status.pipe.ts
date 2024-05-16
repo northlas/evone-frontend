@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ServiceTransactionStatus } from '../enum/service-transaction-status';
 import { JobTransactionStatus } from '../enum/job-transaction-status';
+import { ServiceTransactionStatus } from '../enum/service-transaction-status';
 
 @Pipe({
   name: 'status'

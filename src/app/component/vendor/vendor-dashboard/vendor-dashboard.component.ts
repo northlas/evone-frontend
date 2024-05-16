@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Category } from 'src/app/model/category';
-import { CategoryService } from 'src/app/service/category.service';
-import { ActivatedRoute, Router, Scroll } from '@angular/router';
-import { VendorServiceOfferParam } from 'src/app/model/vendor-service-offer-param';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ActivatedRoute, Router, Scroll } from '@angular/router';
+import { Category } from 'src/app/model/category';
+import { VendorServiceOfferParam } from 'src/app/model/vendor-service-offer-param';
+import { CategoryService } from 'src/app/service/category.service';
 import { FilterComponent } from '../../dialog/filter/filter.component';
 import { SortComponent } from '../../dialog/sort/sort.component';
 

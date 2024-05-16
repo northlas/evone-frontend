@@ -9,3 +9,8 @@
   animation: hintloading 2s ease-in-out 0s infinite reverse;
   -webkit-animation: hintloading 2s ease-in-out 0s infinite reverse;
 }
+
+.image {
+  max-height: 400px;
+  object-fit: contain;
+}

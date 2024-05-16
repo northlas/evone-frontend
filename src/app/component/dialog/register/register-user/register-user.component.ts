@@ -1,9 +1,8 @@
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { FileSelectEvent } from 'primeng/fileupload';
 import { HeaderType } from 'src/app/enum/header-type.enum';
-import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { BaseResponse } from 'src/app/model/base-response';
 import { Customer } from 'src/app/model/customer';
 import { Talent } from 'src/app/model/talent';

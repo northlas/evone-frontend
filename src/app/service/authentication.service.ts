@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { BaseResponse } from '../model/base-response';
-import { HeaderType } from '../enum/header-type.enum';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { LoginComponent } from '../component/dialog/login/login.component';
+import { HeaderType } from '../enum/header-type.enum';
+import { BaseResponse } from '../model/base-response';
 
 @Injectable({
   providedIn: 'root'

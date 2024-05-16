@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { JobOffer } from 'src/app/model/job-offer';
 import { environment } from 'src/environments/environment';
 import { BasePageResponse } from '../model/base-page-response';
 import { VendorJobOfferParam } from '../model/vendor-job-offer-param';
-import { JobOffer } from 'src/app/model/job-offer';
 
 @Injectable({
   providedIn: 'root'

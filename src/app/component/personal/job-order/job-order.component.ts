@@ -1,16 +1,16 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { from, concatMap } from 'rxjs';
+import { concatMap, from } from 'rxjs';
+import { Role } from 'src/app/enum/role.enum';
 import { BasePageResponse } from 'src/app/model/base-page-response';
 import { JobTransaction } from 'src/app/model/job-transaction';
 import { JobTransactionParam } from 'src/app/model/job-transaction-param';
-import { S3Service } from 'src/app/service/s3.service';
-import { JobTransactionService } from 'src/app/service/job-transaction.service';
-import { OrderJobDetailComponent } from '../../dialog/order-job-detail/order-job-detail.component';
-import { JobOrderFilterComponent } from '../../dialog/job-order-filter/job-order-filter.component';
 import { AuthenticationService } from 'src/app/service/authentication.service';
-import { Role } from 'src/app/enum/role.enum';
+import { JobTransactionService } from 'src/app/service/job-transaction.service';
+import { S3Service } from 'src/app/service/s3.service';
+import { JobOrderFilterComponent } from '../../dialog/job-order-filter/job-order-filter.component';
+import { OrderJobDetailComponent } from '../../dialog/order-job-detail/order-job-detail.component';
 
 @Component({
   selector: 'app-job-order',

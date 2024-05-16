@@ -1,10 +1,10 @@
-import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { JobTransaction } from '../model/job-transaction';
 import { Observable } from 'rxjs';
-import { JobTransactionParam } from '../model/job-transaction-param';
+import { environment } from 'src/environments/environment';
 import { BasePageResponse } from '../model/base-page-response';
+import { JobTransaction } from '../model/job-transaction';
+import { JobTransactionParam } from '../model/job-transaction-param';
 
 @Injectable({
   providedIn: 'root'

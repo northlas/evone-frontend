@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { AuthenticationService } from 'src/app/service/authentication.service';
-import { LoginComponent } from '../dialog/login/login.component';
-import { RegisterMainComponent } from '../dialog/register/register-main/register-main.component';
 import { Router } from '@angular/router';
 import { Role } from 'src/app/enum/role.enum';
+import { AuthenticationService } from 'src/app/service/authentication.service';
+import { RegisterMainComponent } from '../dialog/register/register-main/register-main.component';
 
 @Component({
   selector: 'app-navigation',

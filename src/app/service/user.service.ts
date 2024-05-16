@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { BaseResponse } from '../model/base-response';
 import { User } from '../model/user';
 import { Wallet } from '../model/wallet';
-import { BaseResponse } from '../model/base-response';
 
 @Injectable({
   providedIn: 'root'

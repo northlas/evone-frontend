@@ -1,19 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { JobOffer } from 'src/app/model/job-offer';
-import { Vendor } from 'src/app/model/vendor';
-import { JobService } from 'src/app/service/job.service';
-import { VendorService } from 'src/app/service/vendor.service';
-import { OrderJobComponent } from '../../dialog/order-job/order-job.component';
-import { JobTransaction } from 'src/app/model/job-transaction';
-import { S3Service } from 'src/app/service/s3.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import { concatMap, from, of } from 'rxjs';
-import { BaseResponse } from 'src/app/model/base-response';
-import { JobOfferWishlistService } from 'src/app/service/job-offer-wishlist.service';
+import { JobOffer } from 'src/app/model/job-offer';
 import { JobOfferWishlist } from 'src/app/model/job-offer-wishlist';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { JobOfferWishlistService } from 'src/app/service/job-offer-wishlist.service';
+import { JobService } from 'src/app/service/job.service';
+import { S3Service } from 'src/app/service/s3.service';
+import { OrderJobComponent } from '../../dialog/order-job/order-job.component';
 
 
 @Component({

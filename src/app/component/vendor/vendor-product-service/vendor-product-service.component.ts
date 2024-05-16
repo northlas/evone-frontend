@@ -1,12 +1,12 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ActivatedRoute, Router, Scroll } from '@angular/router';
 import { ServiceOffer } from 'src/app/model/service-offer';
+import { assignQueryParams, VendorServiceOfferParam } from 'src/app/model/vendor-service-offer-param';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { ServiceOfferService } from 'src/app/service/service-offer.service';
 import { AddServiceComponent } from '../../dialog/add-service/add-service.component';
-import { ActivatedRoute, Router, Scroll } from '@angular/router';
-import { assignQueryParams, VendorServiceOfferParam } from 'src/app/model/vendor-service-offer-param';
 
 @Component({
   selector: 'app-vendor-product-service',

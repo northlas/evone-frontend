@@ -1,12 +1,12 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ActivatedRoute, Router, Scroll } from '@angular/router';
 import { JobOffer } from 'src/app/model/job-offer';
+import { assignQueryParams, VendorJobOfferParam } from 'src/app/model/vendor-job-offer-param';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { JobService } from 'src/app/service/job.service';
 import { AddJobComponent } from '../../dialog/add-job/add-job.component';
-import { ActivatedRoute, Router, Scroll } from '@angular/router';
-import { assignQueryParams, VendorJobOfferParam } from 'src/app/model/vendor-job-offer-param';
 
 
 @Component({

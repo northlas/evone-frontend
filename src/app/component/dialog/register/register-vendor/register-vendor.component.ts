@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { Validators, FormBuilder, ValidatorFn, AbstractControl, FormControl } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FileSelectEvent } from 'primeng/fileupload';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
@@ -9,6 +9,7 @@ import { Platform } from 'src/app/model/platform';
 import { Province } from 'src/app/model/province';
 import { Vendor } from 'src/app/model/vendor';
 import { VendorSocialMedia } from 'src/app/model/vendor-social-media';
+import { Wallet } from 'src/app/model/wallet';
 import { CategoryService } from 'src/app/service/category.service';
 import { CityService } from 'src/app/service/city.service';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -16,7 +17,6 @@ import { PlatformService } from 'src/app/service/platform.service';
 import { ProvinceService } from 'src/app/service/province.service';
 import { VendorService } from 'src/app/service/vendor.service';
 import { RegisterMainComponent } from '../register-main/register-main.component';
-import { Wallet } from 'src/app/model/wallet';
 
 @Component({
   selector: 'app-register-vendor',

@@ -1,7 +1,7 @@
-import { Pipe, PipeTransform, inject } from '@angular/core';
+import { inject, Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { S3Service } from '../service/s3.service';
 import { catchError, defer, map, Observable, of, startWith } from 'rxjs';
+import { S3Service } from '../service/s3.service';
 
 @Pipe({
   name: 'image'

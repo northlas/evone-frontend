@@ -1,17 +1,17 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ServiceOffer } from 'src/app/model/service-offer';
-import { ServiceOfferService } from 'src/app/service/service-offer.service';
-import { OrderServiceComponent } from '../../dialog/order-service/order-service.component';
-import { S3Service } from 'src/app/service/s3.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import { concatMap, from, of } from 'rxjs';
-import { ServiceTransaction } from 'src/app/model/service-transaction';
-import { OrderServiceDetailComponent } from '../../dialog/order-service-detail/order-service-detail.component';
-import { ServiceOfferWishlistService } from 'src/app/service/service-offer-wishlist.service';
+import { ServiceOffer } from 'src/app/model/service-offer';
 import { ServiceOfferWishlist } from 'src/app/model/service-offer-wishlist';
+import { ServiceTransaction } from 'src/app/model/service-transaction';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { S3Service } from 'src/app/service/s3.service';
+import { ServiceOfferWishlistService } from 'src/app/service/service-offer-wishlist.service';
+import { ServiceOfferService } from 'src/app/service/service-offer.service';
+import { OrderServiceDetailComponent } from '../../dialog/order-service-detail/order-service-detail.component';
+import { OrderServiceComponent } from '../../dialog/order-service/order-service.component';
 
 @Component({
   selector: 'app-vendor-service',
