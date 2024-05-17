@@ -3,30 +3,30 @@
         <form [formGroup]="vendorFormGroup" class="pt-2 d-flex flex-column">
             <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Nama Lengkap</mat-label>
-                <input matInput required formControlName="name">
+                <input matInput formControlName="name">
                 <mat-error *ngIf="vendorFormGroup.controls.name.hasError('required')">Nama harus diisi</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Email</mat-label>
-                <input type="email" autocomplete="email" matInput required formControlName="email">
+                <input type="email" autocomplete="email" matInput formControlName="email">
                 <mat-error *ngIf="vendorFormGroup.controls.email.hasError('required')">Email harus diisi</mat-error>
                 <mat-error *ngIf="vendorFormGroup.controls.email.hasError('email')">Format email tidak valid</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Nomor Telepon</mat-label>
-                <input matInput required formControlName="phone">
+                <input matInput formControlName="phone">
                 <mat-error *ngIf="vendorFormGroup.controls.phone.hasError('required')">Nomor telepon harus diisi</mat-error>
                 <mat-error *ngIf="vendorFormGroup.controls.phone.hasError('pattern')">Nomor telepon hanya boleh diisi dengan angka</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Kata Sandi</mat-label>
-                <input type="password" autocomplete="new-password" matInput required formControlName="password" minlength="8">
+                <input type="password" autocomplete="new-password" matInput formControlName="password">
                 <mat-error *ngIf="vendorFormGroup.controls.password.hasError('required')">Kata sandi harus diisi</mat-error>
                 <mat-error *ngIf="vendorFormGroup.controls.password.hasError('minlength')">Kata sandi minimal 8 karakter</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Konfirmasi Kata Sandi</mat-label>
-                <input type="password" autocomplete="new-password" matInput required formControlName="confirmPassword">
+                <input type="password" autocomplete="new-password" matInput formControlName="confirmPassword">
                 <mat-error *ngIf="vendorFormGroup.controls.confirmPassword.hasError('required')">Konfirmasi kata sandi harus diisi</mat-error>
                 <mat-error *ngIf="vendorFormGroup.controls.confirmPassword.hasError('confirmValidator')">Konfirmasi kata sandi tidak cocok</mat-error>
             </mat-form-field>
@@ -54,12 +54,12 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="mb-3">
                 <mat-label>Alamat</mat-label>
-                <input matInput required formControlName="address">
+                <input matInput formControlName="address">
                 <mat-error *ngIf="companyFormGroup.controls.address.hasError('required')">Alamat harus diisi</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="mb-3">
               <mat-label>Nomor Rekening</mat-label>
-              <input matInput required formControlName="accountNo">
+              <input matInput formControlName="accountNo">
               <mat-error *ngIf="companyFormGroup.controls.accountNo.hasError('required')">Nomor rekening harus diisi</mat-error>
               <mat-error *ngIf="companyFormGroup.controls.accountNo.hasError('pattern')">Nomor rekening hanya boleh diisi dengan angka</mat-error>
             </mat-form-field>

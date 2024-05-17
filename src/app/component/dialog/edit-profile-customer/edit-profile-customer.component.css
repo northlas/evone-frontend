@@ -1,0 +1,24 @@
+.file-upload {
+    align-self: center;
+    justify-self: center;
+    transition: opacity 0.2s linear;
+    inset: 0;
+    margin: auto;
+    position: absolute;
+}
+  
+.profile-image {
+    width: 450px;
+    max-height: 250px;
+    object-fit: scale-down;
+    transition: filter 0.2s ease;
+}
+
+.floating-label {
+    position: relative;
+    background-color: white;
+    top: -12px;
+    left: 12px;
+    font-size: 0.75rem;
+    width: fit-content;
+}

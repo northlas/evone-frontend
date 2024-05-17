@@ -12,6 +12,8 @@ import { FreelancerService } from 'src/app/service/freelancer.service';
 import { UserService } from 'src/app/service/user.service';
 import { VendorService } from 'src/app/service/vendor.service';
 import { WithdrawComponent } from '../../dialog/withdraw/withdraw.component';
+import { EditProfileVendorComponent } from '../../dialog/edit-profile-vendor/edit-profile-vendor.component';
+import { EditProfileCustomerComponent } from '../../dialog/edit-profile-customer/edit-profile-customer.component';
 
 @Component({
   selector: 'app-profile',
@@ -95,6 +97,21 @@ export class ProfileComponent implements OnInit{
         this.customer.wallet = this.user.wallet;
       }
     })
+  }
+
+  public onEditProfile() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = false;
+    dialogConfig.disableClose = true;
+
+    if (this.isVendor) {
+      dialogConfig.data = this.vendor;
+      this.dialog.open(EditProfileVendorComponent, dialogConfig);
+    }
+    else {
+      dialogConfig.data = this.customer;
+      this.dialog.open(EditProfileCustomerComponent, dialogConfig);
+    }
   }
 
   public onWithdraw() {
