@@ -14,6 +14,8 @@ import { VendorService } from 'src/app/service/vendor.service';
 import { WithdrawComponent } from '../../dialog/withdraw/withdraw.component';
 import { EditProfileVendorComponent } from '../../dialog/edit-profile-vendor/edit-profile-vendor.component';
 import { EditProfileCustomerComponent } from '../../dialog/edit-profile-customer/edit-profile-customer.component';
+import { S3Service } from 'src/app/service/s3.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profile',
@@ -24,9 +26,12 @@ export class ProfileComponent implements OnInit{
   public user!: User;
   public customer?: Customer;
   public vendor?: Vendor;
+  public profile?: SafeResourceUrl;
+  public profileImage?: File;
   public isVendor = false;
   public isCustomer = false;
   public isFreelancer = false;
+  public isFetchingImage = true;
   public responsiveOptions = [
     {
       breakpoint: '1280px',
@@ -45,7 +50,7 @@ export class ProfileComponent implements OnInit{
     }
   ]
 
-  constructor(private authSerivce: AuthenticationService, private userService: UserService, private vendorService: VendorService, private customerService: CustomerService, private freelancerService: FreelancerService, private dialog: MatDialog) {}
+  constructor(private authSerivce: AuthenticationService, private userService: UserService, private vendorService: VendorService, private customerService: CustomerService, private freelancerService: FreelancerService, private dialog: MatDialog, private s3Service: S3Service, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.getProfile();
@@ -55,6 +60,7 @@ export class ProfileComponent implements OnInit{
     this.userService.getProfile().subscribe({
       next: (response: User) => {
         this.user = response;
+        this.getProfileImage(response.email);
 
         if (this.authSerivce.hasAuthority(Role.ROLE_VENDOR)) {
           this.isVendor = true;
@@ -99,17 +105,34 @@ export class ProfileComponent implements OnInit{
     })
   }
 
+  private getProfileImage(email: string) {
+    this.s3Service.getImage('profile/' + email)
+      .then(response => {
+        response.Body?.transformToByteArray().then(body => {
+          let binary = '';
+          for (let i = 0; i < body.length; i++) {
+            binary += String.fromCharCode(body[i]);
+          }
+          this.profileImage = new File([body], email, {type: 'image/jpeg'})
+          this.profile = this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + btoa(binary));
+        })
+      })
+      .finally(() => {
+        this.isFetchingImage = false;
+      })
+  }
+
   public onEditProfile() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = false;
     dialogConfig.disableClose = true;
 
     if (this.isVendor) {
-      dialogConfig.data = this.vendor;
+      dialogConfig.data = {existing: this.vendor, profile: this.profile};
       this.dialog.open(EditProfileVendorComponent, dialogConfig);
     }
     else {
-      dialogConfig.data = this.customer;
+      dialogConfig.data = {existing: this.customer, profile: this.profile};
       this.dialog.open(EditProfileCustomerComponent, dialogConfig);
     }
   }
@@ -117,6 +140,7 @@ export class ProfileComponent implements OnInit{
   public onWithdraw() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = false;
+    dialogConfig.data = this.customer?.wallet?.accountNo;
     dialogConfig.minWidth = '450px'
     this.dialog.open(WithdrawComponent, dialogConfig).afterClosed().subscribe({
       next: (amount: number | null) => {

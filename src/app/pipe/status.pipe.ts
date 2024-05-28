@@ -24,15 +24,15 @@ export class StatusPipe implements PipeTransform {
     }
     else if (type == 'job') {
       switch (value) {
-          case JobTransactionStatus.ORDERED:
-            return 'Menunggu Konfirmasi';
-          case JobTransactionStatus.PAID:
-            return 'Berlangsung';
-          case JobTransactionStatus.FINISHED:
-            return 'Selesai';
-          case JobTransactionStatus.FAILED:
-            return 'Dibatalkan';
-        }
+        case JobTransactionStatus.ORDERED:
+          return 'Menunggu Konfirmasi';
+        case JobTransactionStatus.PAID:
+          return 'Berlangsung';
+        case JobTransactionStatus.FINISHED:
+          return 'Selesai';
+        case JobTransactionStatus.FAILED:
+          return 'Dibatalkan';
+      }
     }
     else if (type == 'service-bg') {
       switch (value) {
@@ -45,6 +45,18 @@ export class StatusPipe implements PipeTransform {
         case ServiceTransactionStatus.FINISHED:
           return 'background-color: #53cb77; color: white';
         case ServiceTransactionStatus.FAILED:
+          return 'background-color: #ff5f37; color: white';
+      }
+    }
+    else if (type == 'job-bg') {
+      switch (value) {
+        case JobTransactionStatus.ORDERED:
+          return 'background-color: #82a5b6; color: white';
+        case JobTransactionStatus.PAID:
+          return 'background-color: #82a5b6; color: white';
+        case JobTransactionStatus.FINISHED:
+          return 'background-color: #53cb77; color: white';
+        case JobTransactionStatus.FAILED:
           return 'background-color: #ff5f37; color: white';
       }
     }

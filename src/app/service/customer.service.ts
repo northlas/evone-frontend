@@ -29,4 +29,13 @@ export class CustomerService {
     }
     return this.http.post<BaseResponse>(`${this.host}/api/customers`, formData, {observe: 'response'})
   }
+
+  public editCustomer(customer: Customer, profile: File | null): Observable<HttpResponse<BaseResponse>> {
+    const formData = new FormData();
+    formData.set('model', new Blob([JSON.stringify(customer)], {type: 'application/json'}))
+    if (customer.isFreelancer) {
+      formData.set('profile', profile!);
+    }
+    return this.http.put<BaseResponse>(`${this.host}/api/customers`, formData, {observe: 'response'})
+  }
 }

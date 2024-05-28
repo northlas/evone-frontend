@@ -6,6 +6,7 @@ export interface User {
     name: string,
     slugName: string,
     password: string,
+    oldPassword: string,
     wallet: Wallet,
     accountNo: string
 }

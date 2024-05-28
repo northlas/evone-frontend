@@ -18,6 +18,7 @@ declare let snap: any;
 export class OrderJobComponent implements OnInit{
   public customer!: Customer;
   public form = this.formBuilder.group({
+
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public jobOffer: JobOffer, private customerService: CustomerService, private jobTransactionService: JobTransactionService, private authService: AuthenticationService, private formBuilder: FormBuilder, private dialogRef: MatDialogRef<OrderJobComponent>) {}
@@ -34,11 +35,12 @@ export class OrderJobComponent implements OnInit{
     })
   }
 
+  private truncateDate(date: Date) {
+    return date.toString().substring(0, 10);
+  }
 
   public onSubmit() {
-    const jobTransaction = {} as JobTransaction;
-
-    this.jobTransactionService.postTransaction(this.jobOffer.vendor.slugName, this.jobOffer.slugTitle, jobTransaction).subscribe({
+    this.jobTransactionService.postTransaction(this.jobOffer.vendor.slugName, this.jobOffer.slugTitle, this.truncateDate(this.jobOffer.startDt), this.truncateDate(this.jobOffer.endDt)).subscribe({
       next: response => {
         this.dialogRef.close(response);
       }

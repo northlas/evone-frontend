@@ -10,6 +10,7 @@ import { JobOfferWishlistService } from 'src/app/service/job-offer-wishlist.serv
 import { JobService } from 'src/app/service/job.service';
 import { S3Service } from 'src/app/service/s3.service';
 import { OrderJobComponent } from '../../dialog/order-job/order-job.component';
+import { Role } from 'src/app/enum/role.enum';
 
 
 @Component({
@@ -18,8 +19,13 @@ import { OrderJobComponent } from '../../dialog/order-job/order-job.component';
   styleUrls: ['./job-detail.component.css']
 })
 export class JobDetailComponent implements OnInit{
-  public wishlist?: JobOfferWishlist;
+  private slugName!: string;
   private slugTitle!: string;
+  private startDt!: string;
+  private endDt!: string;
+  public isVendor!: boolean;
+  public isFreelancer!: boolean;
+  public wishlist?: JobOfferWishlist;
   public jobOffer!: JobOffer;
   public isLoading = true;
   public pictures: SafeResourceUrl[] = [];
@@ -29,16 +35,21 @@ export class JobDetailComponent implements OnInit{
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isUserLoggedIn();
+    this.isVendor = this.authService.hasAuthority(Role.ROLE_VENDOR);
+    this.isFreelancer = this.authService.hasAuthority(Role.ROLE_FREELANCER);
     this.slugTitle = this.route.snapshot.params['jobTitle'];
+    this.slugName = this.route.snapshot.params['vendorName'];
+    this.startDt = this.route.snapshot.params['startDt'];
+    this.endDt = this.route.snapshot.params['endDt'];
     this.getJobOffer();
   }
 
   private getJobOffer() {
-    from(this.jobService.getJobDetail(this.slugTitle))
+    from(this.jobService.getJobDetail(this.slugName, this.slugTitle, this.startDt, this.endDt))
     .pipe(concatMap(jobOffer => {
       this.jobOffer = jobOffer;
       this.getPictures();
-      return this.isLoggedIn ? this.jobOfferWishlistService.getWishlist(jobOffer.vendor.slugName, jobOffer.slugTitle) : of(undefined);
+      return (this.isLoggedIn && !this.isVendor) ? this.jobOfferWishlistService.getWishlist(jobOffer.vendor.slugName, jobOffer.slugTitle, this.truncateDate(jobOffer.startDt), this.truncateDate(jobOffer.endDt)) : of(undefined);
     }))
     .subscribe(wishlist => {
       this.wishlist = wishlist;
@@ -58,6 +69,9 @@ export class JobDetailComponent implements OnInit{
     })
   }
 
+  private truncateDate(date: Date) {
+    return date.toString().substring(0, 10);
+  }
 
   public onOrder() {
     if (!this.isLoggedIn) {
@@ -95,7 +109,7 @@ export class JobDetailComponent implements OnInit{
         });
       }
       else {
-        this.jobOfferWishlistService.addWishlist(this.jobOffer.vendor.slugName, this.jobOffer.slugTitle).subscribe({
+        this.jobOfferWishlistService.addWishlist(this.jobOffer.vendor.slugName, this.jobOffer.slugTitle, this.truncateDate(this.jobOffer.startDt), this.truncateDate(this.jobOffer.endDt)).subscribe({
           next: (response: JobOfferWishlist) => {
             this.wishlist = response;
             console.log(this.wishlist.id)

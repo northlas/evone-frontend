@@ -18,8 +18,8 @@ export class JobTransactionService {
     return this.http.get<BasePageResponse<JobTransaction>>(`${this.host}/api/job-transactions`, {params: new HttpParams({fromObject: param})})
   }
 
-  public postTransaction(vendorName: string, slugTitle: string, jobTransaction: JobTransaction): Observable<JobTransaction> {
-    return this.http.post<JobTransaction>(`${this.host}/api/vendors/${vendorName}/job-offers/${slugTitle}/transactions`, jobTransaction);
+  public postTransaction(vendorName: string, slugTitle: string, startDt: string, endDt: string): Observable<JobTransaction> {
+    return this.http.post<JobTransaction>(`${this.host}/api/vendors/${vendorName}/job-offers/${slugTitle}/${startDt}/${endDt}/transactions`, null);
   }
 
   public putTransaction(param: JobTransactionParam): Observable<JobTransaction> {

@@ -65,4 +65,8 @@ export class VendorDetailComponent implements OnInit{
       this.router.navigate(['/chat'], {state: {recipient: this.vendor.email}})
     }
   }
+
+  public truncateDate(date: Date) {
+    return date.toString().substring(0, 10);
+  }
 }

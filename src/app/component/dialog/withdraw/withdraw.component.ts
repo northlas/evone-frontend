@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { BaseResponse } from 'src/app/model/base-response';
 import { Wallet } from 'src/app/model/wallet';
@@ -13,9 +13,10 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./withdraw.component.css']
 })
 export class WithdrawComponent implements OnInit{
-  public amountForm = new FormControl<number>(0, [Validators.required, Validators.min(10000)]);
+  public accountForm = new FormControl<string>(this.accountNo, Validators.required);
+  public amountForm = new FormControl<number | null>(null, [Validators.required, Validators.min(10000)]);
 
-  constructor(private userService: UserService, private dialogRef: MatDialogRef<WithdrawComponent>, private notificationService: NotificationService) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public accountNo: string, private userService: UserService, private dialogRef: MatDialogRef<WithdrawComponent>, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.amountListener();

@@ -35,7 +35,7 @@ const routes: Routes = [
     {path: 'freelance', title: 'Freelance', component: JobDashboardComponent, children: [
       {path: '', component: JobDashboardMainComponent},
       {path: 'search', component: JobDashboardCategoryComponent},
-      {path: ':vendorName/job/:jobTitle', component: JobDetailComponent},
+      {path: ':vendorName/job/:jobTitle/:startDt/:endDt', component: JobDetailComponent},
       {path: '', redirectTo: 'vendor', pathMatch: 'full'}
     ]},
     {path: 'product', title: 'Product', canActivate: [authenticationGuard], component: VendorProductComponent},

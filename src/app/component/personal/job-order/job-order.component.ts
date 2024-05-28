@@ -63,8 +63,8 @@ export class JobOrderComponent implements OnInit{
 
    private countFilter() {
      let count = 0;
-     if(this.searchParam.talent) count++;
-     if(this.searchParam.status) count++;
+     if(this.searchParam.talent != undefined) count++;
+     if(this.searchParam.status != undefined) count++;
      this.filterCount = count;
    }
 
@@ -84,7 +84,6 @@ export class JobOrderComponent implements OnInit{
      const dialogRef = this.dialog.open(JobOrderFilterComponent, dialogConfig);
      dialogRef.afterClosed().subscribe({
        next: (param: JobTransactionParam | undefined) => {
-         console.log(param)
          if (param) {
            this.searchParam = param;
            this.countFilter();
@@ -98,6 +97,6 @@ export class JobOrderComponent implements OnInit{
      const dialogConfig = new MatDialogConfig();
      dialogConfig.data = {'jobTransaction' : jobTransaction, 'picture': this.pictureMap.get(jobTransaction.id), 'isVendor': this.isVendor};
      dialogConfig.autoFocus = false;
-     const dialogRef = this.dialog.open(OrderJobDetailComponent, dialogConfig);
+     this.dialog.open(OrderJobDetailComponent, dialogConfig);
    }
 }

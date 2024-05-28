@@ -5,6 +5,7 @@ import { JobOffer } from 'src/app/model/job-offer';
 import { environment } from 'src/environments/environment';
 import { BasePageResponse } from '../model/base-page-response';
 import { VendorJobOfferParam } from '../model/vendor-job-offer-param';
+import { end } from '@popperjs/core';
 
 @Injectable({
   providedIn: 'root'
@@ -24,15 +25,13 @@ export class JobService {
     return this.http.get<BasePageResponse<JobOffer>>(`${this.host}/api/job-offers/etalase`, {params: params})
   }
 
-
-  public getJobDetail(slugTitle: string): Observable<JobOffer> {
-    return this.http.get<JobOffer>(`${this.host}/api/job-offers/${slugTitle}`);
+  public getJobDetail(slugName: string, slugTitle: string, startDt: string, endDt: string): Observable<JobOffer> {
+    return this.http.get<JobOffer>(`${this.host}/api/vendors/${slugName}/job-offers/${slugTitle}/${startDt}/${endDt}`);
   }
 
   public getAllJobOfferByTalent(jobSlugTitle: string): Observable<any> {
     return this.http.get<any>(`${this.host}/api/job-offers/byTalentId/${jobSlugTitle}`)
   }
-
 
   public addJobOffer(model: JobOffer, pictures: File[]): Observable<any> {
     const formData = new FormData();

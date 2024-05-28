@@ -65,6 +65,10 @@ export class JobDashboardMainComponent implements OnInit{
     return 0;
   }
 
+  public truncateDate(date: Date) {
+    return date.toString().substring(0, 10);
+  }
+
   public formatPrice(value: number) {
     return 'Rp' + value.toLocaleString('id-ID');
   }

@@ -13,16 +13,16 @@ export class JobOfferWishlistService {
 
   constructor(private http: HttpClient) { }
 
-  public getWishlist(vendorName: string, slugTitle: string): Observable<JobOfferWishlist> {
-    return this.http.get<JobOfferWishlist>(`${this.host}/api/vendors/${vendorName}/job-offers/${slugTitle}/wishlist`, undefined);
+  public getWishlist(vendorName: string, slugTitle: string, startDt: string, endDt: string): Observable<JobOfferWishlist> {
+    return this.http.get<JobOfferWishlist>(`${this.host}/api/vendors/${vendorName}/job-offers/${slugTitle}/${startDt}/${endDt}/wishlist`, undefined);
   }
 
   public getAllWishlist(): Observable<JobOfferWishlist[]> {
     return this.http.get<JobOfferWishlist[]>(`${this.host}/api/job-wishlists`);
   }
 
-  public addWishlist(vendorName: string, slugTitle: string): Observable<JobOfferWishlist> {
-    return this.http.post<JobOfferWishlist>(`${this.host}/api/vendors/${vendorName}/job-offers/${slugTitle}/wishlist`, undefined);
+  public addWishlist(vendorName: string, slugTitle: string, startDt: string, endDt: string): Observable<JobOfferWishlist> {
+    return this.http.post<JobOfferWishlist>(`${this.host}/api/vendors/${vendorName}/job-offers/${slugTitle}/${startDt}/${endDt}/wishlist`, undefined);
   }
 
   public deleteWishlist(id: string): Observable<BaseResponse> {

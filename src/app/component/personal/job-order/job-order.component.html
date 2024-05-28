@@ -17,14 +17,18 @@
     <div *ngFor="let jobTransaction of page.items">
       <mat-card class="p-2 pointer-event mb-4">
         <a class="d-flex flex-row" (click)="onDetail(jobTransaction)">
-          <img *ngIf="pictureMap.has(jobTransaction.id)" class="object-fit-cover rounded me-3" style="width: 280px; height: 210px;" mat-card-image [src]="pictureMap.get(jobTransaction.id)">
+          <img *ngIf="pictureMap.has(jobTransaction.id)" class="object-fit-cover rounded me-3" style="min-width: 280px; height: 210px;" mat-card-image [src]="pictureMap.get(jobTransaction.id)">
           <div *ngIf="!pictureMap.has(jobTransaction.id)" class="rounded loading me-3" style="min-width: 280px; height: 210px;"></div>
           <mat-card-content>
-            <div class="mb-3" style="font-size: 0.8rem;">{{jobTransaction.createdDt | date : 'dd MMMM YYYY'}} | {{jobTransaction.reference}}</div>
+            <div class="mb-3" style="font-size: 0.8rem;">
+              <span class="py-1">{{jobTransaction.createdDt | date : 'dd MMMM YYYY'}} | </span>
+              <span class="py-1">{{jobTransaction.reference}} | </span>
+              <span class="p-1 rounded" [style]="jobTransaction.status | status : 'job-bg'">{{jobTransaction.status | status : 'job'}}</span>
+            </div>
             <div class="d-flex justify-content-between align-items-center">
               <div>
                 <h4>{{jobTransaction.jobOffer.title}}</h4>
-                <div class="row row-cols-1">
+                <div class="row row-cols-1 text-secondary" style="font-size: 0.8rem;">
                   <div class="col d-flex">
                     <div style="width: 150px;">Harga</div>
                     <div>: {{jobTransaction.jobOffer.price | currency: 'Rp' : 'symbol' : '1.0-0'}} </div>
@@ -43,9 +47,11 @@
                   </div>
                 </div>
               </div>
-              <div class="text-end">
-                <h3>{{jobTransaction.paymentAmount | currency: 'Rp' : 'symbol' : '1.0-0'}}</h3>
-                <div style="white-space: nowrap;">{{jobTransaction.status | status : 'job'}}</div>
+              <div class="d-flex flex-column justify-content-between">
+                <div class="d-flex flex-column justify-content-center align-items-end flex-grow-1">
+                  <div>Total</div>
+                  <h5 style="color: #ec770c;">{{jobTransaction.paymentAmount | currency: 'Rp' : 'symbol' : '1.0-0'}}</h5>
+                </div>
               </div>
             </div>
           </mat-card-content>

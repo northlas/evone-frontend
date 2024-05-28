@@ -16,17 +16,17 @@
           <h5 class="mb-2">Ulasan</h5>
       </ng-template>
       <ng-template let-review pTemplate="item">
-        <div class="p-3">
-          <mat-card style=" aspect-ratio: 5/3">
-            <mat-card-header>
+        <div class="p-3 h-100">
+          <mat-card class="h-100">
+            <mat-card-header class="d-flex flex-column">
               <p-rating [ngModel]="review.rating" [readonly]="true" [cancel]="false"></p-rating>
-            </mat-card-header>
-            <mat-card-content>
               <div class="my-2 d-flex align-items-center">
-                <mat-icon class="me-1">person</mat-icon>
+                <mat-icon class="me-2">person</mat-icon>
                 <span>{{review.name}}</span>
               </div>
-              <hr>
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
               <span>{{review.review}}</span>
             </mat-card-content>
           </mat-card>
@@ -39,8 +39,8 @@
 <ng-template #vendorPicture let-vendor="vendorData">
   <mat-card class="mb-3">
     <mat-card-content class="d-flex flex-column justify-content-center align-items-center">
-      <ng-container *ngIf="vendor?.email | image : 'profile' | async as picture">
-        <p-image [src]="picture.value ? picture.value : 'assets/image/profile.png'" imageClass="image" class="mb-2" [preview]="true"></p-image>
+      <ng-container *ngIf="profile">
+        <p-image [src]="profile ? profile : 'assets/image/profile.png'" imageClass="image" class="mb-2" [preview]="true"></p-image>
       </ng-container>
       <h4 class="mb-0">{{vendor.name}}</h4>
       <div>{{vendor.city.name}}, {{vendor.province.name}}</div>
@@ -134,16 +134,25 @@
 <ng-template #customerPicture let-customer="customerData">
   <mat-card>
     <mat-card-content class="d-flex flex-column justify-content-center align-items-center">
-      <ng-container *ngIf="customer?.email | image : 'profile' | async as picture">
-        <p-image [src]="picture.value ? picture.value : 'assets/image/profile.png'" imageClass="image" class="mb-2" [preview]="true"></p-image>
+      <ng-container *ngIf="!isFetchingImage">
+        <p-image [src]="profile ? profile : 'assets/image/profile.png'" imageClass="image" class="mb-2" [preview]="true"></p-image>
+      </ng-container>
+      <ng-container *ngIf="isFetchingImage">
+        <div class="loading image"></div>
       </ng-container>
       <div class="d-flex align-items-center">
         <h4 class="mb-0">{{customer.name}}</h4>
         <button mat-icon-button (click)="onEditProfile()"><mat-icon fontIcon="edit_square" style="color: rgb(43, 146, 43);"></mat-icon></button>
       </div>
       <div class="d-flex mt-3" *ngIf="isFreelancer">
-        <p-rating [readonly]="true" [ngModel]="ceiling(customer.rating.avgRating)" [cancel]="false" class="me-2" style="padding-top:1px;"></p-rating>
-        <div>{{customer.rating.avgRating | number : '1.0-1'}}/5 ({{customer.rating.countRating}} ulasan)</div>
+        <ng-container *ngIf="customer.rating">
+          <p-rating [readonly]="true" [ngModel]="ceiling(customer.rating.avgRating)" [cancel]="false" class="me-2" style="padding-top:1px;"></p-rating>
+          <div>{{customer.rating.avgRating | number : '1.0-1'}}/5 ({{customer.rating.countRating}} ulasan)</div>
+        </ng-container>
+        <ng-container *ngIf="!customer.rating">
+          <p-rating [readonly]="true" [ngModel]="0" [cancel]="false" class="me-2" style="padding-top:1px;"></p-rating>
+          <div>0 ulasan</div>
+        </ng-container>
       </div>
     </mat-card-content>
   </mat-card>
@@ -180,14 +189,14 @@
     <mat-card-content>
       <div class="row">
         <div class="col-3">Nomor Rekening</div>
-        <div class="col-9 text-secondary">{{customer.wallet.accountNo}}</div>
+        <div class="col-9 text-secondary">{{customer.wallet? customer.wallet.accountNo : '-'}}</div>
       </div>
       <hr>
       <div class="row d-flex align-items-center">
         <div class="col-3">Saldo Evone</div>
-        <div class="col-6 text-secondary">{{customer.wallet.balance | currency: 'Rp' : 'symbol' : '1.0-0'}}</div>
+        <div class="col-6 text-secondary">{{customer.wallet? (customer.wallet.balance | currency: 'Rp' : 'symbol' : '1.0-0') : 'Rp0'}}</div>
         <div class="col-3 d-flex justify-content-center">
-          <button mat-flat-button color="accent" class="text-white" (click)="onWithdraw()">Tarik Saldo</button>
+          <button mat-flat-button color="accent" class="text-white" (click)="onWithdraw()" [disabled]="!customer.wallet || customer.wallet.balance == 0">Tarik Saldo</button>
         </div>
       </div>
     </mat-card-content>

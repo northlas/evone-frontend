@@ -74,7 +74,7 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3 m-2" *ngIf="!isLoading && jobOffers.length > 0">
           <div class="col" *ngFor="let jobOffer of jobOffers">
             <mat-card class="pointer-event" matRipple [matRippleCentered]="true">
-              <a [routerLink]="'/freelance/' + vendor.slugName + '/job/' +jobOffer.slugTitle">
+              <a [routerLink]="'/freelance/' + vendor.slugName + '/job/' + jobOffer.slugTitle + '/' + truncateDate(jobOffer.startDt) + '/' + truncateDate(jobOffer.endDt)">
                 <ng-container *ngIf="jobOffer.pictures[0].id | image : 'job' | async as picture">
                   <img *ngIf="picture.value" class="border-bottom border-top w-100 object-fit-cover"
                         style="aspect-ratio: 1/1;" mat-card-image [src]="picture.value">

@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FileSelectEvent } from 'primeng/fileupload';
 import { HeaderType } from 'src/app/enum/header-type.enum';
 import { Role } from 'src/app/enum/role.enum';
+import { BaseEditCustomer } from 'src/app/model/base-edit-customer';
 import { BaseResponse } from 'src/app/model/base-response';
 import { Customer } from 'src/app/model/customer';
 import { Talent } from 'src/app/model/talent';
@@ -28,27 +29,29 @@ export class EditProfileCustomerComponent {
   public isProfileError = false;
   public uploadedImage?: string;
   public userFormGroup = this.formBuilder.group({
-    name: new FormControl<string>(this.existing.name, Validators.required),
-    email: new FormControl<string>(this.existing.email, [Validators.required, Validators.email]),
-    oldPassword: new FormControl<string | null>(null, Validators.required),
-    password: new FormControl<string>('', Validators.minLength(8)),
-    confirmPassword: new FormControl<string>('', Validators.minLength(8))
+    name: new FormControl<string>(this.data.existing.name, Validators.required),
+    email: new FormControl<string>(this.data.existing.email, [Validators.required, Validators.email]),
+    oldPassword: new FormControl<string | null>(null),
+    password: new FormControl<string | null>({value: null, disabled: true}, Validators.minLength(8)),
+    confirmPassword: new FormControl<string | null>({value: null, disabled: true}, Validators.minLength(8))
   }, {
     validators: this.matchPassword('oldPassword', 'password', 'confirmPassword')
   })
   public freelancerFormGroup = this.formBuilder.group({
-    gender: new FormControl<number | null>(this.existing.gender, Validators.required),
-    phone: new FormControl<string | null>(this.existing.phone, [Validators.required, Validators.pattern('[0-9]+')]),
-    accountNo: new FormControl<string | null>(this.existing.accountNo, [Validators.required, Validators.pattern('[0-9]+')]),
-    talents: new FormControl<number[] | null>(this.existing.talents.map(({id}) => id), Validators.required),
-    image: new FormControl<File | null>(null, Validators.required),
-    description: new FormControl<string | null>(this.existing.description, Validators.required),
+    gender: new FormControl<number | null>(this.data.existing.gender, Validators.required),
+    phone: new FormControl<string | null>(this.data.existing.phone, [Validators.required, Validators.pattern('[0-9]+')]),
+    accountNo: new FormControl<string | null>(this.data.existing.wallet.accountNo, [Validators.required, Validators.pattern('[0-9]+')]),
+    talents: new FormControl<number[] | null>(this.data.existing.talents.map(({id}) => id), Validators.required),
+    image: new FormControl<File | null>(null),
+    description: new FormControl<string | null>(this.data.existing.description, Validators.required),
   })
 
-  constructor(@Inject(MAT_DIALOG_DATA) private existing: Customer, private formBuilder: FormBuilder, private customerService: CustomerService, private talentService: TalentService, private authService: AuthenticationService, private notificationService: NotificationService) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: BaseEditCustomer, private formBuilder: FormBuilder, private customerService: CustomerService, private talentService: TalentService, private authService: AuthenticationService, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
-    this.isFreelancer = this.authService.hasAuthority(Role.ROLE_FREELANCER);
+    if (!this.data.profile) {
+      this.freelancerFormGroup.controls.image.addValidators(Validators.required);
+    }
     this.getTalents();
     this.changePasswordListener();
   }
@@ -59,11 +62,11 @@ export class EditProfileCustomerComponent {
       const control = abstractControl.get(password);
       const matchingControl = abstractControl.get(confirmPassword);
 
-      if (pre?.value == null) {
+      if (pre?.value == null || pre.value.length == 0) {
         return null;
       }
 
-      if (matchingControl?.value.length == 0) {
+      if (matchingControl?.value == null || matchingControl?.value.length == 0) {
         const error = { required: Validators.required};
         matchingControl?.setErrors(error);
         return error;
@@ -97,10 +100,14 @@ export class EditProfileCustomerComponent {
     this.userFormGroup.controls.oldPassword.valueChanges.subscribe({
       next: (value: string | null) => {
         if (value) {
+          this.userFormGroup.controls.password.enable();
+          this.userFormGroup.controls.confirmPassword.enable();
           this.userFormGroup.controls.password.addValidators([Validators.required, Validators.minLength(8)]);
           this.userFormGroup.controls.confirmPassword.addValidators(Validators.required);
         }
         else {
+          this.userFormGroup.controls.password.disable();
+          this.userFormGroup.controls.confirmPassword.disable();
           this.userFormGroup.controls.password.clearValidators();
           this.userFormGroup.controls.confirmPassword.clearValidators();
         }
@@ -111,7 +118,7 @@ export class EditProfileCustomerComponent {
   }
 
   public isProfileSelected() {
-    return this.uploadedImage;
+    return this.uploadedImage || this.data.profile;
   }
 
   public onHover() {
@@ -150,9 +157,11 @@ export class EditProfileCustomerComponent {
     const customer = {} as Customer;
     customer.name = this.userFormGroup.controls.name.value!;
     customer.email = this.userFormGroup.controls.email.value!;
+    customer.oldPassword = this.userFormGroup.controls.oldPassword.value!;
     customer.password = this.userFormGroup.controls.password.value!;
     customer.isFreelancer = false;
 
+    let image: File | null = null;
     if (this.freelancerFormGroup.valid) {
       customer.isFreelancer = true;
       customer.gender = this.freelancerFormGroup.controls.gender.value!;
@@ -160,9 +169,10 @@ export class EditProfileCustomerComponent {
       customer.talents = this.freelancerFormGroup.controls.talents.value!.map((value) => ({id: value}) as Talent)
       customer.description = this.freelancerFormGroup.controls.description.value!;
       customer.wallet = {accountNo: this.freelancerFormGroup.controls.accountNo.value!} as Wallet;
+      image = this.freelancerFormGroup.controls.image.value;
     }
 
-    this.customerService.addCustomer(customer, this.freelancerFormGroup.controls.image.value).subscribe({
+    this.customerService.editCustomer(customer, image).subscribe({
       next: (response: HttpResponse<BaseResponse>) => {
         const token = response.headers.get(HeaderType.JWT_TOKEN)!;
         this.authService.saveToken(token);

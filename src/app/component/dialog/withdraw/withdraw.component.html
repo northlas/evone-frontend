@@ -5,9 +5,14 @@
   </button>
 </mat-dialog-actions>
 <mat-dialog-content class="my-2 pt-0 text-dark">
-  <form class="d-flex flex-column">
-    <span>Jumlah</span>
+  <form class="pt-2">
+    <mat-form-field class="w-100 mb-3" appearance="outline">
+      <mat-label>Rekening Tujuan</mat-label>
+      <input matInput [formControl]="accountForm" currencyMask [options]="{prefix: '', thousands: ''}">
+      <mat-error *ngIf="accountForm.hasError('required')">Rekening tujuan harus diisi</mat-error>
+    </mat-form-field>
     <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Jumlah</mat-label>
       <input matInput currencyMask [formControl]="amountForm">
       <mat-error *ngIf="amountForm.hasError('required')">Jumlah harus diisi</mat-error>
       <mat-error *ngIf="amountForm.hasError('min')">Minimal penarikan saldo sebesar Rp10.000</mat-error>
@@ -15,5 +20,5 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-flat-button (click)="withdrawBalance()" color="primary">Proses</button>
+  <button mat-flat-button (click)="withdrawBalance()" [disabled]="accountForm.invalid || amountForm.invalid" color="primary">Proses</button>
 </mat-dialog-actions>
