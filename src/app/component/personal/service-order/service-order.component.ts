@@ -21,9 +21,9 @@ import { ReviewComponent } from '../../dialog/review/review.component';
 export class ServiceOrderComponent implements OnInit{
   @ViewChild('input') searchField!: ElementRef;
 
-  private isVendor!: boolean;
   private searchParam = {} as ServiceTransactionParam;
   private isReviewing = false;
+  public isVendor!: boolean;
   public reviewMap = new Map<string, number>();
   public filterCount = 0;
   public page!: BasePageResponse<ServiceTransaction>;

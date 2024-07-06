@@ -59,7 +59,7 @@
                   <div>Total</div>
                   <h5 style="color: #ec770c;">{{serviceTransaction.paymentAmount | currency: 'Rp' : 'symbol' : '1.0-0'}}</h5>
                 </div>
-                <div *ngIf="!reviewMap.get(serviceTransaction.id) && serviceTransaction.status == 3">
+                <div *ngIf="!reviewMap.get(serviceTransaction.id) && serviceTransaction.status == 3 && !isVendor">
                   <p-rating [(ngModel)]="serviceTransaction.rating" (onRate)="onReview(serviceTransaction)" [cancel]="false"></p-rating>
                 </div>
               </div>
