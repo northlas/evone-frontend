@@ -66,6 +66,7 @@ export class AddServiceComponent implements OnInit {
   }
 
   private assignExistingData() {
+    this.isActive = this.existing.isActive;
     this.form.controls.title.setValue(this.existing.title);
     this.form.controls.price.setValue(this.existing.price);
     this.form.controls.category.setValue(this.existing.categoryId);
@@ -134,6 +135,7 @@ export class AddServiceComponent implements OnInit {
 
   public onSubmit() {
     const model = {} as ServiceOffer;
+    model.isActive = this.isActive;
     model.categoryId = this.form.controls.category.value!;
     model.title = this.form.controls.title.value!;
     model.description = this.form.controls.description.value!;

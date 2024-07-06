@@ -75,6 +75,7 @@ export class AddJobComponent implements OnInit {
   }
 
   private assignExistingData() {
+    this.isActive = this.existing.isActive;
     this.form.controls.title.setValue(this.existing.title);
     this.form.controls.price.setValue(this.existing.price);
     this.form.controls.talent.setValue(this.existing.talentId);
@@ -143,6 +144,7 @@ export class AddJobComponent implements OnInit {
 
   public onSubmit() {
     const model = {} as JobOffer;
+    model.isActive = this.isActive;
     model.talentId = this.form.controls.talent.value!;
     model.title = this.form.controls.title.value!;
     model.description = this.form.controls.description.value!;
