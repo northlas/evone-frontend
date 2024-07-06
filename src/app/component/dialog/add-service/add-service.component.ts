@@ -62,10 +62,12 @@ export class AddServiceComponent implements OnInit {
     this.getCategories();
     this.getOccasions();
     this.priceListener();
+    console.log(this.existing);
     if (this.existing) this.assignExistingData();
   }
 
   private assignExistingData() {
+    console.log('testt')
     this.form.controls.title.setValue(this.existing.title);
     this.form.controls.price.setValue(this.existing.price);
     this.form.controls.category.setValue(this.existing.categoryId);
