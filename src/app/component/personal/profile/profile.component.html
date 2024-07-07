@@ -42,7 +42,10 @@
       <ng-container *ngIf="profile">
         <p-image [src]="profile ? profile : 'assets/image/profile.png'" imageClass="image" class="mb-2" [preview]="true"></p-image>
       </ng-container>
-      <h4 class="mb-0">{{vendor.name}}</h4>
+      <div class="d-flex align-items-center">
+        <h4 class="mb-0">{{vendor.name}}</h4>
+        <button mat-icon-button (click)="onEditProfile()"><mat-icon fontIcon="edit_square" style="color: rgb(43, 146, 43);"></mat-icon></button>
+      </div>
       <div>{{vendor.city.name}}, {{vendor.province.name}}</div>
       <div class="d-flex mt-3">
         <p-rating [readonly]="true" [ngModel]="ceiling(vendor.rating.avgRating)" [cancel]="false" class="me-2" style="padding-top:1px;"></p-rating>
