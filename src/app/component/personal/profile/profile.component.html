@@ -126,9 +126,9 @@
         <div class="col-9 text-secondary">{{vendor.wallet.accountNo}}</div>
       </div>
       <hr>
-      <div class="row">
+      <div class="row  d-flex align-items-center">
         <div class="col-3">Saldo Evone</div>
-        <div class="col-9 text-secondary">{{vendor.wallet.balance | currency: 'Rp' : 'symbol' : '1.0-0'}}</div>
+        <div class="col-6 text-secondary">{{vendor.wallet.balance | currency: 'Rp' : 'symbol' : '1.0-0'}}</div>
         <div class="col-3 d-flex justify-content-center">
           <button mat-flat-button color="accent" class="text-white" (click)="onWithdraw()" [disabled]="!vendor.wallet || vendor.wallet.balance == 0">Tarik Saldo</button>
         </div>
