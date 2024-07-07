@@ -8,7 +8,7 @@
           <div *ngIf="!pictureMap.has(wishlist.id)" class="rounded loading me-3" style="min-width: 160px; height: 120px;"></div>
           <mat-card-content class="d-flex justify-content-between flex-grow-1">
             <div class="d-flex flex-column">
-              <span class="fw-medium fs-4 mb-1">{{wishlist.jobOffer.slugTitle}}</span>
+              <span class="fw-medium fs-4 mb-1">{{wishlist.jobOffer.title}}</span>
               <span class="text-secondary" style="font-size: 0.8rem;">{{wishlist.jobOffer.vendor.province.name}}</span>
               <span class="text-secondary" style="font-size: 0.8rem;">{{wishlist.jobOffer.talent.name}}</span>
             </div>
