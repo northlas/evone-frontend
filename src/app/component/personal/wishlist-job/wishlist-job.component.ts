@@ -42,4 +42,8 @@ export class WishlistJobComponent implements OnInit{
         this.pictureMap.set(wishlistId, this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + btoa(binary)));
       })
     }
+
+    public truncateDate(date: Date) {
+      return date.toString().substring(0, 10);
+    }
 }
