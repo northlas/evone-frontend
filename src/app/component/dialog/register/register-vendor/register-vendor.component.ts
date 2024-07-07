@@ -77,7 +77,7 @@ export class RegisterVendorComponent implements OnInit{
     this.getCities();
     this.getPlatforms();
     this.provinceListener();
-    this.categories = this.categoryService.categories.value;
+    this.getCategories();
   }
 
   private matchPassword(password: string, confirmPassword: string): ValidatorFn {

@@ -35,4 +35,12 @@ export class VendorService {
 
     return this.http.post<BaseResponse>(`${this.host}/api/vendors`, formData);
   }
+
+  public editVendor(model: Vendor, profile: File | null): Observable<BaseResponse> {
+    const formData = new FormData();
+    formData.set('model', new Blob([JSON.stringify(model)], {type: 'application/json'}))
+    if (profile) formData.set('profile', profile);
+
+    return this.http.put<BaseResponse>(`${this.host}/api/vendors`, formData);
+  }
 }

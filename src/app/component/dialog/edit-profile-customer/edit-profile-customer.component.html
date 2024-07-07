@@ -8,7 +8,7 @@
 </mat-dialog-actions>
 <mat-dialog-content>
   <mat-stepper>
-    <mat-step [stepControl]="userFormGroup" label="Registrasi customer">
+    <mat-step [stepControl]="userFormGroup" label="Profil customer">
       <form [formGroup]="userFormGroup" class="pt-2 d-flex flex-column" (submit)="onRegister()">
         <mat-form-field appearance="outline" class="mb-3">
           <mat-label>Nama Lengkap</mat-label>
@@ -43,7 +43,7 @@
         <button type="submit" mat-flat-button color="primary" [disabled]="userFormGroup.invalid">Simpan</button>
       </form>
     </mat-step>
-    <mat-step [stepControl]="freelancerFormGroup" label="Registrasi freelancer" optional (interacted)="profileStepListener()">
+    <mat-step [stepControl]="freelancerFormGroup" label="Profil freelancer" optional (interacted)="profileStepListener()">
       <form [formGroup]="freelancerFormGroup" class="pt-2 d-flex flex-column" (submit)="onRegister()">
         <mat-form-field appearance="outline" class="mb-3">
           <mat-label>Jenis Kelamin</mat-label>

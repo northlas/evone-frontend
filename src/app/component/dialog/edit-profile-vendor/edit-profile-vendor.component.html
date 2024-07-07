@@ -1,1 +1,152 @@
-<p>edit-profile-vendor works!</p>
+<mat-dialog-actions class="d-flex flex-column align-items-start">
+    <div class="d-flex justify-content-end w-100">
+        <button mat-dialog-close mat-icon-button>
+          <mat-icon fontIcon="close"></mat-icon>
+        </button>
+    </div>
+    <h3 class="color-primary fw-medium ps-4">Ubah Profil</h3>
+</mat-dialog-actions>
+<mat-dialog-content>
+    <mat-stepper>
+        <mat-step [stepControl]="vendorFormGroup" label="Akun">
+            <form [formGroup]="vendorFormGroup" class="pt-2 d-flex flex-column">
+                <mat-form-field appearance="outline" class="mb-3">
+                    <mat-label>Nama Lengkap</mat-label>
+                    <input matInput formControlName="name">
+                    <mat-error *ngIf="vendorFormGroup.controls.name.hasError('required')">Nama harus diisi</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mb-3">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" readonly>
+                    <mat-hint>Email tidak dapat diubah</mat-hint>    
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mb-3">
+                    <mat-label>Nomor Telepon</mat-label>
+                    <input matInput formControlName="phone">
+                    <mat-error *ngIf="vendorFormGroup.controls.phone.hasError('required')">Nomor telepon harus diisi</mat-error>
+                    <mat-error *ngIf="vendorFormGroup.controls.phone.hasError('pattern')">Nomor telepon hanya boleh diisi dengan angka</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mb-3">
+                    <mat-label>Kata Sandi Lama</mat-label>
+                    <input type="password" matInput formControlName="oldPassword">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mb-3">
+                    <mat-label>Kata Sandi Baru</mat-label>
+                    <input type="password" matInput formControlName="password">
+                    <mat-error *ngIf="vendorFormGroup.controls.password.hasError('required')">Kata sandi baru harus diisi</mat-error>
+                    <mat-error *ngIf="vendorFormGroup.controls.password.hasError('minlength')">Kata sandi baru minimal 8 karakter</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mb-3">
+                    <mat-label>Konfirmasi Kata Sandi</mat-label>
+                    <input type="password" matInput formControlName="confirmPassword">
+                    <mat-error *ngIf="vendorFormGroup.controls.confirmPassword.hasError('required')">Konfirmasi kata sandi harus diisi</mat-error>
+                    <mat-error *ngIf="vendorFormGroup.controls.confirmPassword.hasError('confirmValidator')">Konfirmasi kata sandi tidak cocok</mat-error>
+                </mat-form-field>
+            </form>
+            <button mat-flat-button matStepperNext color="primary" [disabled]="!vendorFormGroup.valid" class="d-flex flex-row-reverse w-100">
+                <span class="me-2">Selanjutnya</span>
+                <mat-icon fontIcon="arrow_forward"></mat-icon>
+            </button>
+        </mat-step>
+        <mat-step [stepControl]="companyFormGroup" label="Perusahaan">
+            <form [formGroup]="companyFormGroup" class="pt-2 d-flex flex-column">
+                <mat-form-field appearance="outline" class="mb-3">
+                    <mat-label>Provinsi</mat-label>
+                    <mat-select formControlName="province">
+                        <mat-option *ngFor="let province of provinces" [value]="province.id">{{province.name}}</mat-option>
+                    </mat-select>
+                    <mat-error>Provinsi harus dipilih</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mb-3">
+                    <mat-label>Kabupaten / Kota</mat-label>
+                    <mat-select formControlName="city">
+                        <mat-option *ngFor="let city of filteredCities" [value]="city.id">{{city.name}}</mat-option>
+                    </mat-select>
+                    <mat-error>Kabupaten / kota harus dipilih</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mb-3">
+                    <mat-label>Alamat</mat-label>
+                    <input matInput formControlName="address">
+                    <mat-error *ngIf="companyFormGroup.controls.address.hasError('required')">Alamat harus diisi</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mb-3">
+                  <mat-label>Nomor Rekening</mat-label>
+                  <input matInput formControlName="accountNo">
+                  <mat-error *ngIf="companyFormGroup.controls.accountNo.hasError('required')">Nomor rekening harus diisi</mat-error>
+                  <mat-error *ngIf="companyFormGroup.controls.accountNo.hasError('pattern')">Nomor rekening hanya boleh diisi dengan angka</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mb-3">
+                    <mat-label>Kategori</mat-label>
+                    <mat-select formControlName="category" multiple>
+                        <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+                    </mat-select>
+                    <mat-hint>Kategori tidak dapat diubah</mat-hint>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mb-3" #input>
+                    <mat-label>Sosial Media</mat-label>
+                    <mat-select formControlName="platform" multiple (blur)="checkPlatformUsername()">
+                        <div *ngFor="let platform of platforms" class="d-flex my-2">
+                            <mat-option [value]="platform.id" class="w-50">
+                                {{platform.name}}
+                            </mat-option>
+                            <mat-form-field appearance="outline" class="me-2" subscriptSizing="dynamic">
+                                <mat-label>Username</mat-label>
+                                <input
+                                    #usernameInput
+                                    matInput
+                                    [ngModel]="usernames.get(platform.id)"
+                                    (ngModelChange)="usernames.set(platform.id, $event)"
+                                    [ngModelOptions]="{standalone: true}"
+                                    (blur)="checkPlatformUsername()"
+                                    [disabled]="!companyFormGroup.controls.platform.value!.includes(platform.id)"
+                                    [required]="companyFormGroup.controls.platform.value!.includes(platform.id)">
+                            </mat-form-field>
+                        </div>
+                    </mat-select>
+                    <mat-error *ngIf="companyFormGroup.controls.platform.hasError('required')">Pilih minimal satu sosial media</mat-error>
+                    <mat-error *ngIf="companyFormGroup.controls.platform.hasError('username')">Username harus diisi</mat-error>
+                </mat-form-field>
+            </form>
+            <button mat-flat-button matStepperNext [disabled]="!companyFormGroup.valid" color="primary" class="d-flex flex-row-reverse w-100">
+                <span class="me-2">Selanjutnya</span>
+                <mat-icon fontIcon="arrow_forward"></mat-icon>
+            </button>
+        </mat-step>
+        <mat-step label="Profil" [stepControl]="profileFormGroup" (interacted)="profileStepListener()">
+          <form class="pt-2" [formGroup]="profileFormGroup">
+            <div class="border pb-4 rounded d-grid" [style.border-color]="borderColor + ' !important'" (mouseenter)="onHover()" (mouseleave)="onBlur()">
+              <div class="px-1 floating-label" [style.opacity]="isProfileSelected() ? '1' :'0'">Foto profil*</div>
+              <div class="position-relative d-inline-block" [ngClass]="isProfileSelected() ? '' : 'p-4'">
+                <p-fileUpload
+                  mode="basic"
+                  [chooseLabel]="data.profile ? 'Ubah foto profil' : 'Pilih foto profil'"
+                  chooseLabel="Pilih foto profil"
+                  accept="image/*"
+                  class="z-1 file-upload"
+                  (onSelect)="onSelect($event)"
+                  [style.opacity]="(isProfileSelected() && !isProfileHovered) ? '0' :'1'"></p-fileUpload>
+                <img
+                  *ngIf="uploadedImage"
+                  class="px-1 profile-image"
+                  [src]="uploadedImage"
+                  [style.filter]="isProfileHovered ? 'brightness(0.5)' : ''">
+                  <img
+                    *ngIf="!uploadedImage && data.profile"
+                    class="px-1 profile-image"
+                    [src]="data.profile"
+                    [style.filter]="isProfileHovered ? 'brightness(0.5)' : ''">
+              </div>
+            </div>
+            <div [style.visibility]="isProfileError ? 'visible' : 'hidden'" class="mb-3 px-3" style="color: #f44336;">Foto profil harus dipilih</div>
+            <mat-form-field appearance="outline" class="mb-3 w-100">
+              <mat-label>Deskripsi</mat-label>
+              <textarea formControlName="description" matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" required></textarea>
+              <mat-error *ngIf="profileFormGroup.controls.description.hasError('required')">Deskripsi harus diisi</mat-error>
+            </mat-form-field>
+          </form>
+          <button mat-flat-button matStepperNext (click)="onRegister()" color="primary" class="d-flex flex-row-reverse w-100" [disabled]="vendorFormGroup.invalid || companyFormGroup.invalid || profileFormGroup.invalid">
+            <span class="me-2">Simpan</span>
+          </button>
+        </mat-step>
+    </mat-stepper>    
+</mat-dialog-content>
