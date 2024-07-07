@@ -40,7 +40,7 @@ export class EditProfileCustomerComponent {
   public freelancerFormGroup = this.formBuilder.group({
     gender: new FormControl<number | null>(this.data.existing.gender, Validators.required),
     phone: new FormControl<string | null>(this.data.existing.phone, [Validators.required, Validators.pattern('[0-9]+')]),
-    accountNo: new FormControl<string | null>(this.data.existing.wallet.accountNo, [Validators.required, Validators.pattern('[0-9]+')]),
+    accountNo: new FormControl<string | null>(this.data.existing.wallet?.accountNo, [Validators.required, Validators.pattern('[0-9]+')]),
     talents: new FormControl<number[] | null>(this.data.existing.talents.map(({id}) => id), Validators.required),
     image: new FormControl<File | null>(null),
     description: new FormControl<string | null>(this.data.existing.description, Validators.required),
