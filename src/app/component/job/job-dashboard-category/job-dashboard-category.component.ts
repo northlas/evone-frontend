@@ -58,4 +58,8 @@ export class JobDashboardCategoryComponent {
   public formatPrice(value: number) {
     return 'Rp' + value.toLocaleString('id-ID');
   }
+
+  public truncateDate(date: Date) {
+    return date.toString().substring(0, 10);
+  }
 }
