@@ -7,12 +7,12 @@
 <mat-dialog-content class="my-2 pt-0 text-dark">
   <div class="mb-3 d-flex flex-column">
     <span>Berikan penilaianmu</span>
-    <p-rating [(ngModel)]="serviceTransaction.rating" [cancel]="false"></p-rating>
+    <p-rating [(ngModel)]="request.transaction.rating" [cancel]="false"></p-rating>
   </div>
   <div class="d-flex flex-column">
     <span>Bagikan pendapatmu</span>
     <mat-form-field appearance="outline">
-      <textarea matInput [(ngModel)]="serviceTransaction.review" cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5" placeholder="Ulasan"></textarea>
+      <textarea matInput [(ngModel)]="request.transaction.review" cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5" placeholder="Ulasan"></textarea>
     </mat-form-field>
   </div>
 </mat-dialog-content>
