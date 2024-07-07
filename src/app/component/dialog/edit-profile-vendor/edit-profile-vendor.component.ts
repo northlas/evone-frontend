@@ -61,7 +61,7 @@ export class EditProfileVendorComponent {
 
   public profileFormGroup = this.formBuilder.group({
     image: new FormControl<File | null>(null),
-    description: ['', Validators.required],
+    description: [this.data.existing.description, Validators.required],
   })
 
   constructor(
