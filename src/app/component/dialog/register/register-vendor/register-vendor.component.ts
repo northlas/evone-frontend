@@ -107,6 +107,19 @@ export class RegisterVendorComponent implements OnInit{
     }
   }
 
+  private getCategories() {
+    if (this.categoryService.categories.value) {
+      this.categories = this.categoryService.categories.value;
+    }
+    else {
+      this.categoryService.getAllCategory(true).subscribe({
+        next: response => {
+          this.categories = response;
+        }
+      })
+    }
+  }
+
   private getProvinces() {
     this.provinceService.getAllProvince().subscribe({
       next: response => {
