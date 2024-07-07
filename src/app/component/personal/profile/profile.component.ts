@@ -140,7 +140,7 @@ export class ProfileComponent implements OnInit{
   public onWithdraw() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = false;
-    dialogConfig.data = this.customer?.wallet?.accountNo;
+    dialogConfig.data = this.isVendor ? this.vendor?.wallet.accountNo : this.customer?.wallet?.accountNo;
     dialogConfig.minWidth = '450px'
     this.dialog.open(WithdrawComponent, dialogConfig).afterClosed().subscribe({
       next: (amount: number | null) => {
