@@ -19,5 +19,5 @@ export interface ServiceTransaction {
     serviceOffer: ServiceOffer,
     occasion: Occasion,
     rating: number,
-    review: string;
+    review: string
 }

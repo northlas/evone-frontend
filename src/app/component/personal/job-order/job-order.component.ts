@@ -11,6 +11,8 @@ import { JobTransactionService } from 'src/app/service/job-transaction.service';
 import { S3Service } from 'src/app/service/s3.service';
 import { JobOrderFilterComponent } from '../../dialog/job-order-filter/job-order-filter.component';
 import { OrderJobDetailComponent } from '../../dialog/order-job-detail/order-job-detail.component';
+import { ReviewComponent } from '../../dialog/review/review.component';
+import { ReviewRequest } from 'src/app/model/review-request';
 
 @Component({
   selector: 'app-job-order',
@@ -20,9 +22,11 @@ import { OrderJobDetailComponent } from '../../dialog/order-job-detail/order-job
 export class JobOrderComponent implements OnInit{
    @ViewChild('input') searchField!: ElementRef;
 
-   private isVendor!: boolean;
+   public isVendor!: boolean;
    private searchParam = {} as JobTransactionParam;
+   private isReviewing = false;
    public filterCount = 0;
+   public reviewMap = new Map<string, number>();
    public page!: BasePageResponse<JobTransaction>;
    public pictureMap = new Map<string, SafeResourceUrl>();
 
@@ -35,11 +39,11 @@ export class JobOrderComponent implements OnInit{
    }
 
    private getJobTransactions() {
-
      this.jobTransactionService.getTransactionByUser(this.searchParam).subscribe({
        next: response => {
          this.page = response;
          response.items.forEach(value => {
+          this.reviewMap.set(value.id, value.rating);
            if (!this.pictureMap.has(value.id)) {
              this.getPictures(value.id, value.jobOffer.pictures[0].id);
            }
@@ -94,9 +98,32 @@ export class JobOrderComponent implements OnInit{
    }
 
    public onDetail(jobTransaction: JobTransaction) {
-     const dialogConfig = new MatDialogConfig();
-     dialogConfig.data = {'jobTransaction' : jobTransaction, 'picture': this.pictureMap.get(jobTransaction.id), 'isVendor': this.isVendor};
-     dialogConfig.autoFocus = false;
-     this.dialog.open(OrderJobDetailComponent, dialogConfig);
+    if (!this.isReviewing) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.data = {'jobTransaction' : jobTransaction, 'picture': this.pictureMap.get(jobTransaction.id), 'isVendor': this.isVendor};
+      dialogConfig.autoFocus = false;
+      this.dialog.open(OrderJobDetailComponent, dialogConfig);
+    }
    }
+
+   public onReview(jobTransaction: JobTransaction) {
+    this.isReviewing = true;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {isService: false, transaction: jobTransaction} as ReviewRequest;
+    dialogConfig.autoFocus = false;
+    dialogConfig.minWidth = '40%';
+    const dialogRef = this.dialog.open(ReviewComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe({
+      next: (review: boolean | undefined) => {
+        if (review) {
+          this.reviewMap.set(jobTransaction.id, jobTransaction.rating);
+        }
+        else {
+          jobTransaction.review = '';
+          jobTransaction.rating = 0;
+        }
+        this.isReviewing = false;
+      }
+    })
+  }
 }

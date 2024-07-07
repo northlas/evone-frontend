@@ -4,6 +4,8 @@ export interface JobTransactionParam {
     talent: string,
     title: string,
     status: number,
+    rating: number,
+    review: string,
     page: number,
     startDt: string,
     endDt: string

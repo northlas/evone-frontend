@@ -52,6 +52,9 @@
                   <div>Total</div>
                   <h5 style="color: #ec770c;">{{jobTransaction.paymentAmount | currency: 'Rp' : 'symbol' : '1.0-0'}}</h5>
                 </div>
+                <div *ngIf="!reviewMap.get(jobTransaction.id) && jobTransaction.status == 2 && isVendor">
+                  <p-rating [(ngModel)]="jobTransaction.rating" (onRate)="onReview(jobTransaction)" [cancel]="false"></p-rating>
+                </div>
               </div>
             </div>
           </mat-card-content>

@@ -12,6 +12,7 @@ import { ServiceTransactionService } from 'src/app/service/service-transaction.s
 import { OrderFilterComponent } from '../../dialog/order-filter/order-filter.component';
 import { OrderServiceDetailComponent } from '../../dialog/order-service-detail/order-service-detail.component';
 import { ReviewComponent } from '../../dialog/review/review.component';
+import { ReviewRequest } from 'src/app/model/review-request';
 
 @Component({
   selector: 'app-service-order',
@@ -110,7 +111,7 @@ export class ServiceOrderComponent implements OnInit{
   public onReview(serviceTransction: ServiceTransaction) {
     this.isReviewing = true;
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = serviceTransction;
+    dialogConfig.data = {isService: true, transaction: serviceTransction} as ReviewRequest;
     dialogConfig.autoFocus = false;
     dialogConfig.minWidth = '40%';
     const dialogRef = this.dialog.open(ReviewComponent, dialogConfig);

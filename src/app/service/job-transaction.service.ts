@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { BasePageResponse } from '../model/base-page-response';
 import { JobTransaction } from '../model/job-transaction';
 import { JobTransactionParam } from '../model/job-transaction-param';
+import { BaseResponse } from '../model/base-response';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,9 @@ export class JobTransactionService {
 
   public putTransaction(param: JobTransactionParam): Observable<JobTransaction> {
     return this.http.put<JobTransaction>(`${this.host}/api/job-transactions`, param);
+  }
+
+  public putReview(param: JobTransactionParam): Observable<BaseResponse> {
+    return this.http.put<BaseResponse>(`${this.host}/api/job-transactions/reviews`, param);
   }
 }

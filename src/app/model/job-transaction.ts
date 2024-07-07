@@ -11,5 +11,7 @@ export interface JobTransaction {
     updatedDt: Date,
     freelancer: Customer,
     jobOffer: JobOffer,
-    paymentAmount: number
+    paymentAmount: number,
+    rating: number,
+    review: string
 }
