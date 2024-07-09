@@ -26,7 +26,7 @@
       </div>
     </li>
   </ul>
-  <div class="d-flex justify-content-center mx-5" *ngIf="jobTransaction.status == 0 && isVendor">
+  <div class="d-flex justify-content-center mx-5" [hidden]="jobTransaction.status != 0 || !isVendor">
     <div id="snap-container"></div>
   </div>
   <div class="d-flex justify-content-end">
