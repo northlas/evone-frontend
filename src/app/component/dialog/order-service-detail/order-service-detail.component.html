@@ -55,7 +55,7 @@
         </div>
       </li>
     </ul>
-    <div class="d-flex justify-content-center mx-5" [hidden]="serviceTransaction.status != 0">
+    <div class="d-flex justify-content-center mx-5" [hidden]="serviceTransaction.status != 0 || isVendor">
       <div id="snap-container"></div>
     </div>
   </div>

@@ -19,7 +19,7 @@ export class OrderJobDetailComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.jobTransaction = this.data.jobTransaction;
-    if (this.jobTransaction.status == 0) {
+    if (this.jobTransaction.status == 1) {
       snap.embed(this.jobTransaction.id, {
         embedId: 'snap-container'
       })

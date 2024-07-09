@@ -26,6 +26,8 @@ export class StatusPipe implements PipeTransform {
       switch (value) {
         case JobTransactionStatus.ORDERED:
           return 'Menunggu Konfirmasi';
+        case JobTransactionStatus.CONFIRMED:
+          return 'Menunggu Pembayaran';
         case JobTransactionStatus.PAID:
           return 'Berlangsung';
         case JobTransactionStatus.FINISHED:
@@ -51,6 +53,8 @@ export class StatusPipe implements PipeTransform {
     else if (type == 'job-bg') {
       switch (value) {
         case JobTransactionStatus.ORDERED:
+          return 'background-color: #82a5b6; color: white';
+          case JobTransactionStatus.CONFIRMED:
           return 'background-color: #82a5b6; color: white';
         case JobTransactionStatus.PAID:
           return 'background-color: #82a5b6; color: white';
